@@ -13,7 +13,7 @@ const siteMetadata = {
   email: 'ucccth@gmail.com',
   github: 'https://github.com/huccct',
   twitter: 'https://twitter.com/ucccth',
-  linkedin: 'https://www.linkedin.com',
+  linkedin: 'https://www.linkedin.com/in/orion-chen-720627283/',
   locale: 'zh-CN',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
