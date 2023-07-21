@@ -1,7 +1,7 @@
 const siteMetadata = {
   title: "Orion Chen's Blog",
   author: 'Orion Chen',
-  headerTitle: 'Orion Chen',
+  headerTitle: "Orion Chen's Blog",
   description: '🏝️ Recording Code Life',
   language: 'zh-CN',
   theme: 'system', // system, dark or light
