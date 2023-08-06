@@ -1,0 +1,229 @@
+---
+title: 你真的了解flex布局吗？
+date: '2023-08-05'
+tags: ['css']
+draft: false
+summary: 让我们一起揭开 CSS Flex 布局的神秘面纱吧！它就像是开发中的超级英雄，无论是在响应式设计、页面布局还是元素对齐方面，它都是我们的首选~
+---
+
+前言：**✍️ 欢迎来到 `flex布局` 篇， 现在我将通过代码来展示`flex布局`的相关知识**
+
+## 一、justify-content 篇
+
+要说的第一个属性是`justify-content`
+包括以下几个可选值：
+
+- `flex-start`: 元素和容器的左端对齐。
+- `flex-end`: 元素和容器的右端对齐。
+- `center`: 元素在容器里居中。
+- `space-between`: 元素之间保持相等的距离。
+- `space-around`: 元素周围保持相等的距离。
+
+`举个例子`, justify-content: flex-end; 会将方块移到右边
+
+[![](https://s1.ax1x.com/2023/08/05/pPAEnjs.png)](https://imgse.com/i/pPAEnjs)
+
+**完整代码：**
+https://code.juejin.cn/pen/7263779109577162806
+
+**代码片段：**
+
+```css
+.flex-container {
+  display: flex;
+  justify-content: flex-end;
+  height: 300px;
+  background-color: lightgray;
+}
+```
+
+## 二、align-items 篇
+
+`align-items` 可以帮助我们纵向对齐元素，包括以下几个可选值：
+
+- `flex-start`: 元素与容器的顶部对齐。
+- `flex-end`: 元素与容器的底部对齐。
+- `center`: 元素纵向居中。
+- `baseline`: 元素在容器的基线位置显示。
+- `stretch`: 元素被拉伸以填满整个容器。
+
+`例子`: align-items: center; 会让方块垂直居中
+[![](https://s1.ax1x.com/2023/08/05/pPAeSc4.png)](https://imgse.com/i/pPAeSc4)
+
+**完整代码：**
+https://code.juejin.cn/pen/7263827107703160889
+
+**代码片段：**
+
+```css
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  background-color: lightgray;
+}
+```
+
+## 三、flex-direction 篇
+
+当我们需要调整方块的方向时，我们可以使用`flex-direction`属性，这个 css 属性定义了元素在容器里摆放的方向，并且接受这些值：
+
+- `row`: 元素摆放的方向和文字方向一致。
+- `row-reverse`: 元素摆放的方向和文字方向相反。
+- `column`: 元素从上放到下。
+- `column-reverse`: 元素从下放到上。
+
+`例子`：flex-direction: row-reverse; 让方块在水平基线倒置 `1 2 3 => 3 2 1`
+[![](https://s1.ax1x.com/2023/08/05/pPAeQHI.png)](https://imgse.com/i/pPAeQHI)
+
+**完整代码：**
+https://code.juejin.cn/pen/7263830463750832168
+
+**代码片段：**
+
+```css
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+  height: 300px;
+  background-color: lightgray;
+}
+```
+
+> **如果上述的场景你都掌握了，那么我相信你可以解决开发中的大部分场景问题了**
+
+> **当然 flex 布局的相关属性可不止这些~**
+
+> **让我们继续**
+
+## 四、order 篇
+
+有时候仅仅调转行或列的方向是不够的。在这些情况，我们可以设置单个元素的 `order` 属性。元素的属性默认值为 0，但是我们设置这个属性为正数或负数。
+
+用`order`来调整方块的顺序
+[![](https://s1.ax1x.com/2023/08/05/pPAmXSU.png)](https://imgse.com/i/pPAmXSU)
+
+**完整代码：**
+https://code.juejin.cn/pen/7263840746686382117
+
+**代码片段：**
+
+```css
+.item-1 {
+  order: 3;
+  background-color: coral;
+}
+
+.item-2 {
+  order: 1;
+  background-color: lightblue;
+}
+
+.item-3 {
+  order: 2;
+  background-color: lightgreen;
+}
+```
+
+## 五、align-self 篇
+
+另一个你可以使用的`控制单个元素`的属性是 `align-self`。这个属性接受和 `align-items` 一样的那些值。
+
+[![](https://s1.ax1x.com/2023/08/05/pPAnV6e.png)](https://imgse.com/i/pPAnV6e)
+
+**完整代码：**
+https://code.juejin.cn/pen/7263843761036197947
+
+**代码片段：**
+
+```css
+.item-1 {
+  align-self: flex-start;
+}
+
+.item-2 {
+  align-self: center;
+}
+
+.item-3 {
+  align-self: flex-end;
+}
+```
+
+## 六、flex-wrap 篇
+
+`flex-wrap` 是一种用于控制网页布局的 CSS 属性，它决定了当一行空间不足以容纳所有的元素时，是否允许这些元素换行显示。
+
+这个属性接受这些值：
+
+- `nowrap`: 所有的元素都在一行。
+- `wrap`: 元素自动换成多行。
+- `wrap-reverse`: 元素自动换成逆序的多行。
+
+规定宽度，使用`wrap`让方块换行
+[![](https://s1.ax1x.com/2023/08/06/pPAU1yR.png)](https://imgse.com/i/pPAU1yR)
+
+**完整代码：**
+https://code.juejin.cn/pen/7264048063219269693
+
+**代码片段：**
+
+```css
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 300px;
+  background-color: lightgray;
+}
+```
+
+**`注意`: `flex-direction` 和 `flex-wrap` 两个属性经常会一起使用，所以有缩写属性 `flex-flow`。这个缩写属性接受两个属性的值，两个值中间以空格隔开。**
+
+**`举个例子`，你可以用 `flex-flow: row wrap` 去设置行并自动换行。**
+
+## 七、align-content 篇
+
+你可以使用 `align-content` 来决定行与行之间隔多远, 这个属性接受这些值：
+
+- `flex-start`: 多行都集中在顶部。
+- `flex-end`: 多行都集中在底部。
+- `center`: 多行居中。
+- `space-between`: 行与行之间保持相等距离。
+- `space-around`: 每行的周围保持相等距离。
+- `stretch`: 每一行都被拉伸以填满容器。
+
+让方块换行，从而设置`align-content: space-between`, 只有一行的时候是无效的
+[![](https://s1.ax1x.com/2023/08/06/pPAabDI.png)](https://imgse.com/i/pPAabDI)
+
+**完整代码：**
+https://code.juejin.cn/pen/7264052555368366116
+
+**代码片段：**
+
+```css
+.flex-container {
+  display: flex;
+  width: 400px;
+  flex-wrap: wrap;
+  align-content: space-between;
+  height: 300px;
+  background-color: lightgray;
+}
+```
+
+## 总结
+
+好了，现在让我们来回顾一下 flex 布局相关的 css 属性
+
+- `justify-content`: 用于定义 Flexbox 容器中项目沿主轴（水平轴）的对齐方式
+- `align-items`: 用于定义 Flexbox 容器中项目沿交叉轴（垂直轴）的对齐方式
+- `flex-direction`: 用于定义 Flexbox 容器中项目的排列方向
+- `order`: 用于定义 Flexbox 容器中项目的排列顺序
+- `align-self`: 用于定义单个项目在 Flexbox 容器中沿交叉轴（垂直轴）的对齐方式
+- `flex-wrap`: 用于定义 Flexbox 容器中项目的换行方式
+- `flex-flow`: 是 flex-direction 和 flex-wrap 属性的缩写形式，用于同时设置这两个属性的值
+- `align-content`: 用于定义 Flexbox 容器中多行项目在交叉轴上的对齐方式
