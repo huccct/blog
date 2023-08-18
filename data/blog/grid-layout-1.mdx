@@ -1,0 +1,120 @@
+---
+title: '[css基础]：grid布局篇(一)'
+date: '2023-08-18'
+tags: ['css']
+draft: false
+summary: Grid 布局就像是设计师的魔法棒，让您可以以网格的形式排列和定位元素。它就像是一个二维的舞台，您可以在上面放置演员（元素）并控制它们的位置和大小。
+---
+
+前言：**✍️ 欢迎来到 `grid布局` 篇， 本节我将为大家介绍`grid布局`的相关知识**
+
+**好久不见啊各位，周更稍稍有点延迟，这周有点其他事情哈哈，ok，继续~**
+
+### 一、初识 Css Grid 布局
+
+`CSS Grid` 布局是一个二维的基于网格的布局系统，这是与 `Flexbox` 一维布局不同的地方，当然，在传统的网页布局中我们搭配使用这两者会让开发变得更便捷高效。
+本文我将向大家介绍一下神奇的 `Grid` 的布局的相关知识。
+
+### 二、基础 Grid 布局
+
+如今，大多数浏览器已经值了 grid 布局，并且 IE 的时代已经过去，我们可以无顾虑的使用它了!
+
+首先，我们需要使用`display： grid`将容器元素定义为网格，使用 `grid-template-columns` 和 `grid-template-rows` 设置
+列和行的大小，然后使用 `grid-column` 和 `grid-row` 将器子元素放置到网格里，你可以看到神奇的效果。
+
+[![pP3V0xJ.png](https://s1.ax1x.com/2023/08/18/pP3V0xJ.png)](https://imgse.com/i/pP3V0xJ)
+
+**代码片段：**
+
+**Css**
+
+```css
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  grid-gap: 10px;
+}
+
+.item {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.item:nth-child(3) {
+  grid-column: 2; /* 第三个网格项位于第二列 */
+  grid-row: 2; /* 第三个网格项位于第二行 */
+  background-color: red;
+}
+```
+
+**Html**
+
+```html
+<div class="grid-container">
+  <div class="item">Item 1</div>
+  <div class="item">Item 2</div>
+  <div class="item">Item 3</div>
+  <div class="item">Item 4</div>
+</div>
+```
+
+### 三、重要的 CSS Grid 相关术语
+
+在深入研究网格概念之前，理解术语是很重要的。由于这里涉及的术语在概念上都有点相似，如果您不首先记住网格规范定义的含义，就很容易将它们相互混淆。不过别担心，它们并不多。
+
+> Grid Container
+
+- 简单的说就是你把 `grid` 布局应用在哪个盒子上，那个盒子就是相关的`Grid Container`
+
+```html
+<div class="grid-container">
+  <div class="item">Item 1</div>
+  <div class="item">Item 2</div>
+  <div class="item">Item 3</div>
+  <div class="item">Item 4</div>
+</div>
+```
+
+> Grid Item
+
+- 顾名思义`Grid Container`的子代就是这里的 `item`即为`Grid Item`，但是孙子不算
+
+```html
+<div class="grid-container">
+  <div class="item">Item 1</div>
+  <div class="item">Item 2</div>
+  <div class="item">
+    <span class="sub-item"></span>
+  </div>
+</div>
+```
+
+> Grid Line
+
+- `Grid Line`，即构成网络结构的分隔线，可以是列网格线，也可以是行网格线
+  [![pP3V0xJ.png](https://css-tricks.com/wp-content/uploads/2018/11/terms-grid-line.svg)](https://css-tricks.com/wp-content/uploads/2018/11/terms-grid-line.svg)
+
+> Grid Cell
+
+- `Grid Cell`, 就是网格单元，两个相邻行和两个相邻列网格线之间的空间
+
+[![pP3V0xJ.png](https://css-tricks.com/wp-content/uploads/2018/11/terms-grid-cell.svg)](https://css-tricks.com/wp-content/uploads/2018/11/terms-grid-cell.svg)
+
+> Grid Track
+
+- 两条相邻网格线之间的空间，你可以它们想象成网格的列或行。如图展示的是第二行和第三行网格线之间的轨迹
+
+[![pP3V0xJ.png](https://css-tricks.com/wp-content/uploads/2021/08/terms-grid-track.svg)](https://css-tricks.com/wp-content/uploads/2021/08/terms-grid-track.svg)
+
+> Grid Area
+
+- 网格区域为任意数量的网格单元组成，这里是行网格线 1 和 3，列网格线 1 和 3 之间的区域对别 `Track` 就是从`一维变成二维`
+
+[![pP3V0xJ.png](https://css-tricks.com/wp-content/uploads/2018/11/terms-grid-area.svg)](https://css-tricks.com/wp-content/uploads/2018/11/terms-grid-area.svg)
+
+### 四、结尾
+
+先写到这，因为 grid 布局相对 flex 布局有点复杂，准备开两篇来写
+
+明天周末了，赶快`摸<・)))><<~`， 周末愉快各位~
