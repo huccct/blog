@@ -1,0 +1,376 @@
+---
+title: '[css基础]：grid布局篇(二)'
+date: '2023-08-27'
+tags: ['css']
+draft: false
+summary: Grid 布局就像是设计师的魔法棒，让您可以以网格的形式排列和定位元素。它就像是一个二维的舞台，您可以在上面放置演员（元素）并控制它们的位置和大小。
+---
+
+前言：**✍️ 欢迎来到 `grid布局` 篇， 本节我将为大家继续介绍`grid布局`的相关知识，上周留的坑填一下哈~**
+
+**这周刚好返校，但是文章还是继续周更哈，记录自己学习的过程**
+
+### 一、 CSS Grid 网格属性
+
+#### Grid Container
+
+- `display`: 这个属性用于将一个元素标记为网格容器，并为其内容创建一个独立的网格布局环境。简单来说，它会让元素内部的子元素按照网格布局进行排列。
+  - `grid`: 生成一个块级网格
+  - `inline-grid`: 生成一个行级网格
+  ```css
+  .container {
+    display: grid | inline-grid;
+  }
+  ```
+- `grid-template-columns & grid-template-rows`: 使用空格分隔的值列表来定义网格的列和行，定义的这些值就是行和列的 size，之间的空格就是网格线
+
+  - `<track-size>`: 可以是长度、百分比或使用 fr 单位表示网格中的剩余空间的分数
+  - `<line-name>`: 您选择的任意名称
+  - <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid-template-rows">详细</a>
+
+  ```css
+  .container {
+    grid-template-columns: ... ...;
+    /* e.g. 
+      1fr 1fr
+      minmax(10px, 1fr) 3fr
+      repeat(5, 1fr)
+      50px auto 100px 1fr
+  */
+    grid-template-rows: ... ...;
+    /* e.g. 
+      min-content 1fr min-content
+      100px 1fr max-content
+  */
+  }
+  ```
+
+  > 网格线会自动分配正数（-1 作为最后一行的替代）
+
+  [![pP3V0xJ.png](https://css-tricks.com/wp-content/uploads/2018/11/template-columns-rows-01.svg)](https://css-tricks.com/wp-content/uploads/2018/11/template-columns-rows-01.svg)
+
+  > **ok，talk is cheap，see the code.**
+
+  **Example**
+
+  ```css
+  .grid-container {
+    display: grid;
+    grid-template-rows: 100px 200px; /* 定义两行，高度分别为 100px 和 200px */
+    grid-template-columns: 1fr 2fr; /* 定义两列，宽度比例为 1:2 */
+    grid-gap: 10px; /* 设置网格项之间的间距为 10px */
+  }
+
+  .grid-item {
+    background-color: #ddd;
+    padding: 20px;
+  }
+  ```
+
+  ```html
+  <div class="grid-container">
+    <div class="grid-item">Grid Item 1</div>
+    <div class="grid-item">Grid Item 2</div>
+    <div class="grid-item">Grid Item 3</div>
+    <div class="grid-item">Grid Item 4</div>
+  </div>
+  ```
+
+  ![微信图片_20230827214551.png](https://x.imgs.ovh/x/2023/08/27/64eb53b90a31c.png)
+
+- `grid-template-areas`: 简单来说，你可以通过给网格区域起名字，并在网格模板中引用这些名字来定义网格的结构，从而更清晰地了解网格布局的组织方式。
+
+  - `<grid-area-name>`: 使用 grid-area 指定的网格区域的名称
+  - `.`: 句点表示一个空的网格单元格
+  - `none`: 没有定义的网格区域
+
+  ```css
+  .container {
+    grid-template-areas:
+      '<grid-area-name> | . | none | ...'
+      '...';
+  }
+  ```
+
+  **Example**
+
+  ```css
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+      'header header'
+      'sidebar main';
+    grid-gap: 10px;
+  }
+
+  .header {
+    grid-area: header;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+  .sidebar {
+    grid-area: sidebar;
+    background-color: #d9d9d9;
+    padding: 20px;
+  }
+
+  .main {
+    grid-area: main;
+    background-color: #e6e6e6;
+    padding: 20px;
+  }
+  ```
+
+  ```html
+  <div class="grid-container">
+    <div class="header">Header</div>
+    <div class="sidebar">Sidebar</div>
+    <div class="main">Main Content</div>
+  </div>
+  ```
+
+  ![微信图片_20230827215638.png](https://x.imgs.ovh/x/2023/08/27/64eb562d71147.png)
+
+- `grid-template`: grid-template-rows、grid-template-columns 和 grid-template-areas 的简写方式。
+- `column-gap & row-gap & grid-column-gap & grid-row-gap & grid-gap`: 这个比较简单我就一笔带过，设置列，行间距，`grid-gap`是两者的简写方式
+
+  ```css
+  .container {
+    /* standard */
+    column-gap: <line-size>;
+    row-gap: <line-size>;
+
+    /* old */
+    grid-column-gap: <line-size>;
+    grid-row-gap: <line-size>;
+  }
+
+  .container {
+    /* standard */
+    gap: <grid-row-gap> <grid-column-gap>;
+
+    /* old */
+    grid-gap: <grid-row-gap> <grid-column-gap>;
+  }
+  ```
+
+- `justify-items & align-items`: 将网格项沿着行内（水平）轴对齐（与 align-items 相反，它是沿着块级（垂直）轴对齐）。此值适用于容器内的所有网格项。
+
+  - start
+  - end
+  - center
+  - stretch
+  - baseline (align-items)
+
+  ```css
+  .container {
+    justify-items: start | end | center | stretch;
+  }
+  ```
+
+  **Example**
+
+  ```css
+  .container {
+    justify-items: start;
+  }
+  ```
+
+  ![微信图片_20230827215638.png](https://css-tricks.com/wp-content/uploads/2018/11/justify-items-start.svg)
+
+- `place-items`: place-items 属性在单个声明中同时设置了 `align-items` 和 `justify-items` 属性，也就是它两的缩写
+- `justify-content & align-content`: 这个也是跟 flex 布局中的相类似的，不过该属性针对的是整个 grid container
+
+  - start
+  - end
+  - center
+  - stretch
+  - space-around
+  - space-between
+  - space-evenly
+
+  ```css
+  .container {
+    justify-content: start | end | center | stretch | space-around | space-between | space-evenly;
+  }
+  ```
+
+  **Example**
+
+  ```css
+  .container {
+    justify-content: start;
+  }
+  ```
+
+  ![微信图片_20230827215638.png](https://css-tricks.com/wp-content/uploads/2018/11/justify-content-start.svg)
+
+- `place-content`: `justify-content & align-content`的缩写
+- `grid-auto-columns & grid-auto-rows`: 指定了隐式创建的网格横向、纵向轨道的宽度
+  - <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid-auto-columns">详细</a>
+- `grid-auto-flow`: 如果您有一些网格项没有明确放置在网格上，自动布局算法会自动对这些项进行布局。这个属性控制自动布局算法的工作方式
+
+  - row
+  - column
+  - dense
+
+  **Example**
+
+  ```css
+  .grid-container {
+    display: grid;
+    grid-template-columns: 100px 100px;
+    grid-auto-flow: row;
+    grid-gap: 10px;
+  }
+
+  .grid-item {
+    background-color: #f2f2f2;
+    padding: 10px;
+  }
+  ```
+
+  ```html
+  <div class="grid-container">
+    <div class="grid-item">Item 1</div>
+    <div class="grid-item">Item 2</div>
+    <div class="grid-item">Item 3</div>
+    <div class="grid-item">Item 4</div>
+    <div class="grid-item">Item 5</div>
+  </div>
+  ```
+
+  ![微信图片_20230827222216.png](https://x.imgs.ovh/x/2023/08/27/64eb5c692a0a2.png)
+
+- `grid`: 是一个 CSS 简写属性，可以用来设置以下属性： 显式网格属性 `grid-template-rows`、`grid-template-columns` 和 `grid-template-areas`， 隐式网格属性 `grid-auto-rows`、`grid-auto-columns` 和 `grid-auto-flow`， 间距属性 `grid-column-gap` 和 `grid-row-gap`
+
+#### Grid Items
+
+- `grid-column-start & grid-column-end & grid-row-start & grid-row-end`: 通过引用特定的网格线确定网格项在网格中的位置。`grid-column-start/grid-row-start` 是网格项开始的线，而 `grid-column-end/grid-row-end` 是网格项结束的线。
+
+  - `<line>`: 可以是一个数字，用于引用编号的网格线，也可以是一个名称，用于引用命名的网格线
+  - `span <number>`: 该项将跨越所提供的网格轨道数量
+  - `span <name>`: 该项将跨越直到遇到下一个具有所提供名称的线
+  - `auto`: 表示自动布局、自动跨度或默认跨度为一
+
+  ```css
+  .item {
+    grid-column-start: <number> | <name> | span <number> | span <name> | auto;
+    grid-column-end: <number> | <name> | span <number> | span <name> | auto;
+    grid-row-start: <number> | <name> | span <number> | span <name> | auto;
+    grid-row-end: <number> | <name> | span <number> | span <name> | auto;
+  }
+  ```
+
+  **Example**
+
+  ```css
+  .item-a {
+    grid-column-start: 2;
+    grid-column-end: five;
+    grid-row-start: row1-start;
+    grid-row-end: 3;
+  }
+  ```
+
+  ![微信图片_20230827222216.png](https://css-tricks.com/wp-content/uploads/2018/11/grid-column-row-start-end-01.svg)
+
+- `grid-column & grid-row`: 分别是 `grid-column-start + grid-column-end` 和 `grid-row-start + grid-row-end` 的简写形式
+
+  - `<start-line> / <end-line>`
+
+  ```css
+  .item {
+    grid-column: <start-line> / <end-line> | <start-line> / span <value>;
+    grid-row: <start-line> / <end-line> | <start-line> / span <value>;
+  }
+  ```
+
+  **Example**
+
+  ```css
+  .item-c {
+    grid-column: 3 / span 2;
+    grid-row: third-line / 4;
+  }
+  ```
+
+  ![微信图片_20230827222216.png](https://css-tricks.com/wp-content/uploads/2018/11/grid-column-row.svg)
+
+- `grid-area`: 为项目指定一个名称，以便可以通过使用 `grid-template-areas `属性创建的模板引用它。或者，该属性可以作为 `grid-row-start + grid-column-start + grid-row-end + grid-column-end` 的更短的简写形式(上面有 demo 可以去翻一下)
+- `justify-self`: 也是比较简单好懂的一笔带过，相当与在网格内进行横向的排列
+
+  - start
+  - end
+  - center
+  - stretch
+
+- `align-self`: 同样的，相当与在网格内进行纵向的排列
+
+  - start
+  - end
+  - center
+  - stretch
+
+  **Example**
+  [![pP3V0xJ.png](https://css-tricks.com/wp-content/uploads/2018/11/align-self-start.svg)](https://css-tricks.com/wp-content/uploads/2018/11/align-self-start.svg)
+
+- `place-self`: `justify-self & align-self`二者的缩写
+
+### 二、特殊单位和函数
+
+#### fr units
+
+在 CSS Grid 中，你很可能会经常使用很多分数单位，比如 1fr。它们本质上表示“剩余空间的一部分”。因此，像下面这样的声明：
+
+```css
+grid-template-columns: 1fr 1fr 1fr;
+```
+
+意思是将可用空间平均分为三份，每份占据剩余空间的 1/3。这样，每个列的宽度将相等，并且会自动适应其容器的大小。
+
+#### Sizing Keywords
+
+在调整行和列的大小时，你可以使用你熟悉的所有长度单位，比如像素（px）、rem、百分比（%）等，但你还可以使用一些关键字：
+
+- `min-content`: min-content 表示内容的最小尺寸
+- `max-content`: max-content 表示内容的最大尺寸
+- `auto`: 它会根据内容的大小自动调整。这意味着网格项的尺寸将根据其内容的大小来确定，并且不会直接参与剩余空间的分配
+- `Fractional units`: like fr
+
+#### Sizing Functions
+
+- `fit-content()`: 这个函数使用可用的空间，但永远不会小于最小内容（min-content），也永远不会大于最大内容（max-content
+- `minmax()`: 它为长度设置了最小值和最大值。这在与相对单位结合使用时非常有用
+
+```css
+grid-template-columns: minmax(100px, 1fr) 3fr; // 意味着定义一个最小值100px 最大值1fr
+```
+
+#### the repeat function and keywords
+
+Example
+
+```css
+grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+/* easier: */
+grid-template-columns: repeat(8, 1fr);
+```
+
+- `auto-fit`: 尽可能多地在一行上放置列，即使它们是空的
+- `auto-fill`: 将所有列适应到可用空间中。优先扩展列以填充空间，而不是留下空的列
+
+### 总结
+
+码字不易，请大家给点支持哦，哈哈，明天就周一了，祝大家一切顺利 ^\_^
+
+### 参考
+
+- https://css-tricks.com/snippets/css/complete-guide-grid/
+- https://scrimba.com/learn/cssgrid
+
+  > A Game for Exercise
+
+- https://cssgridgarden.com/
