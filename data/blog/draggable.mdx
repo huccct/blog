@@ -1,0 +1,134 @@
+---
+title: '[前端必修课]: 拖拽排序篇'
+date: '2023-09-26'
+tags: ['basic']
+draft: false
+summary: 通过实现前端拖拽排序，可以为用户提供直观、交互式的界面，使他们能够自由地重新排列和组织内容，从而提升用户体验和操作效率
+---
+
+前言：**✍️ 好久没更新了，今天浅更一篇，前端必备技能，拖拽排序，`it's very important！`**
+
+## 一、概述
+
+前端的发展日新月异，技术迭代层出不穷，学不完，根本学不完，呜呜呜~~~~，历史在向前发展，前端的`“摩尔定律”`是`每隔 18 个月`成为前端工程师的难度就翻一翻。
+
+哈哈哈，不压力了，言归正传，文章灵感也是来自最近所做的一些需求，我们在很多应用场景中都能看到拖转，比如 Vue.js 官网的 Transition Group 的 Demo
+
+![拖拽排序](http://121.36.100.147:9000/test/demo.gif)
+
+那这个效果如何实现呢，我们一起来看一下。
+
+## 二、拖拽排序
+
+### 拖拽
+
+> Step1: 首先需要实现拖拽我们可以开启一个 html 身上的 api，把 `draggable` 设置为 true，那么我们现在已经可以看到可以拖拽的效果了。
+
+```html
+<div class="list">
+  <div draggable="true" class="list-item">1</div>
+  <div draggable="true" class="list-item">2</div>
+  <div draggable="true" class="list-item">3</div>
+  <div draggable="true" class="list-item">4</div>
+  <div draggable="true" class="list-item">5</div>
+</div>
+```
+
+> Step2: 完善一下 css 样式 我们去设置一个`.moving` 状态下的样式 之后通过 js 动态添加
+
+```css
+.list-item.moving {
+  background: transparent;
+  color: transparent;
+  border: 1px dashed #ccc;
+}
+```
+
+### 排序
+
+**到现在基本的初始化工作我们以及完成了，我们接下来需要去实现的点有两个**
+
+- **`插入 up`**
+- **`插入 down`**
+
+> Step1: 拖动开始的时候我们先添加上 .moving 样式
+
+```js
+const list = document.querySelector('.list')
+// 记录当前正在拖拽的元素
+let sourceNode = ''
+
+list.ondragstart = (e) => {
+  setTimeout(() => {
+    e.target.classList.add('moving')
+  }, 0)
+  sourceNode = e.target
+}
+```
+
+> Step2: 拖动元素进入目标元素时我们去判断插入的位置
+
+```js
+list.ondragenter = (e) => {
+  // 先排除两个情况 一个是自身 一个是父亲
+  if (e.target === list || e.target === sourceNode) {
+    return
+  }
+  // 解构成数组
+  const children = [...list.children]
+  // 找到目标位和原位置
+  const sourceIndex = children.indexOf(sourceNode)
+  const targetIndex = children.indexOf(e.target)
+
+  // 如果原位置小于目标位
+  if (sourceIndex < targetIndex) {
+    console.log('向下')
+    // todo
+  } else {
+    console.log('向上')
+    // todo
+  }
+}
+```
+
+> Step3: 结束时我们移除对应的.moving 样式
+
+```js
+list.ondragend = (e) => {
+  e.target.classList.remove('moving')
+}
+```
+
+## 三、设置 Flip 动画
+
+**filp 动画这也是一个比较有意思的点，这里我不展开细说，我说个大概实现思路，具体的我会在后面的代码块中给出完整代码，供大家参考**
+
+**思路：**
+
+FLIP（First, Last, Invert, Play）是一种动画优化技术，用于实现平滑的动画效果并提高性能。
+
+- **第一帧（First）：在动画开始之前，通过获取元素的初始状态（位置、尺寸等）作为第一帧。**
+
+- **最后一帧（Last）：根据动画的最终状态，计算元素在动画结束时的目标位置、尺寸等信息，作为最后一帧。**
+
+- **反转（Invert）：将最后一帧的状态应用到元素上，通过 CSS 或 JavaScript 将元素直接定位到最后一帧的状态，这样可以`避免在动画过程中引起布局重排`。（简单点说就是算出偏移量）**
+
+- **播放（Play）：通过添加 CSS 过渡或动画效果，将元素从第一帧的状态过渡到最后一帧的状态，实现平滑的动画效果。**
+
+完整代码：https://code.juejin.cn/pen/7282991337383657511
+
+## 四、总结
+
+**做个小结，主要也就两个知识点，但是应用场景非常常见**
+
+- **拖拽排序**
+
+- **Flip 动画**
+
+**推荐使用：**
+
+- <a href="https://github.com/SortableJS/Sortable">SortableJS</a>
+
+- <a href="https://github.com/react-dnd/react-dnd">react-dnd</a>
+
+`好的，最后祝大家中秋快乐，国庆快乐哦！`
