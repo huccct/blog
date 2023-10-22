@@ -1,0 +1,150 @@
+---
+title: '[前端必修课]: canvas拖拽篇'
+date: '2023-10-22'
+tags: ['basic']
+draft: false
+summary: 在前端开发中，Canvas是一个功能强大的HTML5元素，它提供了绘制图形和动画的能力。其中，拖拽是常见的交互行为之一。本文将介绍如何在Canvas中实现拖拽功能。
+---
+
+前言：**✍️ 欢迎来到 `canvas拖拽` 篇, 掌握 Canvas 拖拽技术将为您的前端开发增添更多交互效果和用户体验。**
+
+## 一、概述
+
+接上回的话茬，这回咱接着聊下 `canvas` 中如何创建一个矩形和拖拽，其他图形也同理。
+
+`Preview:`
+![canvas拖拽](http://121.36.100.147:9000/test/微信图片_20231022155915.png)
+
+## 二、思路
+
+> Step1: 设置 `Canvas` 环境: 首先，创建一个 `Canvas` 元素并获取其上下文对象。可以通过 `HTML` 的`<canvas>`标签和 JavaScript 的 `getContext()`方法来实现。
+
+先给个 canvas 区域 和一个 colorPicker
+
+```html
+<input type="color" class="color" /> <canvas></canvas>
+```
+
+初始化绘制一个 500\*300 的 canvas 画布，记得做清晰度处理 <a href="https://juejin.cn/post/7067415002289799205">参考文章</a>
+
+```js
+const colorPicker = document.querySelector('input')
+const cvs = document.querySelector('canvas')
+const ctx = cvs.getContext('2d')
+
+function init() {
+  const w = 500,
+    h = 300
+  cvs.width = w * devicePixelRatio
+  cvs.height = h * devicePixelRatio
+  cvs.style.width = w + 'px'
+  cvs.style.height = h + 'px'
+}
+
+init()
+```
+
+> Step2: 绘制初始图形: 在 `Canvas` 上绘制一个初始的图形，可以是矩形、圆形或其他形状。可以使用 `Canvas` 的绘图 API，如 `fillRect(), strokeRect(), arc()`等。
+
+然后我们定义一个 shapes 数组用来存放绘制的图形，和一个 Rectangle 类去构造绘制图形的一些 params
+
+```
+class Rectangle {
+  constructor(color, startX, startY) {
+    this.color = color;
+    this.startX = startX;
+    this.startY = startY;
+    this.endX = startX;
+    this.endY = startY;
+  }
+
+  get minX() {
+    return Math.min(this.startX, this.endX);
+  }
+
+  get maxX() {
+    return Math.max(this.startX, this.endX);
+  }
+
+  get minY() {
+    return Math.min(this.startY, this.endY);
+  }
+
+  get maxY() {
+    return Math.max(this.startY, this.endY);
+  }
+
+  draw() {
+    // todo
+    // 很简单的绘制
+    ctx.beginPath();
+    ctx.moveTo(this.minX * devicePixelRatio, this.minY * devicePixelRatio);
+    ctx.lineTo(this.maxX * devicePixelRatio, this.minY * devicePixelRatio);
+    ctx.lineTo(this.maxX * devicePixelRatio, this.maxY * devicePixelRatio);
+    ctx.lineTo(this.minX * devicePixelRatio, this.maxY * devicePixelRatio);
+    ctx.lineTo(this.minX * devicePixelRatio, this.minY * devicePixelRatio);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+
+    ctx.strokeStyle = '#fff';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 3 * devicePixelRatio;
+    ctx.stroke();
+  }
+
+  isInside(x, y) {
+    return x >= this.minX && x <= this.maxX && y >= this.minY && y <= this.maxY;
+  }
+}
+```
+
+> Step3: 监听鼠标事件: 使用 JavaScript 监听鼠标事件，包括 mousedown、mousemove 和 mouseup 事件。这些事件将用于实现拖拽功能
+
+- 给 Canvas 元素添加 mousedown 事件处理函数的语法。当鼠标在 Canvas 上按下时，这个函数将被触发执行
+- 获取 Canvas 元素相对于视口（viewport）的位置和尺寸信息，并将其存储在 rect 变量中。用于后续计算鼠标点击位置的相对坐标
+- 调用 getShape 的函数，并传入鼠标点击的坐标。这个函数用于判断点击位置是否在已有的图形上
+- 如果 shape 存在，则表示点击位置在某个图形上，将执行拖拽操作；否则，将创建一个新的矩形图形
+- 如果存在 shape，即点击位置在某个图形上，则进行拖拽操作。startX、startY、endX 和 endY 表示图形的起始坐标和结束坐标。在 window.onmousemove 事件处理函数中，通过计算鼠标的位移距离（disX 和 disY），更新图形的坐标信息，实现拖拽效果
+- 如果不存在 shape，即点击位置不在已有图形上，则创建一个新的矩形图形。根据点击位置和当前选中的颜色（通过 colorPicker.value 获取），创建一个新的 Rectangle 对象，并将其添加到 shapes 数组中。
+- 最后取消拖拽即可
+
+```
+cvs.onmousedown = e => {
+  const rect = cvs.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const clickY = e.clientY - rect.top;
+  const shape = getShape(clickX, clickY);
+  if (shape) {
+    // drag
+    const { startX, startY, endX, endY } = shape;
+    window.onmousemove = e => {
+      const disX = e.clientX - rect.left - clickX;
+      const disY = e.clientY - rect.top - clickY;
+      shape.startX = startX + disX;
+      shape.endX = endX + disX;
+      shape.startY = startY + disY;
+      shape.endY = endY + disY;
+    };
+  } else {
+    const shape = new Rectangle(colorPicker.value, clickX, clickY);
+    shapes.push(shape);
+    window.onmousemove = e => {
+      shape.endX = e.clientX - rect.left;
+      shape.endY = e.clientY - rect.top;
+    };
+  }
+
+  window.onmouseup = () => {
+    window.onmousemove = null;
+    window.onmouseup = null;
+  };
+};
+```
+
+## 三、小结
+
+以上只是 canvas 拖拽的基本框架，其实如果做一些延伸和拓展在此基础上也是很好实现的，Canvas 拖拽是前端开发中常见的交互行为，通过监听鼠标事件和更新图形位置，可以实现拖拽功能。在使用 Canvas 拖拽时，需要注意边界检测和重绘等细节。
+
+## 四、推荐学习项目
+
+- https://github.com/vangleer/es-drager
