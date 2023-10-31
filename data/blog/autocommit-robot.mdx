@@ -1,0 +1,129 @@
+---
+title: '自动Commit Robot'
+date: '2023-10-31'
+tags: ['life']
+draft: false
+summary: 因为准备专心复习雅思，但是作为github重度用户，又想保持repo常量，那么github action 自然少不了...
+---
+
+前言：**✍️ 最近拿到了 St Andrews 的 Cond Offer，要求雅思 7.0，所以准备全力以赴，备战一下，但是自己作为一个 github 重度用户，又想让自己的代码常亮，所以整个 repo 去跑一下。**
+
+## 一、创建一个 Repo
+
+![img](http://121.36.100.147:9000/test/微信图片_20231031214921.png)
+
+自己起个名字，我就叫他 autocommit-robot, 然后我们去 clone 到本地执行一些操作
+
+## 二、初始化项目
+
+> Step1
+
+`npm init`
+
+> Step2
+
+`创建一个github workflow去做action每天定时run就可以`
+
+```yaml
+ame: autocommit-robot
+
+on:
+  schedule:
+    - cron: '30 1 * * *'
+
+jobs:
+  bots:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v1
+
+      - name: 'Set node'
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: 'Install'
+        run: npm install
+
+      - name: 'Run bash'
+        run: node index.js
+
+      - name: 'Commit'
+        uses: EndBug/add-and-commit@v4
+        with:
+          author_name: huccct
+          author_email: 2972223145@qq.com
+          message: 'feat: save robot'
+          add: 'pictures/*'
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+```
+
+> **Note: 这里有需要注意的点**
+
+`获取 secrets 的 token 为了保护自己的隐私，获取方法是去 github profile 的 develop setting 里面找到 personal access tokens 创建一个就可以了`
+
+## 三、写脚本
+
+1. 引入模块：
+
+- request: 用于发送 HTTP 请求并获取响应的模块。
+- path: 用于处理文件路径的模块。
+- fs: 用于与文件系统交互的模块。
+
+2. 生成随机数：
+
+- id 变量使用 Math.random() 函数生成一个 0 到 1 之间的随机数。
+- 通过乘以 100000 和取整操作 (~~)，将随机数转换为 0 到 99999 之间的整数。
+- 使用 toString() 方法将整数转换为字符串。
+
+3. 构建 URL：
+
+- url 变量使用生成的随机数作为参数，构建一个 URL。这个 URL 将用于获取一个随机生成的机器人头像。
+  设置文件路径：
+
+4. 设置文件路径：
+
+- dirPath 变量使用 path.resolve() 方法将相对路径解析为绝对路径。
+- \_\_dirname 是 Node.js 中的一个全局变量，表示当前模块的目录路径。
+- pictures 是一个文件夹名称，用于存储下载的图片文件。
+
+5. 处理日期：
+
+- dateArr 变量使用 new Date().toLocaleDateString() 方法获取当前日期的本地格式字符串。
+- toLocaleDateString() 方法返回一个表示日期的字符串，格式根据本地设置而定。在此代码中，日期格式为"月/日/年"。
+- split('/') 方法将日期字符串按斜杠分割成一个字符串数组。
+- pop() 方法从数组中删除最后一个元素，并返回该元素的值。
+- unshift() 方法将一个或多个元素添加到数组的开头。
+- join('-') 方法将数组中的元素用连字符连接成一个字符串。
+
+6. 发起 HTTP 请求并保存文件：
+
+- request(url) 发起一个 GET 请求，获取指定 URL 的响应数据。
+- pipe(fs.createWriteStream()) 方法将请求的响应数据通过管道传输给文件写入流。
+- fs.createWriteStream() 方法创建一个可写流并指定要写入的文件路径和文件名。
+- 文件路径由 dirPath 和 date 变量组成，文件名格式为"年-月-日.png"，例如"2023-06-16.png"。
+- 将响应数据写入文件，保存为 PNG 格式的图片。
+
+总的来说，这段代码的作用是通过发送 HTTP 请求，从https://robohash.org/ 获取一个随机生成的机器人头像，并将其保存为 PNG 格式的图片文件。图片文件的保存路径为指定文件夹下的当前日期命名的文件。
+
+代码如下
+
+```js
+const request = require('request')
+const path = require('path')
+const fs = require('fs')
+const id = (~~(Math.random() * 100000)).toString() // 获取小于10w的数字
+const url = `https://robohash.org/${id}`
+const dirPath = path.resolve(__dirname, 'pictures')
+// 这一步的处理，因为github获取的时间时区是美国时区，所以获取到的时间格式是6/16/2023，我们可以先split后将年份放到数组第一位，这样就是需要的文件名格式了
+const dateArr = new Date().toLocaleDateString().split('/') // 本地调试时用.toLocaleDateString("en")
+dateArr.unshift(dateArr.pop())
+const date = dateArr.join('-')
+request(url).pipe(fs.createWriteStream(`${dirPath}/${date}.png`))
+```
+
+that's so cool，结束
+![img](http://121.36.100.147:9000/test/微信图片_20231031220856.jpg)
