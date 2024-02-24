@@ -20,17 +20,9 @@ const LayoutWrapper = ({ children }: Props) => {
           <div>
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
-                <div className="mr-3">
-                  <Logo />
-                </div>
+                <div className="mr-3">{/* <Logo /> */}</div>
                 {typeof siteMetadata.headerTitle === 'string' ? (
                   <div className="hidden h-6 text-2xl font-semibold sm:block">
-                    <a href="https://git.io/typing-svg">
-                      <img
-                        src="https://readme-typing-svg.demolab.com?font=Agbalumo&size=50&pause=1000&color=1A5A76CA&vCenter=true&random=false&width=435&lines=Orion+Chen's+Blog"
-                        alt="Typing SVG"
-                      />
-                    </a>
                     {/* {siteMetadata.headerTitle} */}
                   </div>
                 ) : (
