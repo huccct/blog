@@ -5,7 +5,7 @@ const siteMetadata = {
   description: '🏝️ Recording Code Life',
   language: 'zh-CN',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://wwww.orionchen.me',
+  siteUrl: 'https://wwww.orionchen.me/about',
   siteRepo: 'https://github.com/huccct/blog',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
