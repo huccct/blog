@@ -50,8 +50,8 @@ const LayoutWrapper = ({ children }) => {
               </motion.span>
             </Link>
           ))}
+          <ThemeSwitch />
         </nav>
-        <ThemeSwitch />
         <MobileNav />
       </motion.header>
       <main className="mb-auto">{children}</main>
