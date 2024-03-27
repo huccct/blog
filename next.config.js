@@ -61,6 +61,15 @@ module.exports = withContentlayer(
   withBundleAnalyzer({
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+    async redirects() {
+      return [
+        {
+          source: '/',
+          destination: '/about',
+          permanent: true, // 注意：如果这是一个临时重定向，将这个值设置为 false
+        },
+      ]
+    },
     eslint: {
       dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
     },

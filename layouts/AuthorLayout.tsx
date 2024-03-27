@@ -4,6 +4,7 @@ const CommandLineInterface = ({ executeCommand }) => {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState([])
   const inputRef = useRef(null)
+  const [showHelpHint, setShowHelpHint] = useState(false)
   const endOfOutputRef = useRef(null)
 
   // 在组件加载后自动键入 'about' 并执行该命令
@@ -17,6 +18,7 @@ const CommandLineInterface = ({ executeCommand }) => {
         setInput((prevInput) => prevInput + command[index])
         index++
         setTimeout(typeCharacter, 100)
+        setShowHelpHint(true)
       } else {
         // 命令全部键入后,模拟回车执行命令
         setTimeout(() => submitCommand(command), 500)
@@ -50,6 +52,9 @@ const CommandLineInterface = ({ executeCommand }) => {
       ])
     }
     setInput('')
+    if (command.trim().toLowerCase() !== 'about') {
+      setShowHelpHint(false) // 在非 'about' 命令后不显示提示
+    }
   }
 
   return (
@@ -98,6 +103,15 @@ const CommandLineInterface = ({ executeCommand }) => {
             />
           </form>
         </div>
+        {showHelpHint && (
+          <div className="flex items-center mt-2">
+            <div className="flex-grow text-gray-400">
+              输入
+              <span className="text-blue-500 font-bold"> help </span>查看更多命令
+            </div>
+          </div>
+        )}
+
         <div ref={endOfOutputRef} />
       </div>
     </div>
@@ -218,11 +232,21 @@ const AuthorLayout = ({ content }) => {
         return <div>这里是我的一些项目...</div>
       case 'ls':
         return (
-          <div>
-            <div>about</div>
-            <div>projects</div>
-            <div>hello</div>
+          <div className="font-mono text-xs p-4 rounded-lg">
+            <div className="grid grid-cols-5 gap-4">
+              <div className="py-2 px-4 rounded">about</div>
+              <div className="py-2 px-4 rounded">projects</div>
+              <div className="py-2 px-4 rounded">hello</div>
+              <div className="py-2 px-4 rounded">contact</div>
+              <div className="py-2 px-4 rounded">blog</div>
+            </div>
           </div>
+        )
+      case 'contact':
+        return (
+          <>
+            <div className="py-2 px-4 rounded">ucccth@gmail.com</div>
+          </>
         )
       case 'hello':
         return (
@@ -256,6 +280,20 @@ const AuthorLayout = ({ content }) => {
               <pre className="text-sm font-mono">
                 <span className="text-green-600">about</span>
                 <span className="text-gray-600 ml-4">some information about me</span>
+              </pre>
+              <pre className="text-sm font-mono">
+                <span className="text-green-600">ls</span>
+                <span className="text-gray-600 ml-4">
+                  Listing the contents of the current directory
+                </span>
+              </pre>
+              <pre className="text-sm font-mono">
+                <span className="text-green-600">hello</span>
+                <span className="text-gray-600 ml-4">hello world</span>
+              </pre>
+              <pre className="text-sm font-mono">
+                <span className="text-green-600">contact</span>
+                <span className="text-gray-600 ml-4">contact me</span>
               </pre>
             </div>
           </div>
