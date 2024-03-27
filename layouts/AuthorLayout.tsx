@@ -71,7 +71,7 @@ const CommandLineInterface = ({ executeCommand }) => {
         {output.map((line, index) => {
           if (line.type === 'command') {
             return (
-              <div key={index} className="flex items-start whitespace-normal break-words">
+              <div key={index} className="flex whitespace-normal break-words items-center">
                 <span className="text-green-500 text-lg mr-2">❯</span>
                 <span className="text-gray-600 text-sm">{line.text}</span>
               </div>
