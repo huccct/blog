@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 
 const CommandLineInterface = ({ executeCommand }) => {
@@ -60,24 +61,24 @@ const CommandLineInterface = ({ executeCommand }) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
-      className="text-black p-4 rounded-lg mt-[50px]"
+      className="text-black p-4 rounded-lg mt-12 overflow-hidden"
       onClick={() => inputRef.current && inputRef.current.focus()}
     >
-      <span className="text-gray-600">
+      <span className="text-gray-600 text-sm whitespace-normal break-words">
         Hi there👋 欢迎来到我的空间👀,在下方👇输入命令交互🔥,更多有意思命令即将开放🥳
       </span>
-      <div className="mb-4 mt-[50px]">
+      <div className="mb-4 mt-12">
         {output.map((line, index) => {
           if (line.type === 'command') {
             return (
-              <div key={index} className="whitespace-pre-wrap flex items-start">
+              <div key={index} className="flex items-start whitespace-normal break-words">
                 <span className="text-green-500 text-lg mr-2">❯</span>
-                <span className="command-text text-gray-600">{line.text}</span>
+                <span className="text-gray-600 text-sm">{line.text}</span>
               </div>
             )
           } else {
             return (
-              <div key={index} className="whitespace-pre-wrap pl-8">
+              <div key={index} className="whitespace-normal break-words pl-6 text-sm">
                 {line.text}
               </div>
             )
@@ -85,13 +86,13 @@ const CommandLineInterface = ({ executeCommand }) => {
         })}
         <div className="flex items-center">
           <span className="text-green-500 text-lg mr-2">❯</span>
-          <form onSubmit={handleSubmit} className="flex-grow">
+          <form onSubmit={handleSubmit} className="w-full">
             <input
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="w-full bg-transparent text-gray-600"
+              className="w-full bg-transparent text-gray-600 text-sm focus:outline-none"
               style={{
                 border: 'none',
                 outline: 'none',
@@ -105,7 +106,7 @@ const CommandLineInterface = ({ executeCommand }) => {
         </div>
         {showHelpHint && (
           <div className="flex items-center mt-2">
-            <div className="flex-grow text-gray-400">
+            <div className="flex-grow text-gray-400 text-xs break-words">
               输入
               <span className="text-blue-500 font-bold"> help </span>查看更多命令
             </div>
@@ -118,14 +119,30 @@ const CommandLineInterface = ({ executeCommand }) => {
   )
 }
 
-const AuthorLayout = ({ content }) => {
+const AuthorLayout = () => {
+  const router = useRouter()
+  const navigateBlog = () => {
+    router.push('/blog') // 使用 router.push 方法跳转到主页
+  }
+  const navigateProjects = () => {
+    router.push('/projects') // 使用 router.push 方法跳转到项目页
+  }
+
+  const navigateTags = () => {
+    router.push('/tags') // 使用 router.push 方法跳转到标签页
+  }
+
+  const navigateAbout = () => {
+    router.push('/about') // 使用 router.push 方法跳转到联系页
+  }
+
   const executeCommand = (command) => {
     switch (command.trim().toLowerCase()) {
       case 'about':
         return (
           <div className="py-8">
-            <div className="container mx-auto mt-[10px] rounded-lg max-w-2xl">
-              <p className="text-xl text-gray-300">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-[10px] rounded-lg max-w-2xl">
+              <p className="text-base sm:text-lg md:text-xl text-gray-300">
                 我是
                 <span className="bg-gradient-to-r from-red-600 to-black text-white px-2 py-1 rounded-md ml-1">
                   huccct
@@ -142,15 +159,15 @@ const AuthorLayout = ({ content }) => {
                 <span className="text-blue-500 font-semibold">AI</span>
                 时代,我能留下一些印记,在历史长河中闪烁微光。
               </p>
-              <p className="text-xl mt-4 text-gray-300">
+              <p className="text-base sm:text-lg md:text-xl mt-4 text-gray-300">
                 我醉心于学习
                 <span className="text-purple-500 font-semibold">新技术</span>, 撰写
                 <span className="text-indigo-500 font-semibold">博客</span>,
                 分享我的见解,希望能与志同道合者共勉。
               </p>
-              <div className="flex items-center text-xl mt-4 text-gray-300">
+              <div className="flex flex-wrap items-center text-base sm:text-lg md:text-xl mt-4 text-gray-300">
                 <span className="mr-2">常用技术栈✨:</span>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <img
                     className="w-7 h-7"
                     src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/javascript.9kfy2qv56e.svg"
@@ -189,8 +206,10 @@ const AuthorLayout = ({ content }) => {
                 </div>
               </div>
               <div>
-                <p className="text-xl mt-4 text-gray-300">你可以在这些地方找到我的踪迹:</p>
-                <ul className="list-none text-gray-400 text-xl mt-2">
+                <p className="text-base sm:text-lg md:text-xl mt-4 text-gray-300">
+                  你可以在这些地方找到我的踪迹:
+                </p>
+                <ul className="list-none text-gray-400 text-base sm:text-lg md:text-xl mt-2">
                   <li className="flex items-center mb-2">
                     <img
                       className="w-6 h-6 mr-2"
@@ -228,25 +247,56 @@ const AuthorLayout = ({ content }) => {
         )
       case 'clear':
         return []
-      case 'projects':
-        return <div>这里是我的一些项目...</div>
+      case 'contact':
+        return (
+          <div className="text-gray-500">
+            <p>
+              📮 Email:
+              <span className="text-blue-500">
+                <span className="text-blue-500 font-semibold">ucccth@gmail.com</span>
+              </span>
+            </p>
+            <p>
+              📱 WeChat:
+              <span className="text-blue-500 font-semibold hover:cursor-pointer">huccct</span>
+            </p>
+          </div>
+        )
+
       case 'ls':
         return (
           <div className="font-mono text-xs p-4 rounded-lg">
-            <div className="grid grid-cols-5 gap-4">
-              <div className="py-2 px-4 rounded">about</div>
-              <div className="py-2 px-4 rounded">projects</div>
-              <div className="py-2 px-4 rounded">hello</div>
-              <div className="py-2 px-4 rounded">contact</div>
-              <div className="py-2 px-4 rounded">blog</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+              <div
+                className="text-2xl py-2 px-4 rounded text-gray-500 hover:cursor-pointer"
+                onClick={navigateBlog}
+              >
+                blog
+              </div>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+              <div
+                className="text-2xl py-2 px-4 rounded text-gray-500 hover:cursor-pointer"
+                onClick={navigateProjects}
+              >
+                projects
+              </div>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+              <div
+                className="text-2xl py-2 px-4 rounded text-gray-500 hover:cursor-pointer"
+                onClick={navigateTags}
+              >
+                tags
+              </div>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+              <div
+                className="text-2xl py-2 px-4 rounded text-gray-500 hover:cursor-pointer"
+                onClick={navigateAbout}
+              >
+                about
+              </div>
             </div>
           </div>
-        )
-      case 'contact':
-        return (
-          <>
-            <div className="py-2 px-4 rounded">ucccth@gmail.com</div>
-          </>
         )
       case 'hello':
         return (
@@ -265,36 +315,38 @@ const AuthorLayout = ({ content }) => {
       case 'help':
         return (
           <div className="space-y-4">
-            <p className="text-lg font-semibold">
+            <p className="text-base sm:text-lg font-semibold text-gray-500">
               You can enter the following commands to interact:
             </p>
             <div className="bg-gray-100 rounded-lg p-4">
-              <pre className="text-sm font-mono">
-                <span className="text-green-600">help</span>
-                <span className="text-gray-600 ml-4">list all commands</span>
-              </pre>
-              <pre className="text-sm font-mono">
-                <span className="text-green-600">clear</span>
-                <span className="text-gray-600 ml-4">clear all outputs</span>
-              </pre>
-              <pre className="text-sm font-mono">
-                <span className="text-green-600">about</span>
-                <span className="text-gray-600 ml-4">some information about me</span>
-              </pre>
-              <pre className="text-sm font-mono">
-                <span className="text-green-600">ls</span>
-                <span className="text-gray-600 ml-4">
-                  Listing the contents of the current directory
-                </span>
-              </pre>
-              <pre className="text-sm font-mono">
-                <span className="text-green-600">hello</span>
-                <span className="text-gray-600 ml-4">hello world</span>
-              </pre>
-              <pre className="text-sm font-mono">
-                <span className="text-green-600">contact</span>
-                <span className="text-gray-600 ml-4">contact me</span>
-              </pre>
+              <div className="overflow-auto">
+                <pre className="text-xs sm:text-sm font-mono">
+                  <code className="text-green-600">help</code>
+                  <span className="text-gray-600 ml-4">list all commands</span>
+                </pre>
+                <pre className="text-xs sm:text-sm font-mono">
+                  <code className="text-green-600">clear</code>
+                  <span className="text-gray-600 ml-4">clear all outputs</span>
+                </pre>
+                <pre className="text-xs sm:text-sm font-mono">
+                  <code className="text-green-600">about</code>
+                  <span className="text-gray-600 ml-4">some information about me</span>
+                </pre>
+                <pre className="text-xs sm:text-sm font-mono">
+                  <code className="text-green-600">ls</code>
+                  <span className="text-gray-600 ml-4">
+                    Listing the contents of the current directory
+                  </span>
+                </pre>
+                <pre className="text-xs sm:text-sm font-mono">
+                  <code className="text-green-600">hello</code>
+                  <span className="text-gray-600 ml-4">hello world</span>
+                </pre>
+                <pre className="text-xs sm:text-sm font-mono">
+                  <code className="text-green-600">contact</code>
+                  <span className="text-gray-600 ml-4">contact me</span>
+                </pre>
+              </div>
             </div>
           </div>
         )

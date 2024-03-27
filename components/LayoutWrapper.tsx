@@ -8,7 +8,6 @@ import Footer from './Footer'
 import headerNavLinks from '@/data/headerNavLinks'
 import siteMetadata from '@/data/siteMetadata'
 import SectionContainer from './SectionContainer'
-import { useEffect, useState } from 'react'
 
 const headerVariants = {
   hover: { scale: 1.1 },
@@ -51,9 +50,9 @@ const LayoutWrapper = ({ children }) => {
               </motion.span>
             </Link>
           ))}
-          <ThemeSwitch />
-          <MobileNav />
         </nav>
+        <ThemeSwitch />
+        <MobileNav />
       </motion.header>
       <main className="mb-auto">{children}</main>
       <Footer />
