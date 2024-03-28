@@ -1,3 +1,5 @@
+import { PageSEO } from '@/components/SEO'
+import siteMetadata from '@/data/siteMetadata'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -360,12 +362,15 @@ const AuthorLayout = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-        About
-      </h1>
-      <CommandLineInterface executeCommand={executeCommand} />
-    </div>
+    <>
+      <PageSEO title={`About - ${siteMetadata.author}`} description={siteMetadata.description} />
+      <div className="container mx-auto p-4">
+        <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          About
+        </h1>
+        <CommandLineInterface executeCommand={executeCommand} />
+      </div>
+    </>
   )
 }
 
