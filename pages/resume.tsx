@@ -25,7 +25,7 @@ export default function Resume() {
                 <div className="flex items-center">
                   <h3 className="text-lg font-medium">MSc Software Engineering</h3>
                   <img
-                    src="https://upload.wikimedia.org/wikipedia/zh/thumb/6/61/University_of_St_Andrews_coat_of_arms.svg/800px-University_of_St_Andrews_coat_of_arms.svg.png"
+                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/st.andrews-logo.67x8bfkt75.webp"
                     alt="University of St. Andrews"
                     className="h-10 w-10 ml-2"
                   />
@@ -38,7 +38,7 @@ export default function Resume() {
                 <div className="flex items-center">
                   <h3 className="text-lg font-medium">BE Software Engineering</h3>
                   <img
-                    src="https://upload.wikimedia.org/wikipedia/zh/thumb/d/d2/Qingdao_University_Of_Technology_logo.svg/200px-Qingdao_University_Of_Technology_logo.svg.png"
+                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/qit-logo.lvhxkjids.webp"
                     alt="QIT"
                     className="h-10 w-10 ml-2"
                   />
