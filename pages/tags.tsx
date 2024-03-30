@@ -30,13 +30,15 @@ export default function Tags({ tags }: InferGetStaticPropsType<typeof getStaticP
           {Object.keys(tags).length === 0 && 'No tags found.'}
           {sortedTags.map((t) => {
             return (
-              <div key={t} className="mt-2 mb-2 mr-5">
-                <Tag text={t} />
+              <div key={t} className="mt-2 mb-2 mr-5 flex items-center">
+                <span className="bg-gray-200 text-gray-800 font-semibold py-1 px-2 rounded-full uppercase text-xs shadow-sm">
+                  {t}
+                </span>
                 <Link
                   href={`/tags/${kebabCase(t)}`}
-                  className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"
+                  className="text-sm font-semibold uppercase text-gray-600 dark:text-gray-300 hover:text-[#14B8A6] transition-colors duration-300"
                 >
-                  {` (${tags[t]})`}
+                  {`(${tags[t]})`}
                 </Link>
               </div>
             )

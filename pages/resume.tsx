@@ -80,7 +80,7 @@ export default function Resume() {
               <div className="mt-4">
                 <h3 className="text-lg font-medium">Web Full Stack Development Intern</h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  看见概念(上海)智能科技有限公司, Jul 2023 - Dec 2023
+                  看见概念（上海）智能科技有限公司, Jul 2023 - Dec 2023
                 </p>
                 <p className="text-gray-700 dark:text-gray-300">
                   - Worked as a web full stack development intern, contributing to various web

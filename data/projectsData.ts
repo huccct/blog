@@ -24,7 +24,7 @@ const projectsData = [
     href: 'https://huccct.github.io/tass-ui/',
   },
   {
-    title: '捏Ta小程序 (participator)',
+    title: '捏Ta小程序 (contributor)',
     description:
       '捏Ta小程序是一个专注于二次元AI绘画领域的小程序，它是基于React、Taro、MobX和Unocss构建的。',
     imgSrc: '/static/images/app-nieta.png',
