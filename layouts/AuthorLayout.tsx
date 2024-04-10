@@ -149,23 +149,19 @@ const AuthorLayout = () => {
                 <span className="bg-gradient-to-r from-red-600 to-black text-white px-2 py-1 rounded-md ml-1">
                   huccct
                 </span>
-                , 潜心研究前端黑魔法, 高中时期即开始探索
-                <span className="text-red-500 font-semibold">JS</span>
-                的奥秘, 至今仍在追寻
-                <span className="text-red-500 font-semibold">JS</span>
-                的无尽可能。
-                <span className="text-red-500 font-semibold">JS</span>
-                点亮了我的
-                <span className="text-green-500 font-semibold">Coding</span>
-                之路, 希望在这个
+                ， 热爱前端领域，高中时期开始浅显的接触了些
+                <span className="text-purple-500 font-semibold">HTML</span>，
+                <span className="text-gray-500 font-semibold">CSS</span>，
+                <span className="text-brown-500 font-semibold">JS</span>，
+                一发不可收拾，从此便爱上了
+                <span className="text-green-500 font-semibold">Coding</span>， 希望在这个
                 <span className="text-blue-500 font-semibold">AI</span>
-                时代,我能留下一些印记,在历史长河中闪烁微光。
+                时代,我能留下一些印记，在历史长河中闪烁微光。
               </p>
               <p className="text-base sm:text-lg md:text-xl mt-4 text-gray-300">
-                我醉心于学习
-                <span className="text-purple-500 font-semibold">新技术</span>, 撰写
+                我喜欢记录学习与生活的点点滴滴，撰写
                 <span className="text-indigo-500 font-semibold">博客</span>,
-                分享我的见解,希望能与志同道合者共勉。
+                分享我的见解，希望能与志同道合者共勉。
               </p>
               <div className="flex flex-wrap items-center text-base sm:text-lg md:text-xl mt-4 text-gray-300">
                 <span className="mr-2">常用技术栈✨:</span>
