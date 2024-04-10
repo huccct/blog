@@ -156,7 +156,7 @@ const AuthorLayout = () => {
                 一发不可收拾，从此便爱上了
                 <span className="text-green-500 font-semibold">Coding</span>， 希望在这个
                 <span className="text-blue-500 font-semibold">AI</span>
-                时代,我能留下一些印记，在历史长河中闪烁微光。
+                时代，我能留下一些印记，在历史长河中闪烁微光。
               </p>
               <p className="text-base sm:text-lg md:text-xl mt-4 text-gray-300">
                 我喜欢记录学习与生活的点点滴滴，撰写
