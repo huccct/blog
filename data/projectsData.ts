@@ -1,34 +1,39 @@
 const projectsData = [
   {
     title: 'Vue-Admin (creator)',
-    description: `这个基于 Vue 3.x 的后台管理系统项目，提供了一套简洁、高效的界面和工具，让管理和数据分析变得轻松无比。它使用了 Vue3、Vite、Pinia、Element Plus 等现代前端技术栈，旨在为开发者提供一个清晰、易于扩展的管理系统脚手架。`,
+    description: `This is a modern admin system project based on Vue 3.x, which provides a clean and efficient interface and tools to make management and data analysis incredibly easy. It uses modern frontend technologies such as Vue3, Vite, Pinia, Element Plus, etc., aiming to provide developers with a clear and easily extendable management system scaffold.`,
     imgSrc: '/static/images/admin.png',
     href: 'https://github.com/huccct/vue-admin',
+    brief: 'A modern admin system scaffold based on Vue3',
   },
   {
     title: 'ES Drager (co-founder)',
-    description: ` ES Drager 是一个轻量级的拖拽组件，可以轻松集成到任何 Web 项目中。就像时间旅行机器一样神奇，您只需用鼠标点击并拖动，就能在用户界面上自由移动元素。无需担心复杂的设置，ES Drager 提供了一个简单且经济的解决方案，让拖放操作变得直观且易于实施。`,
+    description: `ES Drager is a lightweight drag-and-drop component that can be easily integrated into any web project. Just like a time machine, you can freely move elements on the user interface with a mouse click and drag. With no complex settings to worry about, ES Drager provides a simple and economical solution to make drag-and-drop operations intuitive and easy to implement.`,
     imgSrc: '/static/images/drager.png',
     href: 'https://vangleer.github.io/es-drager/#/basic',
+    brief: 'A lightweight, easy-to-integrate web drag-and-drop component',
   },
   {
-    title: '捏Ta官网 (creator)',
-    description: `捏Ta官网是一个通过Astro构建的静态站点。`,
+    title: 'Nieta Official Website (creator)',
+    description: `The Nieta official website is a static site built with Astro.`,
     imgSrc: '/static/images/nieta.png',
     href: 'https://nieta.art/',
+    brief: 'A static website built with Astro',
   },
   {
     title: 'Tass (creator)',
-    description: 'Tass是一个基于Vue 3和TypeScript构建的UI组件库。',
+    description: 'Tass is a UI component library built with Vue 3 and TypeScript.',
     imgSrc: '/static/images/tass.png',
     href: 'https://huccct.github.io/tass-ui/',
+    brief: 'A UI component library built with Vue3 and TypeScript',
   },
   {
-    title: '捏Ta小程序 (contributor)',
+    title: 'Nieta Mini Program (contributor)',
     description:
-      '捏Ta小程序是一个专注于二次元AI绘画领域的小程序，它是基于React、Taro、MobX和Unocss构建的。',
+      'Nieta Mini Program is a mini program focusing on the field of second-dimensional AI painting. It is built with React, Taro, MobX, and Unocss.',
     imgSrc: '/static/images/app-nieta.png',
     href: 'https://app.nieta.art/',
+    brief: 'A mini program focusing on second-dimensional AI painting',
   },
 ]
 

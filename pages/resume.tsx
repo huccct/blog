@@ -1,10 +1,16 @@
+/* eslint-disable react/no-unknown-property */
 import siteMetadata from '@/data/siteMetadata'
 import { PageSEO } from '@/components/SEO'
 import router from 'next/router'
+import projectsData from '@/data/projectsData'
+import ResumePDF from '@/components/ResumePdf'
+import { pdf } from '@react-pdf/renderer'
 
 export default function Resume() {
-  const navigateProject = () => {
-    router.push('/projects') // 使用 router.push 方法跳转到项目页
+  const handleDownloadPDF = async () => {
+    const blob = await pdf(<ResumePDF />).toBlob()
+    const url = URL.createObjectURL(blob)
+    window.open(url, '_blank')
   }
   return (
     <>
@@ -144,16 +150,20 @@ export default function Resume() {
           <div className="mt-4">
             <h2 className="text-xl font-semibold">Projects</h2>
             <div className="mt-4">
-              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-              <p
-                className="text-gray-700 dark:text-gray-300 hover:cursor-pointer"
-                onClick={navigateProject}
-              >
-                Details (You can click here to view the project details.)
-              </p>
+              <div className="timeline">
+                {projectsData.map((project, index) => (
+                  <div key={index} className="timeline-item">
+                    <div className="timeline-item-content">
+                      <a href={project.href} target="_blank" rel="noopener noreferrer">
+                        <h3 className="text-lg font-semibold dark:text-black">{project.title}</h3>
+                      </a>
+                      <p className="text-gray-600 dark:text-black">{project.brief}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-
           <div className="mt-4">
             <h2 className="text-xl font-semibold">Awards</h2>
             <div className="mt-4">
@@ -175,6 +185,59 @@ export default function Resume() {
           </div>
         </div>
       </div>
+      <div className="mt-8 text-center">
+        <button
+          className="bg-black text-white font-bold py-2 px-4 rounded dark:text-black dark:bg-white"
+          onClick={handleDownloadPDF}
+        >
+          Download PDF Version
+        </button>
+      </div>
+      <style jsx>{`
+        .timeline {
+          position: relative;
+          padding: 20px 0 20px 30px;
+        }
+
+        .timeline:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 15px;
+          height: 100%;
+          width: 2px;
+          background-color: #e8e8e8;
+        }
+
+        .timeline-item {
+          position: relative;
+          margin-bottom: 30px;
+        }
+
+        .timeline-item:before {
+          content: '';
+          position: absolute;
+          top: 6px;
+          left: -19px;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background-color: #000;
+          border: 2px solid #fff;
+          z-index: 1;
+        }
+
+        .timeline-item-content {
+          padding: 10px 15px;
+          border-radius: 4px;
+          background-color: #fff;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item-content h3 {
+          margin-bottom: 5px;
+        }
+      `}</style>
     </>
   )
 }
