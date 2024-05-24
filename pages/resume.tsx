@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import siteMetadata from '@/data/siteMetadata'
 import { PageSEO } from '@/components/SEO'
-import router from 'next/router'
 import projectsData from '@/data/projectsData'
 import ResumePDF from '@/components/ResumePdf'
 import { pdf } from '@react-pdf/renderer'
