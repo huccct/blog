@@ -2,7 +2,7 @@
 import siteMetadata from '@/data/siteMetadata'
 import { PageSEO } from '@/components/SEO'
 import projectsData from '@/data/projectsData'
-import ResumePDF from '@/components/ResumePdf'
+import ResumePDF from 'pages/ResumePDF'
 import { pdf } from '@react-pdf/renderer'
 
 export default function Resume() {
