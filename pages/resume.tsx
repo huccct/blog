@@ -6,11 +6,6 @@ import ResumePDF from '@/components/ResumePDF'
 import { pdf } from '@react-pdf/renderer'
 
 export default function Resume() {
-  const handleDownloadPDF = async () => {
-    const blob = await pdf(<ResumePDF />).toBlob()
-    const url = URL.createObjectURL(blob)
-    window.open(url, '_blank')
-  }
   return (
     <>
       <PageSEO title={`Resume - ${siteMetadata.author}`} description={siteMetadata.description} />
@@ -185,12 +180,13 @@ export default function Resume() {
         </div>
       </div>
       <div className="mt-8 text-center">
-        <button
+        <a
           className="bg-black text-white font-bold py-2 px-4 rounded dark:text-black dark:bg-white"
-          onClick={handleDownloadPDF}
+          href="/static/pdf/resume.pdf"
+          target="_blank"
         >
-          Download PDF Version
-        </button>
+          PDF Version
+        </a>
       </div>
       <style jsx>{`
         .timeline {
