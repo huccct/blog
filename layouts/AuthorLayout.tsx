@@ -142,16 +142,16 @@ const AuthorLayout = () => {
     switch (command.trim().toLowerCase()) {
       case 'about':
         return (
-          <div className="bg-white py-24 px-4 sm:px-6 lg:px-8 text-center">
+          <div className="py-24 px-4 sm:px-6 lg:px-8 text-center">
             <div className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-8 max-w-4xl mx-auto">
-              <p className="animate-fade-in-up animate-delay-100 opacity-0">I'm</p>
-              <p className="animate-fade-in-up animate-delay-200 opacity-0">
+              <p className="animate-fade-in-up animate-delay-100 dark:text-white opacity-0">I'm</p>
+              <p className="animate-fade-in-up animate-delay-200 opacity-0 dark:text-white ">
                 a <span className="text-green-600">software developer</span>
               </p>
-              <p className="animate-fade-in-up animate-delay-300 opacity-0">
+              <p className="animate-fade-in-up animate-delay-300 opacity-0 dark:text-white ">
                 a <span className="text-green-600">passionate learner</span>
               </p>
-              <p className="animate-fade-in-up animate-delay-400 opacity-0">
+              <p className="animate-fade-in-up animate-delay-400 opacity-0 dark:text-white ">
                 and a <span className="text-green-600">tech enthusiast</span>
               </p>
             </div>
