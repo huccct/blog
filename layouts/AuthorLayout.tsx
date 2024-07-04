@@ -146,7 +146,7 @@ const AuthorLayout = () => {
             <div className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-8 max-w-4xl mx-auto">
               <p className="animate-fade-in-up animate-delay-100 dark:text-white opacity-0">I'm</p>
               <p className="animate-fade-in-up animate-delay-200 opacity-0 dark:text-white ">
-                a <span className="text-green-600">software developer</span>
+                a <span className="text-green-600">software engineer & student</span>
               </p>
               <p className="animate-fade-in-up animate-delay-300 opacity-0 dark:text-white ">
                 a <span className="text-green-600">passionate learner</span>
