@@ -67,7 +67,8 @@ const CommandLineInterface = ({ executeCommand }) => {
       onClick={() => inputRef.current && inputRef.current.focus()}
     >
       <span className="text-gray-600 text-sm whitespace-normal break-words">
-        Hi there👋 欢迎来到我的空间👀,在下方👇输入命令交互🔥,更多有意思命令即将开放🥳
+        Hi there👋 Welcome to my space👀. Enter commands below👇 to interact🔥. More interesting
+        commands coming soon🥳
       </span>
       <div className="mb-4 mt-12">
         {output.map((line, index) => {
@@ -109,8 +110,7 @@ const CommandLineInterface = ({ executeCommand }) => {
         {showHelpHint && (
           <div className="flex items-center mt-2">
             <div className="flex-grow text-gray-400 text-xs break-words">
-              输入
-              <span className="text-blue-500 font-bold"> help </span>查看更多命令
+              Type <span className="text-blue-500 font-bold">help</span> to see more commands{' '}
             </div>
           </div>
         )}
@@ -142,104 +142,18 @@ const AuthorLayout = () => {
     switch (command.trim().toLowerCase()) {
       case 'about':
         return (
-          <div className="py-8">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-[10px] rounded-lg max-w-2xl">
-              <p className="text-base sm:text-lg md:text-xl text-gray-300">
-                我是
-                <span className="bg-gradient-to-r from-red-600 to-black text-white px-2 py-1 rounded-md ml-1">
-                  huccct
-                </span>
-                ， 热爱前端领域，高中时期开始浅显的接触了些
-                <span className="text-purple-500 font-semibold">HTML</span>，
-                <span className="text-gray-500 font-semibold">CSS</span>，
-                <span className="text-brown-500 font-semibold">JS</span>，
-                一发不可收拾，从此便爱上了
-                <span className="text-green-500 font-semibold">Coding</span>， 希望在这个
-                <span className="text-blue-500 font-semibold">AI</span>
-                时代，我能留下一些印记，在历史长河中闪烁微光。
+          <div className="bg-white py-24 px-4 sm:px-6 lg:px-8 text-center">
+            <div className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-8 max-w-4xl mx-auto">
+              <p className="animate-fade-in-up animate-delay-100 opacity-0">I'm</p>
+              <p className="animate-fade-in-up animate-delay-200 opacity-0">
+                a <span className="text-green-600">software developer</span>
               </p>
-              <p className="text-base sm:text-lg md:text-xl mt-4 text-gray-300">
-                我喜欢记录学习与生活的点点滴滴，撰写
-                <span className="text-indigo-500 font-semibold">博客</span>,
-                分享我的见解，希望能与志同道合者共勉。
+              <p className="animate-fade-in-up animate-delay-300 opacity-0">
+                a <span className="text-green-600">passionate learner</span>
               </p>
-              <div className="flex flex-wrap items-center text-base sm:text-lg md:text-xl mt-4 text-gray-300">
-                <span className="mr-2">常用技术栈✨:</span>
-                <div className="flex flex-wrap items-center gap-2">
-                  <img
-                    className="w-7 h-7"
-                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/javascript.9kfy2qv56e.svg"
-                    alt="JavaScript"
-                  />
-                  <img
-                    className="w-7 h-7"
-                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/typescript.5tqshi69yv.svg"
-                    alt="TypeScript"
-                  />
-                  <img
-                    className="w-7 h-7"
-                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/vue.1755gt7qbc.svg"
-                    alt="Vue"
-                  />
-                  <img
-                    className="w-7 h-7"
-                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/react.67x88dektz.svg"
-                    alt="React"
-                  />
-                  <img
-                    className="w-7 h-7"
-                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/vite.58h4v7bto7.svg"
-                    alt="Vite"
-                  />
-                  <img
-                    className="w-7 h-7"
-                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/nodejs.839t0zr0fr.svg"
-                    alt="Node.js"
-                  />
-                  <img
-                    className="w-7 h-7"
-                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/nextjs.8hg8ruzbau.svg"
-                    alt="Next.js"
-                  />
-                </div>
-              </div>
-              <div>
-                <p className="text-base sm:text-lg md:text-xl mt-4 text-gray-300">
-                  你可以在这些地方找到我的踪迹:
-                </p>
-                <ul className="list-none text-gray-400 text-base sm:text-lg md:text-xl mt-2">
-                  <li className="flex items-center mb-2">
-                    <img
-                      className="w-6 h-6 mr-2"
-                      src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/github.es9z67r0u.svg"
-                      alt="GitHub"
-                    />
-                    <a
-                      href="https://github.com/huccct"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-gray-400 hover:text-gray-200"
-                    >
-                      <span className="text-black font-semibold">GitHub</span>
-                    </a>
-                  </li>
-                  <li className="flex items-center mb-2">
-                    <img
-                      className="w-6 h-6 mr-2"
-                      src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/juejin.2a4ursk6mn.svg"
-                      alt="Juejin"
-                    />
-                    <a
-                      href="https://juejin.cn/user/4108202253747021"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-gray-400 hover:text-gray-200"
-                    >
-                      <span className="text-blue-400 font-semibold">Juejin</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <p className="animate-fade-in-up animate-delay-400 opacity-0">
+                and a <span className="text-green-600">tech enthusiast</span>
+              </p>
             </div>
           </div>
         )
@@ -253,10 +167,6 @@ const AuthorLayout = () => {
               <span className="text-blue-500">
                 <span className="text-blue-500 font-semibold">ucccth@gmail.com</span>
               </span>
-            </p>
-            <p>
-              📱 WeChat:
-              <span className="text-blue-500 font-semibold hover:cursor-pointer">huccct</span>
             </p>
           </div>
         )
