@@ -1,14 +1,14 @@
 const projectsData = [
   {
     title: 'Vue-Admin (creator)',
-    description: `This is a modern admin system project based on Vue 3.x, which provides a clean and efficient interface and tools to make management and data analysis incredibly easy. It uses modern frontend technologies such as Vue3, Vite, Pinia, Element Plus, etc., aiming to provide developers with a clear and easily extendable management system scaffold.`,
+    description: `This admin system, built with Vue 3.x, uses Vite, Pinia, and Element Plus to offer a clean, efficient, and extendable scaffold for management and data analysis.`,
     imgSrc: '/static/images/admin.png',
     href: 'https://github.com/huccct/vue-admin',
     brief: 'A modern admin system scaffold based on Vue3',
   },
   {
-    title: 'ES Drager (co-founder)',
-    description: `ES Drager is a lightweight drag-and-drop component that can be easily integrated into any web project. Just like a time machine, you can freely move elements on the user interface with a mouse click and drag. With no complex settings to worry about, ES Drager provides a simple and economical solution to make drag-and-drop operations intuitive and easy to implement.`,
+    title: 'ES Drager (contributor)',
+    description: `ES Drager is a lightweight drag-and-drop component for easy integration into any web project. It allows free element movement with simple mouse actions and requires no complex settings.`,
     imgSrc: '/static/images/drager.png',
     href: 'https://vangleer.github.io/es-drager/#/basic',
     brief: 'A lightweight, easy-to-integrate web drag-and-drop component',
