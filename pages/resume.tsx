@@ -3,7 +3,12 @@ import siteMetadata from '@/data/siteMetadata'
 import { PageSEO } from '@/components/SEO'
 import projectsData from '@/data/projectsData'
 import ResumePDF from '@/components/ResumePDF'
-import { pdf } from '@react-pdf/renderer'
+import { pdf, PDFViewer } from '@react-pdf/renderer'
+import dynamic from 'next/dynamic'
+// const PDFDownloadLink = dynamic(
+//   () => import('@react-pdf/renderer').then((mod) => mod.PDFDownloadLink),
+//   { ssr: false }
+// )
 
 export default function Resume() {
   return (
@@ -180,6 +185,10 @@ export default function Resume() {
         </div>
       </div>
       <div className="mt-8 text-center">
+        {/* <PDFDownloadLink document={<ResumePDF />} fileName="resume.pdf">
+          {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
+        </PDFDownloadLink> */}
+
         <a
           className="bg-black text-white font-bold py-2 px-4 rounded dark:text-black dark:bg-white"
           href="/static/pdf/resume.pdf"
