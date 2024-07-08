@@ -65,9 +65,9 @@ const ResumePDF = () => (
         <View style={styles.line}></View>
         <Text style={styles.heading}>About</Text>
         <Text style={styles.text}>
-          My name is Orion Chen. I am a software engineer with a passion for web development. I have
-          experience in both frontend and backend development, and I am always eager to learn new
-          technologies. I am currently pursuing a master's degree in software engineering at the
+          My name is Orion(Tunan) Chen. I am a software engineer with a passion for web development.
+          I have experience in both frontend and backend development, and I am always eager to learn
+          new technologies. I am currently pursuing a master's degree in software engineering at the
           University of St. Andrews. I am looking for opportunities to work on exciting projects and
           contribute to the tech community.
         </Text>

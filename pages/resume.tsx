@@ -22,11 +22,11 @@ export default function Resume() {
             </div>
             <div className="mt-4">
               <p className="text-gray-700 dark:text-gray-300">
-                My name is Orion Chen. I am a software engineer with a passion for web development.
-                I have experience in both frontend and backend development, and I am always eager to
-                learn new technologies. I am currently pursuing a master's degree in software
-                engineering at the University of St. Andrews. I am looking for opportunities to work
-                on exciting projects and contribute to the tech community.
+                My name is Orion(Tunan) Chen. I am a software engineer with a passion for web
+                development. I have experience in both frontend and backend development, and I am
+                always eager to learn new technologies. I am currently pursuing a master's degree in
+                software engineering at the University of St. Andrews. I am looking for
+                opportunities to work on exciting projects and contribute to the tech community.
                 <br />
                 <br />
                 In my free time, I enjoy reading, hiking, and playing video games. I am also a big
