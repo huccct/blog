@@ -3,12 +3,11 @@ import siteMetadata from '@/data/siteMetadata'
 import { PageSEO } from '@/components/SEO'
 import projectsData from '@/data/projectsData'
 import ResumePDF from '@/components/ResumePDF'
-import { pdf, PDFViewer } from '@react-pdf/renderer'
 import dynamic from 'next/dynamic'
-// const PDFDownloadLink = dynamic(
-//   () => import('@react-pdf/renderer').then((mod) => mod.PDFDownloadLink),
-//   { ssr: false }
-// )
+const PDFDownloadLink = dynamic(
+  () => import('@react-pdf/renderer').then((mod) => mod.PDFDownloadLink),
+  { ssr: false }
+)
 
 export default function Resume() {
   return (
@@ -186,16 +185,30 @@ export default function Resume() {
       </div>
       <div className="mt-8 text-center">
         {/* <PDFDownloadLink document={<ResumePDF />} fileName="resume.pdf">
-          {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
+          {({ blob, url, loading, error }) => (
+            <a href={url} target="_blank" rel="noopener noreferrer">
+              {loading ? 'Loading document...' : 'Download PDF'}
+            </a>
+          )}
         </PDFDownloadLink> */}
-
-        <a
-          className="bg-black text-white font-bold py-2 px-4 rounded dark:text-black dark:bg-white"
-          href="/static/pdf/resume.pdf"
-          target="_blank"
-        >
-          PDF Version
-        </a>
+        <div className="flex justify-center space-x-4">
+          <a
+            className="bg-black text-white font-bold py-2 px-6 rounded-md shadow-lg hover:bg-gray-800 transition-colors duration-300"
+            href="/static/pdf/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            PDF Version
+          </a>
+          <a
+            className="bg-black text-white font-bold py-2 px-6 rounded-md shadow-lg hover:bg-gray-800 transition-colors duration-300"
+            href="/static/pdf/resume-chinese.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            PDF（Chinese） Version
+          </a>
+        </div>
       </div>
       <style jsx>{`
         .timeline {

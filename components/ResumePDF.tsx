@@ -1,7 +1,12 @@
 /* eslint-disable react/display-name */
 import React from 'react'
-import { Document, Page, Text, View, StyleSheet, Link } from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/renderer'
 import projectsData from '@/data/projectsData'
+
+Font.register({
+  family: 'NotoSansSC',
+  src: `/fonts/NotoSansSC-VariableFont_wght.ttf`,
+})
 
 const styles = StyleSheet.create({
   page: {
@@ -14,8 +19,7 @@ const styles = StyleSheet.create({
     width: 4,
     height: '14px',
     backgroundColor: 'black',
-    top: 3, // Adjust the top position to align with the text
-    bottom: 0,
+    top: 3,
     left: -10,
     margin: 'auto',
   },
@@ -26,27 +30,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 10,
     fontWeight: 'bold',
+    fontFamily: 'NotoSansSC',
   },
   subHeading: {
     fontSize: 14,
     marginBottom: 8,
     fontWeight: 'bold',
+    fontFamily: 'NotoSansSC',
   },
   text: {
     fontSize: 12,
     marginBottom: 5,
+    fontFamily: 'NotoSansSC',
   },
   link: {
     fontSize: 12,
     color: 'blue',
     textDecoration: 'underline',
-  },
-  list: {
-    marginLeft: 10,
+    fontFamily: 'NotoSansSC',
   },
   listItem: {
     fontSize: 12,
     marginBottom: 3,
+    fontFamily: 'NotoSansSC',
   },
   row: {
     flexDirection: 'row',
@@ -63,36 +69,35 @@ const ResumePDF = () => (
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <View style={styles.line}></View>
-        <Text style={styles.heading}>About</Text>
+        <Text style={styles.heading}>关于我</Text>
         <Text style={styles.text}>
-          My name is Orion(Tunan) Chen. I am a software engineer with a passion for web development.
-          I have experience in both frontend and backend development, and I am always eager to learn
-          new technologies. I am currently pursuing a master's degree in software engineering at the
-          University of St. Andrews. I am looking for opportunities to work on exciting projects and
-          contribute to the tech community.
+          我叫陈图南，是一名对Web开发充满热情的软件工程师。
+          我具有前端和后端开发的经验，并且总是渴望学习新技术。
+          目前，我在圣安德鲁斯大学攻读软件工程硕士学位。
+          我正在寻找机会参与令人兴奋的项目并为技术社区做出贡献。
         </Text>
         <Text style={styles.text}>
-          In my free time, I enjoy reading, hiking, and playing video games. I am also a big fan of
-          open-source software and enjoy contributing to open-source projects. I am always looking
-          for new challenges and opportunities to grow as a developer.
+          在业余时间，我喜欢阅读、徒步旅行和玩电子游戏。
+          我也是开源软件的忠实粉丝，喜欢为开源项目做贡献。
+          我总是在寻找新的挑战和成长为开发者的机会。
         </Text>
       </View>
 
       <View style={styles.section}>
         <View style={styles.line}></View>
-        <Text style={styles.heading}>Education</Text>
-        <Text style={styles.subHeading}>MSc Software Engineering</Text>
-        <Text style={styles.text}>University of St. Andrews, 2024-2025</Text>
-        <Text style={styles.subHeading}>BE Software Engineering</Text>
-        <Text style={styles.text}>Qingdao Institute of Technology, 2020-2024, GPA 4.03/5.00</Text>
+        <Text style={styles.heading}>教育背景</Text>
+        <Text style={styles.subHeading}>软件工程硕士</Text>
+        <Text style={styles.text}>圣安德鲁斯大学, 2024-2025</Text>
+        <Text style={styles.subHeading}>软件工程学士</Text>
+        <Text style={styles.text}>青岛工学院, 2020-2024, GPA 4.03/5.00</Text>
       </View>
 
       <View style={styles.section}>
         <View style={styles.line}></View>
-        <Text style={styles.heading}>Skills</Text>
+        <Text style={styles.heading}>技能</Text>
         <View style={styles.row}>
           <View style={styles.column}>
-            <Text style={styles.subHeading}>Frontend</Text>
+            <Text style={styles.subHeading}>前端</Text>
             <Text style={styles.listItem}>JavaScript (ES6+)</Text>
             <Text style={styles.listItem}>TypeScript</Text>
             <Text style={styles.listItem}>React</Text>
@@ -102,7 +107,7 @@ const ResumePDF = () => (
             <Text style={styles.listItem}>UnoCss</Text>
           </View>
           <View style={styles.column}>
-            <Text style={styles.subHeading}>Backend</Text>
+            <Text style={styles.subHeading}>后端</Text>
             <Text style={styles.listItem}>Node.js</Text>
             <Text style={styles.listItem}>Spring Boot</Text>
             <Text style={styles.listItem}>MongoDB</Text>
@@ -114,11 +119,11 @@ const ResumePDF = () => (
         </View>
         <View style={styles.row}>
           <View style={styles.column}>
-            <Text style={styles.subHeading}>Devops</Text>
+            <Text style={styles.subHeading}>运维</Text>
             <Text style={styles.listItem}>Git</Text>
           </View>
           <View style={styles.column}>
-            <Text style={styles.subHeading}>Languages</Text>
+            <Text style={styles.subHeading}>编程语言</Text>
             <Text style={styles.listItem}>Python</Text>
             <Text style={styles.listItem}>Java</Text>
             <Text style={styles.listItem}>C/C++</Text>
@@ -128,33 +133,26 @@ const ResumePDF = () => (
 
       <View style={styles.section}>
         <View style={styles.line}></View>
-        <Text style={styles.heading}>Work Experience</Text>
-        <Text style={styles.subHeading}>Frontend Intern</Text>
-        <Text style={styles.text}>Yida Technology (Shanghai) Co., Ltd., Jul 2021 - Aug 2021</Text>
-        <Text style={styles.text}>
-          - Worked as a frontend intern, gaining hands-on experience in the frontend department.
-        </Text>
+        <Text style={styles.heading}>工作经验</Text>
+        <Text style={styles.subHeading}>前端实习生</Text>
+        <Text style={styles.text}>壹沓科技（上海）有限公司, 2021年7月 - 2021年8月</Text>
+        <Text style={styles.text}>- 担任前端实习生，在前端部门获得了实际的工作经验。</Text>
 
-        <Text style={styles.subHeading}>Web Full Stack Development Intern</Text>
-        <Text style={styles.text}>
-          Kanji Concept (Shanghai) Intelligent Technology Co., Ltd., Jul 2023 - Dec 2023
-        </Text>
-        <Text style={styles.text}>
-          - Worked as a web full stack development intern, contributing to various web development
-          projects.
-        </Text>
+        <Text style={styles.subHeading}>Web全栈开发实习生</Text>
+        <Text style={styles.text}>看见概念（上海）智能科技有限公司, 2023年7月 - 2023年12月</Text>
+        <Text style={styles.text}>- 担任Web全栈开发实习生，参与了多个Web开发项目。</Text>
       </View>
 
       <View style={styles.section}>
         <View style={styles.line}></View>
-        <Text style={styles.heading}>Languages</Text>
+        <Text style={styles.heading}>语言</Text>
         <View style={styles.row}>
           <View style={styles.column}>
-            <Text style={styles.subHeading}>Chinese</Text>
-            <Text style={styles.text}>Native</Text>
+            <Text style={styles.subHeading}>中文</Text>
+            <Text style={styles.text}>母语</Text>
           </View>
           <View style={styles.column}>
-            <Text style={styles.subHeading}>English</Text>
+            <Text style={styles.subHeading}>英语</Text>
             <Text style={styles.text}>PTE: 61</Text>
           </View>
         </View>
@@ -162,31 +160,27 @@ const ResumePDF = () => (
 
       <View style={styles.section}>
         <View style={styles.line}></View>
-        <Text style={styles.heading}>Projects</Text>
+        <Text style={styles.heading}>项目</Text>
         {projectsData.map((project, index) => (
           <View key={index} style={styles.section}>
             <Link src={project.href} style={styles.link}>
               <Text style={styles.subHeading}>{project.title}</Text>
             </Link>
-            <Text style={styles.text}>{project.brief}</Text>
+            <Text style={styles.text}>{project.chinese}</Text>
           </View>
         ))}
       </View>
 
       <View style={styles.section}>
         <View style={styles.line}></View>
-        <Text style={styles.heading}>Awards</Text>
-        <Text style={styles.subHeading}>Outstanding Student</Text>
-        <Text style={styles.text}>Qingdao Institute of Technology, 2021</Text>
-        <Text style={styles.text}>
-          - Awarded as an outstanding student for academic excellence.
-        </Text>
+        <Text style={styles.heading}>奖项</Text>
+        <Text style={styles.subHeading}>优秀学生</Text>
+        <Text style={styles.text}>青岛工学院, 2021</Text>
+        <Text style={styles.text}>- 因学术成绩优异被评为优秀学生。</Text>
 
-        <Text style={styles.subHeading}>Subject Competition Scholarship</Text>
-        <Text style={styles.text}>Qingdao Institute of Technology, 2023</Text>
-        <Text style={styles.text}>
-          - Received a scholarship for outstanding performance in the subject competition.
-        </Text>
+        <Text style={styles.subHeading}>学科竞赛奖学金</Text>
+        <Text style={styles.text}>青岛工学院, 2023</Text>
+        <Text style={styles.text}>- 在学科竞赛中表现优异，获得奖学金。</Text>
       </View>
     </Page>
   </Document>
