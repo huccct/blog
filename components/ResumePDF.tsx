@@ -8,6 +8,16 @@ Font.register({
   src: `/fonts/NotoSansSC-VariableFont_wght.ttf`,
 })
 
+Font.register({
+  family: 'NotoSnsSC-Bold',
+  src: `/fonts/NotoSansSC-Bold.ttf`,
+})
+
+Font.register({
+  family: 'NotoSnsSC-Medium',
+  src: `/fonts/NotoSansSC-Medium.ttf`,
+})
+
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
@@ -15,33 +25,35 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   line: {
-    position: 'absolute',
     width: 4,
-    height: '14px',
+    height: 17, // 增加高度以确保线条足够长
     backgroundColor: 'black',
-    top: 3,
-    left: -10,
-    margin: 'auto',
+    position: 'absolute',
+    left: 0, // 将线条放置在标题左边
+    top: 5, // 确保线条的顶部与标题顶部对齐
   },
   section: {
-    marginBottom: 20,
+    marginBottom: 10,
+    position: 'relative', // 设置相对定位以使线条绝对定位
+    paddingLeft: 10, // 增加内边距以给标题留出空间
   },
   heading: {
     fontSize: 18,
-    marginBottom: 10,
+    marginBottom: 15,
     fontWeight: 'bold',
-    fontFamily: 'NotoSansSC',
+    fontFamily: 'NotoSnsSC-Bold',
+    position: 'relative', // 设置相对定位以确保与线条对齐
   },
   subHeading: {
     fontSize: 14,
     marginBottom: 8,
     fontWeight: 'bold',
-    fontFamily: 'NotoSansSC',
+    fontFamily: 'NotoSnsSC-Bold',
   },
   text: {
     fontSize: 12,
     marginBottom: 5,
-    fontFamily: 'NotoSansSC',
+    fontFamily: 'NotoSnsSC-Medium',
   },
   link: {
     fontSize: 12,
@@ -52,7 +64,7 @@ const styles = StyleSheet.create({
   listItem: {
     fontSize: 12,
     marginBottom: 3,
-    fontFamily: 'NotoSansSC',
+    fontFamily: 'NotoSnsSC-Medium',
   },
   row: {
     flexDirection: 'row',
@@ -71,7 +83,7 @@ const ResumePDF = () => (
         <View style={styles.line}></View>
         <Text style={styles.heading}>关于我</Text>
         <Text style={styles.text}>
-          我叫陈图南，是一名对Web开发充满热情的软件工程师。
+          Hi，我是图南，一名对Web开发充满热情的软件工程专业学生。
           我具有前端和后端开发的经验，并且总是渴望学习新技术。
           目前，我在圣安德鲁斯大学攻读软件工程硕士学位。
           我正在寻找机会参与令人兴奋的项目并为技术社区做出贡献。
@@ -79,8 +91,8 @@ const ResumePDF = () => (
         <Text style={styles.text}>
           在业余时间，我喜欢阅读、徒步旅行和玩电子游戏。
           我也是开源软件的忠实粉丝，喜欢为开源项目做贡献。
-          我总是在寻找新的挑战和成长为开发者的机会。
         </Text>
+        <Text style={styles.text}>我总是在寻找新的挑战和成长为开发者的机会。</Text>
       </View>
 
       <View style={styles.section}>
@@ -134,7 +146,7 @@ const ResumePDF = () => (
       <View style={styles.section}>
         <View style={styles.line}></View>
         <Text style={styles.heading}>工作经验</Text>
-        <Text style={styles.subHeading}>前端实习生</Text>
+        <Text style={styles.subHeading}>前端开发实习生</Text>
         <Text style={styles.text}>壹沓科技（上海）有限公司, 2021年7月 - 2021年8月</Text>
         <Text style={styles.text}>- 担任前端实习生，在前端部门获得了实际的工作经验。</Text>
 
@@ -181,6 +193,10 @@ const ResumePDF = () => (
         <Text style={styles.subHeading}>学科竞赛奖学金</Text>
         <Text style={styles.text}>青岛工学院, 2023</Text>
         <Text style={styles.text}>- 在学科竞赛中表现优异，获得奖学金。</Text>
+
+        <Text style={styles.subHeading}>卓越创新人才</Text>
+        <Text style={styles.text}>青岛工学院, 2024</Text>
+        <Text style={styles.text}>- 在校期间成绩优异，表现突出。</Text>
       </View>
     </Page>
   </Document>
