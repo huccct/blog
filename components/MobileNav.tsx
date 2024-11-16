@@ -21,7 +21,7 @@ const MobileNav = () => {
     <div className="sm:hidden">
       <button
         type="button"
-        className="ml-1 mr-1 h-8 w-8 rounded py-1"
+        className="ml-1 mr-1 h-8 w-8 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
         aria-label="Toggle Menu"
         onClick={onToggleNav}
       >
@@ -47,22 +47,35 @@ const MobileNav = () => {
         </svg>
       </button>
       <div
-        className={`fixed top-24 right-0 z-10 h-full w-full transform bg-gray-200 opacity-95 duration-300 ease-in-out dark:bg-gray-800 ${
+        className={`fixed inset-0 top-0 z-30 h-screen w-full transform bg-white/90 backdrop-blur-md transition-all duration-300 ease-in-out dark:bg-gray-900/90 ${
           navShow ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <button
           type="button"
-          aria-label="toggle modal"
-          className="fixed h-full w-full cursor-auto focus:outline-none"
+          className="absolute right-6 top-6 p-2"
           onClick={onToggleNav}
-        ></button>
-        <nav className="fixed mt-8 h-full">
+          aria-label="Close Menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="h-6 w-6 text-gray-900 dark:text-gray-100"
+          >
+            <path
+              fillRule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+        <nav className="mt-24 flex h-full flex-col items-center">
           {headerNavLinks.map((link) => (
             <div key={link.title} className="px-12 py-4">
               <Link
                 href={link.href}
-                className="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100"
+                className="text-2xl font-bold tracking-wide text-gray-900 transition-colors hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
                 onClick={onToggleNav}
               >
                 {link.title}
