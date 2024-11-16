@@ -33,8 +33,31 @@ module.exports = {
         sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        primary: colors.teal,
+        primary: {
+          50: '#E5E7EB',
+          100: '#D1D5DB',
+          200: '#9CA3AF',
+          300: '#6B7280',
+          400: '#4B5563',
+          500: '#374151', // 主色调：深灰蓝
+          600: '#1F2937',
+          700: '#111827',
+          800: '#0F172A',
+          900: '#0A0F1C',
+        },
         gray: colors.neutral,
+        accent: {
+          50: '#E2E8F0',
+          100: '#CBD5E1',
+          200: '#94A3B8',
+          300: '#64748B',
+          400: '#475569',
+          500: '#334155', // 辅助色：石板灰
+          600: '#1E293B',
+          700: '#0F172A',
+          800: '#0B1222',
+          900: '#080C18',
+        },
       },
       typography: (theme) => ({
         DEFAULT: {

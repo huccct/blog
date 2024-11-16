@@ -14,3 +14,77 @@
   animation-duration: 1s;
   animation-fill-mode: both;
 }
+
+@keyframes fadeInUpSoft {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 15px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.blog-post {
+  animation: fadeInUpSoft 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.blog-post:nth-child(n) {
+  animation-delay: calc(n * 0.1s);
+}
+
+pre {
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+}
+
+.hljs {
+  background: transparent !important;
+}
+
+blockquote {
+  border-left: 4px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: #f3f4f6;
+  color: #374151;
+  margin-right: 0.5rem;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  background: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+a,
+button {
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #3b82f6;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}

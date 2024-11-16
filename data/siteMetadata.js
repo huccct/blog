@@ -1,11 +1,11 @@
 const siteMetadata = {
-  title: "Orion Chen's Blog",
+  title: 'Orion Chen',
   author: 'Orion Chen',
   headerTitle: "Orion Chen's Blog",
   description: '🏝️ Recording Code Life',
   language: 'en',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://wwww.orionchen.me/about',
+  siteUrl: 'https://wwww.orionchen.me',
   siteRepo: 'https://github.com/huccct/blog',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
@@ -13,7 +13,9 @@ const siteMetadata = {
   email: 'ucccth@gmail.com',
   github: 'https://github.com/huccct',
   twitter: 'https://twitter.com/ucccth',
-  linkedin: 'https://www.linkedin.com/in/tunan-chen-720627283',
+  linkedin: 'https://www.linkedin.com/in/tunan-orion-chen-720627283',
+  instagram: 'https://www.instagram.com/orion.c29',
+  bluesky: 'https://bsky.app/profile/orionchen.me',
   locale: 'en',
   analytics: {
     // If you want to use an analytics provider you have to add it to the

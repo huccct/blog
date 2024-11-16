@@ -51,12 +51,12 @@
 .token.comment,
 .token.prolog,
 .token.cdata {
-  color: rgb(99, 119, 119);
+  color: #475569;
   font-style: italic;
 }
 
 .token.punctuation {
-  color: rgb(199, 146, 234);
+  color: #64748B;
 }
 
 .namespace {
@@ -76,7 +76,7 @@
 .token.tag,
 .token.operator,
 .token.keyword {
-  color: rgb(127, 219, 202);
+  color: #94A3B8;
 }
 
 .token.boolean {
@@ -91,7 +91,7 @@
 .token.function,
 .token.builtin,
 .token.char {
-  color: rgb(130, 170, 255);
+  color: #CBD5E1;
 }
 
 .token.selector,
@@ -111,7 +111,7 @@
 .token.entity,
 .language-css .token.string,
 .style .token.string {
-  color: rgb(173, 219, 103);
+  color: #9CA3AF;
 }
 
 .token.class-name,
