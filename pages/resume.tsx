@@ -10,6 +10,12 @@ const PDFDownloadLink = dynamic(
 )
 
 export default function Resume() {
+  const lastUpdated = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+
   return (
     <>
       <PageSEO title={`Resume - ${siteMetadata.author}`} description={siteMetadata.description} />
@@ -23,12 +29,15 @@ export default function Resume() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Resume</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Resume</h1>
+            <span className="text-sm text-gray-500">Last Updated: {lastUpdated}</span>
+          </div>
 
           {/* About */}
           <section>
             <h2 className="text-xl font-semibold mb-4">About</h2>
-            <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+            <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
               <p className="text-gray-600 dark:text-gray-400">
                 My name is Orion(Tunan) Chen. I am a software engineer with a passion for web
                 development. I have experience in both frontend and backend development, and I am
@@ -48,7 +57,7 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Education</h2>
             <div className="space-y-4">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <div className="flex items-center gap-4">
                   <img
                     src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/st.andrews-logo.67x8bfkt75.webp"
@@ -63,7 +72,7 @@ export default function Resume() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <div className="flex items-center gap-4">
                   <img
                     src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/qit-logo.lvhxkjids.webp"
@@ -85,7 +94,7 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Skills</h2>
             <div className="grid sm:grid-cols-2 gap-6">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium mb-3">Frontend</h3>
                 <div className="flex flex-wrap gap-2">
                   {[
@@ -106,7 +115,7 @@ export default function Resume() {
                   ))}
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium mb-3">Backend</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Node.js', 'Spring Boot', 'MongoDB', 'Nginx', 'Docker', 'MySql', 'Nest.js'].map(
@@ -121,7 +130,7 @@ export default function Resume() {
                   )}
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium mb-3">Devops</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Git'].map((skill) => (
@@ -134,7 +143,7 @@ export default function Resume() {
                   ))}
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium mb-3">Languages</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Python', 'Java', 'C/C++'].map((skill) => (
@@ -154,7 +163,7 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Work Experience</h2>
             <div className="space-y-4">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">Frontend Intern</h3>
                 <p className="text-gray-600 dark:text-gray-400">壹沓科技（上海）有限公司</p>
                 <p className="text-sm text-gray-500 mt-1">Jul 2021 - Aug 2021</p>
@@ -163,7 +172,7 @@ export default function Resume() {
                   department.
                 </p>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">Web Full Stack Development Intern</h3>
                 <p className="text-gray-600 dark:text-gray-400">看见概念（上海）智能科技有限公司</p>
                 <p className="text-sm text-gray-500 mt-1">Jul 2023 - Dec 2023</p>
@@ -179,11 +188,11 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Languages</h2>
             <div className="space-y-4">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">Chinese</h3>
                 <p className="text-gray-600 dark:text-gray-400">Native</p>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">English</h3>
                 <p className="text-gray-600 dark:text-gray-400">PTE: 61</p>
               </div>
@@ -194,7 +203,7 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Awards</h2>
             <div className="space-y-4">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">Outstanding Student</h3>
                 <p className="text-gray-600 dark:text-gray-400">
                   Qingdao Institute of Technology, 2021
@@ -203,7 +212,7 @@ export default function Resume() {
                   - Awarded as an outstanding student for academic excellence.
                 </p>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">Subject Competition Scholarship</h3>
                 <p className="text-gray-600 dark:text-gray-400">
                   Qingdao Institute of Technology, 2023

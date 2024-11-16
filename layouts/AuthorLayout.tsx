@@ -185,7 +185,7 @@ const AuthorLayout = () => {
                   type: 'LinkedIn',
                   value: 'Tunan Chen',
                   icon: '💼',
-                  link: 'https://www.linkedin.com/in/tunan-chen-720627283/',
+                  link: 'https://www.linkedin.com/in/tunan-orion-chen-720627283',
                 },
                 { type: 'X', value: '@ucccth', icon: '🐦', link: 'https://twitter.com/ucccth' },
               ].map(({ type, value, icon, link }) => (
