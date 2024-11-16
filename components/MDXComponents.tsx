@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 import React from 'react'
 import { useMDXComponent } from 'next-contentlayer/hooks'
-import { ComponentMap } from 'mdx-bundler/client'
 import { coreContent } from '@/lib/utils/contentlayer'
 import Image from './Image'
 import CustomLink from './Link'
@@ -24,6 +23,10 @@ interface Wrapper {
 const Wrapper = ({ layout, content, ...rest }: MDXLayout) => {
   const Layout = require(`../layouts/${layout}`).default
   return <Layout content={content} {...rest} />
+}
+
+type ComponentMap = {
+  [key: string]: React.ComponentType<any>
 }
 
 export const MDXComponents: ComponentMap = {
