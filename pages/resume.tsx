@@ -10,11 +10,7 @@ const PDFDownloadLink = dynamic(
 )
 
 export default function Resume() {
-  const lastUpdated = new Date().toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
+  const lastUpdated = 'Nov 17, 2024'
 
   return (
     <>
@@ -163,6 +159,14 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Work Experience</h2>
             <div className="space-y-4">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+                <h3 className="text-lg font-medium">Frontend Intern</h3>
+                <p className="text-gray-600 dark:text-gray-400">Dubbing AI</p>
+                <p className="text-sm text-gray-500 mt-1">Sep 2024 - Present</p>
+                <p className="mt-2 text-gray-600 dark:text-gray-400">
+                  - Specialized in frontend development for AI voice applications.
+                </p>
+              </div>
               <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">Frontend Intern</h3>
                 <p className="text-gray-600 dark:text-gray-400">壹沓科技（上海）有限公司</p>
