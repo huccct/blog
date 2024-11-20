@@ -10,7 +10,7 @@ const PDFDownloadLink = dynamic(
 )
 
 export default function Resume() {
-  const lastUpdated = 'Nov 17, 2024'
+  const lastUpdated = 'Nov 20, 2024'
 
   return (
     <>
@@ -168,21 +168,21 @@ export default function Resume() {
                 </p>
               </div>
               <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
-                <h3 className="text-lg font-medium">Frontend Intern</h3>
-                <p className="text-gray-600 dark:text-gray-400">壹沓科技（上海）有限公司</p>
-                <p className="text-sm text-gray-500 mt-1">Jul 2021 - Aug 2021</p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Worked as a frontend intern, gaining hands-on experience in the frontend
-                  department.
-                </p>
-              </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">Web Full Stack Development Intern</h3>
                 <p className="text-gray-600 dark:text-gray-400">看见概念（上海）智能科技有限公司</p>
                 <p className="text-sm text-gray-500 mt-1">Jul 2023 - Dec 2023</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
                   - Worked as a web full stack development intern, contributing to various web
                   development projects.
+                </p>
+              </div>
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+                <h3 className="text-lg font-medium">Frontend Intern</h3>
+                <p className="text-gray-600 dark:text-gray-400">壹沓科技（上海）有限公司</p>
+                <p className="text-sm text-gray-500 mt-1">Jul 2021 - Aug 2021</p>
+                <p className="mt-2 text-gray-600 dark:text-gray-400">
+                  - Worked as a frontend intern, gaining hands-on experience in the frontend
+                  department.
                 </p>
               </div>
             </div>
