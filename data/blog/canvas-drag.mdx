@@ -22,7 +22,8 @@ summary: 在前端开发中，Canvas是一个功能强大的HTML5元素，它提
 先给个 canvas 区域 和一个 colorPicker
 
 ```html
-<input type="color" class="color" /> <canvas></canvas>
+<input type="color" class="color" />
+<canvas></canvas>
 ```
 
 初始化绘制一个 500\*300 的 canvas 画布，记得做清晰度处理 <a href="https://juejin.cn/post/7067415002289799205">参考文章</a>
@@ -48,7 +49,7 @@ init()
 
 然后我们定义一个 shapes 数组用来存放绘制的图形，和一个 Rectangle 类去构造绘制图形的一些 params
 
-```
+```js
 class Rectangle {
   constructor(color, startX, startY) {
     this.color = color;
@@ -108,7 +109,7 @@ class Rectangle {
 - 如果不存在 shape，即点击位置不在已有图形上，则创建一个新的矩形图形。根据点击位置和当前选中的颜色（通过 colorPicker.value 获取），创建一个新的 Rectangle 对象，并将其添加到 shapes 数组中。
 - 最后取消拖拽即可
 
-```
+```js
 cvs.onmousedown = e => {
   const rect = cvs.getBoundingClientRect();
   const clickX = e.clientX - rect.left;

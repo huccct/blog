@@ -24,6 +24,8 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
   day: 'numeric',
 }
 
+const WORDS_PER_MINUTE = 200; // 假设平均阅读速度
+
 interface Props {
   content: CoreContent<Blog>
   authorDetails: CoreContent<Authors>[]
@@ -33,8 +35,8 @@ interface Props {
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: Props) {
-  const { slug, date, title, tags } = content
-
+  const { slug, date, title, tags, readingTime } = content
+  
   return (
     <SectionContainer>
       <BlogSEO
@@ -54,6 +56,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                     <time dateTime={date}>
                       {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                     </time>
+                    <span className="mx-2">·</span>
+                    <span>{readingTime.text}</span>
                   </dd>
                 </div>
               </dl>

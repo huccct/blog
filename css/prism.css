@@ -40,105 +40,72 @@
   content: attr(line);
 }
 
-/* Token styles */
-/**
- * MIT License
- * Copyright (c) 2018 Sarah Drasner
- * Sarah Drasner's[@sdras] Night Owl
- * Ported by Sara vieria [@SaraVieira]
- * Added by Souvik Mandal [@SimpleIndian]
- */
-.token.comment,
-.token.prolog,
-.token.cdata {
-  color: #475569;
-  font-style: italic;
+/* Token styles - VS Code Dark+ theme colors */
+.token.comment {
+  color: #6A9955;
 }
 
-.token.punctuation {
-  color: #64748B;
-}
-
-.namespace {
-  color: rgb(178, 204, 214);
-}
-
-.token.deleted {
-  color: rgba(239, 83, 80, 0.56);
-  font-style: italic;
-}
-
-.token.symbol,
-.token.property {
-  color: rgb(128, 203, 196);
-}
-
-.token.tag,
-.token.operator,
-.token.keyword {
-  color: #94A3B8;
-}
-
-.token.boolean {
-  color: rgb(255, 88, 116);
+.token.string {
+  color: #CE9178;
 }
 
 .token.number {
-  color: rgb(247, 140, 108);
+  color: #B5CEA8;
 }
 
-.token.constant,
-.token.function,
-.token.builtin,
-.token.char {
-  color: #CBD5E1;
+.token.keyword {
+  color: #569CD6;
 }
 
-.token.selector,
-.token.doctype {
-  color: rgb(199, 146, 234);
-  font-style: italic;
+.token.function {
+  color: #DCDCAA;
 }
 
-.token.attr-name,
-.token.inserted {
-  color: rgb(173, 219, 103);
-  font-style: italic;
+.token.tag {
+  color: #569CD6;
 }
 
-.token.string,
-.token.url,
-.token.entity,
-.language-css .token.string,
-.style .token.string {
-  color: #9CA3AF;
+.token.attr-name {
+  color: #9CDCFE;
 }
 
-.token.class-name,
-.token.atrule,
 .token.attr-value {
-  color: rgb(255, 203, 139);
+  color: #CE9178;
 }
 
-.token.regex,
-.token.important,
+.token.punctuation {
+  color: #D4D4D4;
+}
+
+.token.operator {
+  color: #D4D4D4;
+}
+
 .token.variable {
-  color: rgb(214, 222, 235);
+  color: #9CDCFE;
 }
 
-.token.important,
-.token.bold {
-  font-weight: bold;
+/* 移除所有hover效果 */
+.code-line:hover {
+  background: none;
 }
 
-.token.italic {
-  font-style: italic;
+/* 添加这些样式来覆盖默认的标签渲染 */
+.token.tag,
+.token.attr-name,
+.token.attr-value,
+.token.punctuation {
+  font-family: var(--font-mono) !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  text-decoration: none !important;
 }
 
-.token.table {
-  display: inline;
-}
-
-.token.table {
-  display: inline;
+/* 移除标签的特殊渲染 */
+.token.tag .token.punctuation,
+.token.tag .token.attr-name,
+.token.tag .token.attr-value {
+  display: inline !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }

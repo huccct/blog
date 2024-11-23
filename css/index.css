@@ -36,10 +36,12 @@
 }
 
 pre {
-  background: #1a1a1a;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  font-family: 'JetBrains Mono', monospace;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  color: #d4d4d4;
+  background: #1e1e1e;
 }
 
 code {
@@ -61,20 +63,12 @@ blockquote {
 
 .tag {
   display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
-  background: #f3f4f6;
   color: #374151;
-  margin-right: 0.5rem;
-  transition: all 0.2s;
 }
 
-.tag:hover {
-  background: #e5e7eb;
-  transform: translateY(-1px);
-}
+
 
 a,
 button {
@@ -87,4 +81,39 @@ a:hover {
 
 button:hover {
   transform: translateY(-1px);
+}
+
+/* Syntax highlighting */
+.token.tag {
+  color: #569cd6;
+}
+
+.token.attr-name {
+  color: #9cdcfe;
+}
+
+.token.attr-value,
+.token.string {
+  color: #ce9178;
+}
+
+.token.punctuation {
+  color: #d4d4d4;
+}
+
+.token.operator {
+  color: #d4d4d4;
+}
+
+.token.keyword {
+  color: #569cd6;
+}
+
+.token.comment {
+  color: #6a9955;
+}
+
+.code-block {
+  border-radius: 4px;
+  background: #1e1e1e;
 }
