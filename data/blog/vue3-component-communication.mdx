@@ -3,7 +3,623 @@ title: '回顾Vue3组件通信的形式'
 date: '2024-11-23'
 tags: ['vue.js', 'frontend', 'chinese']
 draft: false
-summary:
+summary: '总结Vue3中各种组件通信的方式，包括Props、Emits、v-model、provide/inject等'
 ---
 
-### 一、概述
+✍️ 小更一下，刚好这两天写 `Vue` 的作业，有段时间没写 `Vue` 了，忘的一干二净，特此小记回忆一下
+
+- > repo: https://github.com/huccct/vue3-communication
+- > site: https://vue3-communication.vercel.app
+
+### 一、Vue2 中组件通信方式
+
+- **props**: 实现父子组件、子父组件、甚至兄弟组件通信
+- **自定义事件**: 可以实现子父组件通信
+- **全局事件总线$bus**: 可以实现任意组件通信
+- **pubsub**: 发布订阅模式实现任意组件通信
+- **vuex**: 集中状态管理容器，实现任意组件通信
+- **ref**: 父组件获取子组件实例 VC，获取子组件的响应式数据及方法
+- **slot**: 插槽(默认插槽、 具名插槽、 作用域插槽) 实现父子组件通信
+
+### 二、Vue3 中组件通信方式
+
+#### 1. Props
+
+Props 是 Vue3 中实现父组件向子组件传递数据的主要方式，和 Vue2 的用法类似，但在 Vue3 中对 props 的类型检测和功能扩展更加强大。
+
+**基本用法：**
+
+```js
+<!-- Parent -->
+<script setup lang="ts">
+import { ref } from 'vue'
+import Child from './components/Child.vue'
+
+const msg = ref('Hello from Parent')
+const count = ref(0)
+const userInfo = ref({
+  name: 'Zhang San',
+  age: 18,
+})
+
+function increment() {
+  count.value++
+}
+</script>
+
+<template>
+  <div class="props-demo">
+    <h2>Props 传值示例(readonly)</h2>
+    <div class="parent">
+      <h3>父组件数据：</h3>
+      <p>消息：{{ msg }}</p>
+      <p>计数：{{ count }}</p>
+      <p>用户：{{ userInfo.name }} - {{ userInfo.age }}岁</p>
+      <button class="btn" @click="increment">计数+1</button>
+    </div>
+
+    <Child :message="msg" :counter="count" :user="userInfo" />
+  </div>
+</template>
+```
+
+```js
+<!-- Children -->
+<script setup lang="ts">
+interface Props {
+  message?: string
+  counter?: number
+  user?: {
+    name: string
+    age: number
+  }
+}
+
+defineProps<Props>()
+</script>
+
+<template>
+  <div class="child">
+    <h3>子组件接收到的数据：</h3>
+    <p>消息：{{ message }}</p>
+    <p>计数：{{ counter }}</p>
+    <p>用户：{{ user?.name }} - {{ user?.age }}岁</p>
+  </div>
+</template>
+```
+
+`Note:`
+
+- props 的核心是单向数据流，父组件的数据可以通过 props 传递给子组件，但子组件不能直接修改这些数据。
+- 如果子组件需要修改数据，通常会通过事件通知父组件，然后由父组件更新数据。
+
+#### 2. 自定义事件
+
+在 Vue 框架中，事件分为两种，一种是原生的 DOM 事件，另一种是自定义事件
+原生 DOM 事件可以让用户与网页进行交互，比如 click, change, mouseenter, mouseleave 等
+自定义事件可以实现子组件给父组件传递数据。
+
+**自定义事件的基本用法：**
+
+在 Vue2 中，子组件通过 $emit 触发事件，父组件通过监听这些事件获取数据。在 Vue3 中，依然可以使用 emits 声明触发的自定义事件，
+
+```js
+<!-- Parent -->
+<script setup lang="ts">
+import { ref } from 'vue'
+import Child from './components/Child.vue'
+
+const count = ref(0)
+const message = ref('')
+
+function handleIncrement(step: number) {
+  count.value += step
+}
+
+function handleSendMsg(msg: string) {
+  message.value = msg
+}
+</script>
+
+<template>
+  <div class="custom-event-demo">
+    <h2>自定义事件示例</h2>
+    <div class="parent">
+      <h3>父组件数据：</h3>
+      <p>计数：{{ count }}</p>
+      <p>收到的消息：{{ message }}</p>
+    </div>
+
+    <Child
+      @increment="handleIncrement"
+      @send-message="handleSendMsg"
+    />
+  </div>
+</template>
+```
+
+```js
+<!-- Children -->
+<script setup lang="ts">
+const emit = defineEmits<{
+  increment: [step: number]
+  sendMessage: [msg: string]
+}>()
+
+function sendMsg() {
+  emit('sendMessage', 'Hello from Child')
+}
+</script>
+
+<template>
+  <div class="child">
+    <h3>子组件：</h3>
+    <button class="btn" @click="emit('increment', 1)">
+      通知父组件+1
+    </button>
+    <button class="btn" @click="emit('increment', 2)">
+      通知父组件+2
+    </button>
+    <button class="btn" @click="sendMsg">
+      发送消息
+    </button>
+  </div>
+</template>
+```
+
+`Note:`
+
+- 在 Vue2 中，组件上的所有事件，无论是原生 DOM 事件还是子组件触发的自定义事件，都会被自动绑定到组件实例上。这意味着即使是常见的 @click 事件，在 Vue2 中也是通过自定义事件实现的。
+
+```js
+<ChildComponent @click="handleClick" />
+```
+
+- 在 Vue3 中，事件的行为更加清晰和规范化：
+
+  - 原生 DOM 事件：直接绑定到组件的根元素上，例如 @click 默认会绑定为 DOM 的 click 事件。
+  - 自定义事件：需要声明
+
+```js
+<ChildComponent @click="handleClick" />
+```
+
+这里的 @click 默认绑定为子组件根元素的 DOM 事件，而不是子组件的自定义事件。
+
+#### 3. 全局事件总线
+
+全局事件总线可以实现任意组件通信，在 vue2 中可以根据 `VM` 与 `VC` 关系推出全局事件总线。
+但是在 vue3 中没有 Vue 狗仔函数，也就没有 `Vue.prototype`，同时组合式 API 写法没有 this，如果想在 Vue3 中使用全局事件总线可以使用 <a href="https://www.npmjs.com/package/mitt">mitt</a> 插件实现。
+
+全局事件总线是 Vue2 中实现任意组件间通信的一种常用方式。通过将一个 Vue 实例作为事件中心，可以在组件之间进行事件的发布和订阅，从而实现解耦的通信模式。
+
+在 Vue2 中，全局事件总线通常通过 `Vue.prototype` 实现，将一个 Vue 实例挂载到原型上：
+
+```js
+// main.js
+Vue.prototype.$bus = new Vue()
+```
+
+在 Vue3 中使用 `mitt`实现全局实现总线
+
+```js
+// src/utils/eventBus.js
+import mitt from 'mitt'
+export const eventBus = mitt()
+```
+
+Vue2 和 Vue3 使用对比
+
+- 事件发布：
+
+```js
+// vue2
+this.$bus.$emit('custom-event', payload)
+
+// vue3
+import { eventBus } from '@/utils/eventBus'
+
+eventBus.emit('custom-event', { key: 'value' })
+```
+
+- 事件订阅：
+
+```js
+// vue2
+this.$bus.$on('custom-event', (payload) => {
+  console.log('收到数据：', payload)
+})
+
+// vue3
+import { eventBus } from '@/utils/eventBus'
+
+eventBus.on('custom-event', (payload) => {
+  console.log('收到数据：', payload)
+})
+```
+
+- 事件销毁：
+
+```js
+// vue2
+this.$bus.$off('custom-event')
+
+// vue3
+import { eventBus } from '@/utils/eventBus'
+
+eventBus.off('custom-event')
+```
+
+#### 4. v-model
+
+v-model 是 Vue 中一种非常常见的双向数据绑定方式，主要用于父子组件之间的通信。在 Vue2 中，v-model 本质上是一个语法糖，绑定了一个 value 属性并监听 input 事件。
+在 Vue3 中，v-model 进行了重大改进，支持多个绑定和自定义绑定名称。
+
+**Vue2 中的 v-model**
+
+在 Vue2 中，v-model 等价于：
+
+```js
+<!-- 父组件 -->
+<ChildComponent v-model="message" />
+
+<!-- 等价于 -->
+<ChildComponent :value="message" @input="message = $event" />
+```
+
+**Vue3 中的 v-model 改进:**
+
+- 在 Vue3 中，v-model 不再默认绑定 value 和监听 input，而是需要显式声明绑定的 prop 和 event 名称：
+
+```js
+<!-- 父组件 -->
+<ChildComponent v-model="message" />
+
+<!-- 子组件 -->
+<template>
+  <input :modelValue="modelValue" @update:modelValue="$emit('update:modelValue', $event)" />
+</template>
+```
+
+- 支持多个 v-model：
+  Vue3 支持通过自定义名称同时绑定多个 v-model：
+
+```js
+<!-- 父组件 -->
+<ChildComponent v-model:title="title" v-model:content="content" />
+
+<!-- 子组件 -->
+<template>
+  <input :value="title" @input="$emit('update:title', $event)" />
+  <textarea :value="content" @input="$emit('update:content', $event)" />
+</template>
+```
+
+#### 5. useAttrs
+
+在 Vue3 中，`useAttrs` 是组合式 API 提供的一个工具，用于处理非 `props` 的属性（即未在组件 props 中显式声明的属性）。这些属性通常会通过组件传递到组件的根节点，或需要显式获取以传递给子组件。
+
+`useAttrs` 提供了一种灵活的方式，使开发者可以动态访问并处理这些非 `props` 的属性。
+
+**使用 `useAttrs` 可以显式获取这些非 `props` 的属性，以便动态处理或传递给其他元素或子组件：**
+
+```js
+<!-- Parent -->
+<MyButton
+  type="primary"
+  size="large"
+  :disabled="false"
+  @click="showMessage('info')"
+>
+  Primary Button
+</MyButton>
+
+<!-- Children -->
+<ElButton v-bind="attrs">
+  <slot />
+</ElButton>
+```
+
+这在构建通用组件时非常有用，例如表单组件库，可以通过 useAttrs 让组件动态适配各种传入属性。
+
+`Note:`
+
+- 在 Vue3 中，当父组件同时通过 props 和非 props 属性（即 useAttrs 捕获的属性）传递数据到子组件时，props 的优先级更高。这是因为 props 是组件明确声明的属性，Vue 会优先将它们绑定到组件中指定的 props 上，而未声明的属性则会被归为 attrs，由 useAttrs 捕获。
+
+#### 6. ref 与$parent
+
+- ref 的用法
+
+在 Vue3 中，ref 仍然是父组件获取子组件实例的主要方式，但实现方式有所优化。通过在父组件中为子组件添加 ref，可以访问子组件的实例，从而调用其方法或获取数据。
+
+- $parent 的用法
+
+`$parent` 是 Vue 提供的一种访问父组件实例的方式。通过 `$parent`，子组件可以直接调用父组件的方法或访问父组件的数据。但需要注意，过多使用 `$parent` 可能会增加组件之间的耦合性。
+
+```js
+<!-- Parent -->
+<script setup lang="ts">
+import { ref } from 'vue'
+import Child from './components/Child.vue'
+
+const childRef = ref()
+const count = ref(0)
+
+function increment() {
+  count.value++
+}
+
+function callChildMethod() {
+  childRef.value?.showMessage('来自父组件的消息')
+}
+
+defineExpose({
+  increment,
+})
+</script>
+
+<template>
+  <div class="ref-demo">
+    <h2>ref、$parent示例</h2>
+    <div class="parent">
+      <h3>父组件：</h3>
+      <p>计数：{{ count }}</p>
+      <button class="btn" @click="increment">
+        计数+1
+      </button>
+      <button class="btn" @click="callChildMethod">
+        调用子组件方法
+      </button>
+    </div>
+
+    <Child
+      ref="childRef"
+      :counter="count"
+    />
+  </div>
+</template>
+```
+
+```js
+<!-- Children -->
+<script setup lang="ts">
+import { ElMessage } from 'element-plus'
+
+defineProps<{
+  counter: number
+}>()
+
+function showMessage(msg: string) {
+  ElMessage.success(msg)
+}
+
+function handleParentIncrement($parent: any) {
+  // 通过 $parent 调用父组件方法
+  $parent.increment()
+  ElMessage.info('已调用父组件的 increment 方法')
+}
+
+defineExpose({
+  showMessage,
+})
+</script>
+
+<template>
+  <div class="child">
+    <h3>子组件：</h3>
+    <p>从父组件接收的计数：{{ counter }}</p>
+    <button class="btn" @click="handleParentIncrement($parent)">
+      通过$parent调用父组件方法
+    </button>
+  </div>
+</template>
+```
+
+#### 7. provide 与 inject
+
+provide 和 inject 是 Vue 提供的一种跨层级组件通信方式，常用于祖先组件向任意深度的后代组件传递数据，而无需手动逐层通过 props 和 emit 进行传递。这种方式非常适合数据共享和解耦的场景，特别是在大型项目中。
+
+- Provide (提供数据)
+
+祖先组件通过 provide 提供数据，供后代组件使用。
+
+```js
+<!-- Parent -->
+<template>
+  <ChildComponent />
+</template>
+
+<script setup>
+import { provide } from 'vue';
+
+provide('message', '来自祖先组件的消息');
+</script>
+```
+
+- 2. Inject (注入数据)
+
+后代组件通过 inject 注入祖先组件提供的数据。
+
+```js
+<!-- Children -->
+<template>
+  <p>{{ message }}</p>
+</template>
+
+<script>
+import { inject } from 'vue';
+
+const message = inject('message');
+```
+
+#### 7. pinia
+
+Pinia 是 Vue3 的官方状态管理库，是 Vuex 的轻量化和现代化替代方案。Pinia 提供了简单、直观的 API 和响应式的数据管理能力，适合解决跨组件通信和全局状态管理的问题。与 Vuex 相比，Pinia 的使用更加灵活，并充分利用了 Vue3 的组合式 API 和 Proxy 特性。
+
+**定义和使用 Store**
+
+```js
+// src/stores/module/counter.js
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', {
+  state: () => ({
+    count: 0,
+    name: 'Pinia',
+  }),
+  getters: {
+    doubleCount: (state) => state.count * 2,
+  },
+  actions: {
+    increment() {
+      this.count++
+    },
+  },
+})
+```
+
+- state：存储响应式数据。
+- getters：类似于计算属性，用于派生状态。
+- actions：定义业务逻辑，用于修改状态或执行异步操作。
+
+```js
+<template>
+  <div>
+    <p>Count: {{ counter.count }}</p>
+    <p>Double Count: {{ counter.doubleCount }}</p>
+    <button @click="counter.increment">Increment</button>
+  </div>
+</template>
+
+<script>
+import { useCounterStore } from '@/stores/module/counter';
+
+const counter = useCounterStore(); // 引入 Store
+</script>
+```
+
+#### 8. 插槽
+
+插槽的分类
+
+Vue 中的插槽分为以下几种类型：
+
+- 1. 默认插槽
+  - 父组件直接在子组件标签中插入内容，子组件使用 slot 标签渲染这些内容。
+- 2. 具名插槽
+  - 通过指定名称区分多个插槽，以便父组件为不同的插槽传递不同内容。
+- 3. 作用域插槽
+  - 父组件可以从子组件获取上下文数据，并动态渲染内容。
+
+1. 默认插槽
+
+默认插槽是最基本的插槽形式，父组件传递的内容会直接插入到子组件中的 slot 标签处。
+
+```js
+<!-- 子组件 -->
+<template>
+  <div>
+    <slot>默认内容</slot> <!-- 如果父组件未传递内容，则显示默认内容 -->
+  </div>
+</template>
+```
+
+```js
+<!-- 父组件 -->
+<template>
+  <ChildComponent>
+    <p>这是默认插槽的内容</p>
+  </ChildComponent>
+</template>
+```
+
+2. 具名插槽
+
+具名插槽允许子组件定义多个插槽，通过 name 属性区分，父组件可针对不同插槽传递内容。
+
+```js
+<!-- 子组件 -->
+<template>
+  <header>
+    <slot name="header">默认标题</slot>
+  </header>
+  <main>
+    <slot>默认内容</slot>
+  </main>
+  <footer>
+    <slot name="footer">默认页脚</slot>
+  </footer>
+</template>
+```
+
+```js
+<!-- 父组件 -->
+<template>
+  <ChildComponent>
+    <template #header>
+      <h1>自定义标题</h1>
+    </template>
+    <template #footer>
+      <p>自定义页脚</p>
+    </template>
+  </ChildComponent>
+</template>
+```
+
+3. 作用域插槽
+
+作用域插槽用于将子组件的内部数据传递到父组件，由父组件决定如何渲染这些数据。
+
+```js
+<!-- 子组件 -->
+<template>
+  <div>
+    <slot :data="info"></slot>
+  </div>
+</template>
+
+<script>
+const info = ref({ message: '这是作用域插槽的数据' });
+</script>
+```
+
+```js
+<template>
+  <ChildComponent>
+    <template #default="{ data }">
+      <p>{{ data.message }}</p>
+    </template>
+  </ChildComponent>
+</template>
+```
+
+### 总结
+
+Vue3 组件通信方式总览：
+
+1. **父子通信**
+
+   - Props (父 -> 子)
+   - Emits (子 -> 父)
+   - v-model (双向绑定)
+   - ref/expose (父访问子)
+   - $parent (子访问父)
+
+2. **跨层级通信**
+
+   - provide/inject (祖先 -> 后代)
+   - 插槽 (父 -> 子内容分发)
+     - 默认插槽
+     - 具名插槽
+     - 作用域插槽
+
+3. **全局通信**
+   - Pinia (状态管理)
+   - mitt (事件总线)
+
+选择建议：
+
+- 父子组件优先用 props/emits
+- 深层嵌套用 provide/inject
+- 复杂状态管理用 Pinia
+- 临时跨组件通信用 mitt
