@@ -12,7 +12,7 @@ const siteMetadata = {
   socialBanner: '/static/images/twitter-card.png',
   email: 'ucccth@gmail.com',
   github: 'https://github.com/huccct',
-  twitter: 'https://twitter.com/ucccth',
+  twitter: 'https://x.com/orion_c29',
   linkedin: 'https://www.linkedin.com/in/tunan-orion-chen-720627283',
   instagram: 'https://www.instagram.com/orion.c29',
   bluesky: 'https://bsky.app/profile/orionchen.me',

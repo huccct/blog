@@ -187,7 +187,7 @@ const AuthorLayout = () => {
                   icon: '💼',
                   link: 'https://www.linkedin.com/in/tunan-orion-chen-720627283',
                 },
-                { type: 'X', value: '@ucccth', icon: '🐦', link: 'https://twitter.com/ucccth' },
+                { type: 'X', value: '@ucccth', icon: '🐦', link: 'https://x.com/orion_c29' },
               ].map(({ type, value, icon, link }) => (
                 <a
                   key={type}
