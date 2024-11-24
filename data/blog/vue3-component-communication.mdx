@@ -189,7 +189,7 @@ function sendMsg() {
 #### 3. 全局事件总线
 
 全局事件总线可以实现任意组件通信，在 vue2 中可以根据 `VM` 与 `VC` 关系推出全局事件总线。
-但是在 vue3 中没有 Vue 狗仔函数，也就没有 `Vue.prototype`，同时组合式 API 写法没有 this，如果想在 Vue3 中使用全局事件总线可以使用 <a href="https://www.npmjs.com/package/mitt">mitt</a> 插件实现。
+但是在 vue3 中没有 Vue 钩子函数，也就没有 `Vue.prototype`，同时组合式 API 写法没有 this，如果想在 Vue3 中使用全局事件总线可以使用 <a href="https://www.npmjs.com/package/mitt">mitt</a> 插件实现。
 
 全局事件总线是 Vue2 中实现任意组件间通信的一种常用方式。通过将一个 Vue 实例作为事件中心，可以在组件之间进行事件的发布和订阅，从而实现解耦的通信模式。
 
