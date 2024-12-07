@@ -27,6 +27,7 @@ const DisqusComponent = dynamic(
 )
 
 const Comments = ({ frontMatter }: Props) => {
+
   const comment = siteMetadata?.comment
   if (!comment || Object.keys(comment).length === 0) return <></>
   return (

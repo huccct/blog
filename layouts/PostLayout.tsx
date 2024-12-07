@@ -78,8 +78,13 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           <div className="divide-y divide-gray-200 dark:divide-gray-700">
             <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">{children}</div>
             <footer>
+              <div className="pt-8 pb-6">
+                <div className="rounded-lg bg-gray-50 dark:bg-gray-900 p-6">
+                  <Comments frontMatter={content} />
+                </div>
+              </div>
               {(next || prev) && (
-                <div className="flex justify-between py-8 xl:py-4">
+                <div className="flex justify-between py-4">
                   {prev && (
                     <div>
                       <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
@@ -110,7 +115,6 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   &larr; Back to the blog
                 </Link>
               </div>
-              <Comments frontMatter={content} />
             </footer>
           </div>
         </div>

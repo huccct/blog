@@ -29,6 +29,7 @@ const Giscus = () => {
       inputPosition,
       lang,
     } = siteMetadata?.comment?.giscusConfig
+    console.log(siteMetadata?.comment?.giscusConfig)
 
     const script = document.createElement('script')
     script.src = 'https://giscus.app/client.js'
@@ -64,8 +65,17 @@ const Giscus = () => {
 
   return (
     <div className="pt-6 pb-6 text-center text-gray-700 dark:text-gray-300">
-      {enableLoadComments && <button onClick={LoadComments}>Load Comments</button>}
-      <div className="giscus" id={COMMENTS_ID} />
+       {enableLoadComments && <button onClick={LoadComments}>Load Comments</button>}
+        <div 
+          className="giscus"
+          id={COMMENTS_ID}
+        />
+      <style>{`
+        .giscus-frame {
+          width: 100%;
+          margin: 0 auto;
+        }
+      `}</style>
     </div>
   )
 }
