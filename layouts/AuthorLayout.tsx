@@ -176,9 +176,9 @@ const AuthorLayout = () => {
               {[
                 {
                   type: 'Email',
-                  value: 'ucccth@gmail.com',
+                  value: 'hi@orionchen.me',
                   icon: '📮',
-                  link: 'mailto:ucccth@gmail.com',
+                  link: 'mailto:hi@orionchen.me',
                 },
                 { type: 'GitHub', value: 'huccct', icon: '💻', link: 'https://github.com/huccct' },
                 {
@@ -327,62 +327,102 @@ const AuthorLayout = () => {
     <>
       <PageSEO title={`About - ${siteMetadata.author}`} description={siteMetadata.description} />
 
-      {/* 动态背景 */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        {/* 左上角装饰 */}
-        <div className="absolute -top-4 -left-4 w-32 h-32 animate-grow-slow">
-          <svg
-            viewBox="0 0 100 100"
-            className="w-full h-full fill-emerald-100/20 dark:fill-emerald-900/20"
-          >
-            <path d="M0,50 Q25,25 50,50 T100,50 Q75,75 50,50 T0,50" />
-            <path d="M50,0 Q75,25 50,50 T50,100 Q25,75 50,50 T50,0" />
-          </svg>
+     {/* 宇宙背景 */}
+      <div className="fixed inset-0 -z-10">
+        {/* 基础渐变背景 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" />
+        
+        {/* 星空层 - 增加星星数量 */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(150)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-gray-600 dark:bg-gray-300"
+              style={{
+                width: Math.random() * 2.5 + 'px',
+                height: Math.random() * 2.5 + 'px',
+                top: Math.random() * 100 + '%',
+                left: Math.random() * 100 + '%',
+                opacity: Math.random() * 0.5,
+                animation: `twinkle ${Math.random() * 4 + 2}s infinite ${Math.random() * 2}s`
+              }}
+            />
+          ))}
         </div>
 
-        {/* 右下角装饰 */}
-        <div className="absolute -bottom-4 -right-4 w-40 h-40 animate-grow-slow-delayed">
-          <svg
-            viewBox="0 0 100 100"
-            className="w-full h-full fill-emerald-100/20 dark:fill-emerald-900/20"
-          >
-            <path d="M0,50 Q25,25 50,50 T100,50 Q75,75 50,50 T0,50" />
-            <path d="M50,0 Q75,25 50,50 T50,100 Q25,75 50,50 T50,0" />
-          </svg>
+        {/* 增强的星云效果 */}
+        <div className="absolute inset-0">
+          {/* 主星云 */}
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary-100/10 dark:bg-primary-900/10 rounded-full blur-3xl animate-nebula" />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary-200/10 dark:bg-primary-800/10 rounded-full blur-3xl animate-nebula-delayed" />
+          
+          {/* 额外的星云效果 */}
+          <div className="absolute top-1/3 right-1/3 w-64 h-64 bg-blue-100/10 dark:bg-blue-900/10 rounded-full blur-2xl animate-pulse" />
+          <div className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-purple-100/10 dark:bg-purple-900/10 rounded-full blur-2xl animate-nebula" />
+          
+          {/* 小型星云点缀 */}
+          <div className="absolute top-2/3 left-1/2 w-32 h-32 bg-pink-100/5 dark:bg-pink-900/5 rounded-full blur-xl animate-float" />
+          <div className="absolute bottom-2/3 right-1/2 w-40 h-40 bg-indigo-100/5 dark:bg-indigo-900/5 rounded-full blur-xl animate-float-delayed" />
         </div>
 
-        {/* 鼠标跟随光晕 */}
-        <div
-          className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-500"
-          style={{
-            background:
-              'radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(16, 185, 129, 0.1), transparent 80%)',
-            opacity: 1,
-          }}
-        />
+        {/* 点状网格 */}
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#374151_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[size:20px_20px] opacity-20" />
       </div>
 
-      {/* 修改 CommandLineInterface 组件的容器样式 */}
-      <div className="container mx-auto px-4 py-16 relative">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 hover:scale-105 transition-transform cursor-pointer">
+       <div className="container mx-auto px-4 py-16 relative">
+        <h1 className="text-3xl font-bold text-gray-800 hover:scale-105 transition-transform cursor-pointer dark:text-gray-100">
           About
         </h1>
-        <div className="mt-8 transform-gpu">
+        <div className="mt-8">
           <CommandLineInterface executeCommand={executeCommand} />
         </div>
       </div>
 
-      {/* 鼠标跟随效果脚本 */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            document.addEventListener('mousemove', (e) => {
-              document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
-              document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
-            });
-          `,
-        }}
-      />
+      {/* 添加新的动画关键帧 */}
+      <style >{`
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.2; }
+          50% { opacity: 1; }
+        }
+        @keyframes nebula {
+          0%, 100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.1;
+          }
+          50% {
+            transform: translate(50px, -30px) scale(1.2);
+            opacity: 0.2;
+          }
+        }
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0) scale(1);
+          }
+          50% {
+            transform: translateY(-20px) scale(1.1);
+          }
+        }
+        @keyframes float-delayed {
+          0%, 100% {
+            transform: translateY(0) scale(1);
+          }
+          50% {
+            transform: translateY(20px) scale(1.1);
+          }
+        }
+        .animate-nebula {
+          animation: nebula 15s ease-in-out infinite;
+        }
+        .animate-nebula-delayed {
+          animation: nebula 15s ease-in-out infinite 7.5s;
+        }
+        .animate-float {
+          animation: float 10s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+          animation: float-delayed 12s ease-in-out infinite 2s;
+        }
+      `}</style>
     </>
   )
 }

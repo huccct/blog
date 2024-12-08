@@ -10,7 +10,7 @@ const siteMetadata = {
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card.png',
-  email: 'ucccth@gmail.com',
+  email: 'hi@orionchen.me',
   github: 'https://github.com/huccct',
   twitter: 'https://x.com/orion_c29',
   linkedin: 'https://www.linkedin.com/in/tunan-orion-chen-720627283',
