@@ -4,7 +4,7 @@ const projectsData = [
     description: `This admin system, built with Vue 3.x, uses Vite, Pinia, and Element Plus to offer a clean, efficient, and extendable scaffold for management and data analysis.`,
     href: 'https://github.com/huccct/vue-admin',
     brief: 'A modern admin system scaffold based on Vue3',
-    chinese: '一个基于ve3的现代管理系统模板',
+    chinese: '一个基于Vue3的现代管理系统模板',
     type: 'app',
   },
   {
@@ -40,6 +40,24 @@ const projectsData = [
     chinese: '一个专注于二次元AI绘画领域的小程序',
     type: 'app',
   },
-]
+  {
+    title: 'Telepace Official Website (contributor)',
+    description:
+      'The Telepace official website introduces the platform’s key features, highlighting its AI-powered tools designed for real-time audio content management and collaboration.',
+    href: 'https://www.telepace.cc/',
+    brief: 'An official website for an AI-powered audio collaboration platform',
+    chinese: '一个使用Framer构建的静态官网',
+    type: 'app',
+  },
+  {
+    title: 'Telepace AI (contributor)',
+    description:
+      'The Telepace app provides an AI-powered platform for real-time audio collaboration, offering features like transcription, summarization, and intelligent content analysis.',
+    href: 'https://app.telepace.cc/',
+    brief: 'An AI-powered platform for real-time audio collaboration',
+    chinese: '一个提供实时音频协作的AI驱动平台',
+    type: 'app',
+  },
+];
 
-export default projectsData
+export default projectsData;
