@@ -10,7 +10,7 @@ const PDFDownloadLink = dynamic(
 )
 
 export default function Resume() {
-  const lastUpdated = 'Nov 20, 2024'
+  const lastUpdated = 'Jan 25, 2025'
 
   return (
     <>
@@ -160,11 +160,19 @@ export default function Resume() {
             <h2 className="text-xl font-semibold mb-4">Work Experience</h2>
             <div className="space-y-4">
               <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
-                <h3 className="text-lg font-medium">Frontend Intern</h3>
-                <p className="text-gray-600 dark:text-gray-400">Dubbing AI</p>
+                <h3 className="text-lg font-medium">Frontend Developer</h3>
+                <p className="text-gray-600 dark:text-gray-400">DigitMaster AI</p>
+                <p className="text-sm text-gray-500 mt-1">Dec 2024 - Present</p>
+                <p className="mt-2 text-gray-600 dark:text-gray-400">
+                  - Worked as a frontend developer intern, developing AI chat interface using Vue.js and Unocss.
+                </p>
+              </div>
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+                <h3 className="text-lg font-medium">Frontend Developer</h3>
+                <p className="text-gray-600 dark:text-gray-400">Telepace.AI</p>
                 <p className="text-sm text-gray-500 mt-1">Sep 2024 - Present</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Specialized in frontend development for AI voice applications.
+                  - Worked as a frontend developer intern, building AI-powered survey platform using Next.js and Tailwind CSS.
                 </p>
               </div>
               <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">

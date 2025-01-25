@@ -161,7 +161,7 @@ const AuthorLayout = () => {
               <div className="p-4 rounded-lg bg-gray-50/50 dark:bg-gray-800/30 border border-gray-200/50 dark:border-gray-700/50">
                 <h3 className="font-medium text-gray-900 dark:text-gray-100">Interests</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  AI,Web Development, UI Design, Open Source, Art...
+                  AI, Web3, Web Development, UI Design, Open Source, Art...
                 </p>
               </div>
             </div>
