@@ -94,7 +94,13 @@ module.exports = () => {
         {
           source: '/',
           destination: '/about',
-          permanent: true,
+          permanent: false,
+          has: [
+            {
+              type: 'host',
+              value: 'orionchen.me',
+            },
+          ],
         }
       ]
     },
