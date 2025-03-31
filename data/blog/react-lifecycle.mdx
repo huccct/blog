@@ -1,0 +1,425 @@
+---
+title: 'React组件生命周期小记'
+date: '2025-3-31'
+tags: ['react', 'chinese']
+draft: false
+summary: '通过一个ScrollView组件案例，深入理解React组件的生命周期过程，包括挂载、更新和卸载三个阶段。'
+---
+
+# React 组件生命周期
+
+React 组件的生命周期是指组件从创建到销毁的整个过程。在这个过程中，React 会在特定的时机调用一些特定的方法，这些方法被称为生命周期方法。理解这些生命周期方法对于开发高质量的 React 应用至关重要。
+
+## 一、生命周期阶段
+
+React 组件的生命周期主要分为三个阶段：
+
+1. 挂载阶段（Mounting）：组件被创建并插入到 DOM 中
+2. 更新阶段（Updating）：组件的 props 或 state 发生变化时
+3. 卸载阶段（Unmounting）：组件从 DOM 中移除
+
+## 二、生命周期方法详解
+
+### 1. 挂载阶段
+
+#### constructor(props)
+
+- 最先执行的生命周期方法
+- 用于初始化组件的 state 和绑定事件处理函数
+- 必须调用 `super(props)`，否则无法在后续方法中访问 `this.props`
+
+```tsx
+constructor(props) {
+  super(props)
+  // 初始化 state
+  this.state = {
+    count: 0,
+    list: []
+  }
+  // 绑定事件处理函数
+  this.handleClick = this.handleClick.bind(this)
+  // 使用防抖处理
+  this.handleScroll = debounce(this.handleScroll, 200)
+}
+```
+
+#### getDerivedStateFromProps(nextProps, prevState)
+
+- 静态方法，无法访问 `this`
+- 用于根据 props 的变化来更新 state
+- 返回一个对象来更新 state，或返回 null 表示不需要更新
+
+```tsx
+static getDerivedStateFromProps(nextProps, prevState) {
+  if (nextProps.type !== prevState.type) {
+    return { type: nextProps.type }
+  }
+  return null
+}
+```
+
+#### render()
+
+- 必须实现的方法
+- 返回 React 元素、数组、Fragment、Portal、字符串或数字
+- 不应该在这里修改 state，会导致无限循环
+
+#### componentDidMount()
+
+- 组件挂载到 DOM 后执行
+- 适合进行：
+  - DOM 操作
+  - 事件监听
+  - 数据请求
+  - 定时器设置
+
+```tsx
+componentDidMount() {
+  // 添加事件监听
+  window.addEventListener('resize', this.handleResize)
+  // 请求数据
+  this.fetchData()
+  // 设置定时器
+  this.timer = setInterval(() => {
+    this.tick()
+  }, 1000)
+}
+```
+
+### 2. 更新阶段
+
+#### shouldComponentUpdate(nextProps, nextState)
+
+- 用于性能优化
+- 返回 true 表示需要更新，false 表示不需要更新
+- 默认返回 true
+
+```tsx
+shouldComponentUpdate(nextProps, nextState) {
+  // 只有当 count 或 list 发生变化时才更新
+  return (
+    this.state.count !== nextState.count ||
+    this.state.list !== nextState.list
+  )
+}
+```
+
+#### getSnapshotBeforeUpdate(prevProps, prevState)
+
+- 在 DOM 更新前获取一些信息
+- 返回值会作为 componentDidUpdate 的第三个参数
+- 常用于获取滚动位置等 DOM 信息
+
+```tsx
+getSnapshotBeforeUpdate(prevProps, prevState) {
+  // 保存更新前的滚动位置
+  return this.containerRef.current?.scrollTop
+}
+```
+
+#### componentDidUpdate(prevProps, prevState, snapshot)
+
+- 组件更新后执行
+- 可以访问更新后的 DOM
+- 注意避免在这里直接调用 setState，可能导致无限循环
+
+```tsx
+componentDidUpdate(prevProps, prevState, snapshot) {
+  // 处理滚动位置变化
+  if (snapshot !== null) {
+    const scrollTop = this.containerRef.current?.scrollTop
+    if (scrollTop !== snapshot) {
+      this.handleScrollPositionChange(scrollTop)
+    }
+  }
+}
+```
+
+### 3. 卸载阶段
+
+#### componentWillUnmount()
+
+- 组件卸载前执行
+- 用于清理工作：
+  - 移除事件监听
+  - 清除定时器
+  - 取消未完成的请求
+
+```tsx
+componentWillUnmount() {
+  // 移除事件监听
+  window.removeEventListener('resize', this.handleResize)
+  // 清除定时器
+  clearInterval(this.timer)
+  // 取消未完成的请求
+  this.abortController.abort()
+}
+```
+
+## 三、实践案例：ScrollView 组件
+
+让我们通过一个 ScrollView 组件的实现来理解这些生命周期方法：
+
+```tsx
+import React, { Component } from 'react'
+
+interface ScrollViewProps {
+  children: React.ReactNode
+  onScroll?: (scrollTop: number) => void
+  onScrollToBottom?: () => void
+  threshold?: number // 触发底部加载的阈值
+}
+
+interface ScrollViewState {
+  scrollTop: number
+  isScrolling: boolean
+  isLoading: boolean
+}
+
+class ScrollView extends Component<ScrollViewProps, ScrollViewState> {
+  private containerRef: React.RefObject<HTMLDivElement>
+  private scrollTimeout: NodeJS.Timeout | null = null
+
+  constructor(props: ScrollViewProps) {
+    super(props)
+    console.log('1. constructor')
+
+    this.state = {
+      scrollTop: 0,
+      isScrolling: false,
+      isLoading: false,
+    }
+
+    this.containerRef = React.createRef()
+  }
+
+  static getDerivedStateFromProps(props: ScrollViewProps, state: ScrollViewState) {
+    console.log('2. getDerivedStateFromProps')
+    return null
+  }
+
+  componentDidMount() {
+    console.log('4. componentDidMount')
+    // 添加滚动事件监听
+    this.containerRef.current?.addEventListener('scroll', this.handleScroll)
+    // 添加触摸事件监听
+    this.containerRef.current?.addEventListener('touchmove', this.handleTouchMove, {
+      passive: false,
+    })
+  }
+
+  shouldComponentUpdate(nextProps: ScrollViewProps, nextState: ScrollViewState) {
+    console.log('5. shouldComponentUpdate')
+    // 只有当滚动位置、滚动状态或加载状态发生变化时才更新
+    return (
+      this.state.scrollTop !== nextState.scrollTop ||
+      this.state.isScrolling !== nextState.isScrolling ||
+      this.state.isLoading !== nextState.isLoading
+    )
+  }
+
+  getSnapshotBeforeUpdate(prevProps: ScrollViewProps, prevState: ScrollViewState) {
+    console.log('7. getSnapshotBeforeUpdate')
+    // 保存更新前的滚动位置和容器高度
+    return {
+      scrollTop: this.containerRef.current?.scrollTop,
+      scrollHeight: this.containerRef.current?.scrollHeight,
+    }
+  }
+
+  componentDidUpdate(prevProps: ScrollViewProps, prevState: ScrollViewState, snapshot: any) {
+    console.log('8. componentDidUpdate')
+    // 检查是否滚动到底部
+    if (this.isNearBottom()) {
+      this.handleScrollToBottom()
+    }
+  }
+
+  componentWillUnmount() {
+    console.log('9. componentWillUnmount')
+    // 移除事件监听
+    this.containerRef.current?.removeEventListener('scroll', this.handleScroll)
+    this.containerRef.current?.removeEventListener('touchmove', this.handleTouchMove)
+    // 清除定时器
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout)
+    }
+  }
+
+  handleScroll = () => {
+    const scrollTop = this.containerRef.current?.scrollTop || 0
+    this.setState({
+      scrollTop,
+      isScrolling: true,
+    })
+
+    // 触发滚动回调
+    this.props.onScroll?.(scrollTop)
+
+    // 使用防抖处理滚动状态
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout)
+    }
+    this.scrollTimeout = setTimeout(() => {
+      this.setState({ isScrolling: false })
+    }, 150)
+  }
+
+  handleTouchMove = (e: TouchEvent) => {
+    // 处理触摸事件，可以添加额外的触摸相关逻辑
+    e.preventDefault()
+  }
+
+  isNearBottom = () => {
+    const { threshold = 50 } = this.props
+    const container = this.containerRef.current
+    if (!container) return false
+
+    const { scrollTop, scrollHeight, clientHeight } = container
+    return scrollHeight - scrollTop - clientHeight <= threshold
+  }
+
+  handleScrollToBottom = () => {
+    if (this.state.isLoading) return
+    this.setState({ isLoading: true })
+    this.props.onScrollToBottom?.()
+  }
+
+  render() {
+    console.log('3. render')
+    return (
+      <div
+        ref={this.containerRef}
+        style={{
+          height: '300px',
+          overflow: 'auto',
+          border: '1px solid #ccc',
+          padding: '20px',
+          position: 'relative',
+        }}
+      >
+        {this.props.children}
+        {this.state.isLoading && (
+          <div
+            style={{
+              position: 'sticky',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              padding: '10px',
+              textAlign: 'center',
+              backgroundColor: 'white',
+              borderTop: '1px solid #eee',
+            }}
+          >
+            加载中...
+          </div>
+        )}
+      </div>
+    )
+  }
+}
+
+export default ScrollView
+```
+
+## 四、生命周期执行顺序
+
+让我们看看这个 ScrollView 组件在不同情况下的生命周期执行顺序：
+
+### 1. 组件首次渲染
+
+```
+1. constructor
+2. getDerivedStateFromProps
+3. render
+4. componentDidMount
+```
+
+### 2. 组件更新（滚动时）
+
+```
+2. getDerivedStateFromProps
+5. shouldComponentUpdate
+3. render
+7. getSnapshotBeforeUpdate
+8. componentDidUpdate
+```
+
+### 3. 组件卸载
+
+```
+9. componentWillUnmount
+```
+
+## 五、使用示例
+
+```tsx
+function App() {
+  const handleScroll = (scrollTop: number) => {
+    console.log('Scroll position:', scrollTop)
+  }
+
+  const handleScrollToBottom = () => {
+    // 模拟异步加载
+    setTimeout(() => {
+      // 加载完成后，通过 ref 调用组件方法重置加载状态
+      scrollViewRef.current?.setState({ isLoading: false })
+    }, 1500)
+  }
+
+  const scrollViewRef = React.useRef()
+
+  return (
+    <ScrollView ref={scrollViewRef} onScroll={handleScroll} onScrollToBottom={handleScrollToBottom}>
+      <div style={{ height: '1000px' }}>
+        <h1>Scroll Content</h1>
+        <p>Scroll down to see lifecycle methods in action!</p>
+      </div>
+    </ScrollView>
+  )
+}
+```
+
+## 六、总结
+
+通过这个 ScrollView 组件的实现，我们可以看到 React 生命周期方法的实际应用：
+
+1. 在`constructor`中初始化状态和 ref
+2. 在`componentDidMount`中添加事件监听
+3. 在`shouldComponentUpdate`中优化性能
+4. 在`getSnapshotBeforeUpdate`和`componentDidUpdate`中处理更新
+5. 在`componentWillUnmount`中清理资源
+
+理解这些生命周期方法对于开发高质量的 React 应用至关重要。它们让我们能够在组件的不同阶段执行必要的操作，如初始化、更新和清理。
+
+### 最佳实践
+
+1. **状态管理**
+
+   - 在 constructor 中初始化状态
+   - 使用 getDerivedStateFromProps 处理 props 变化
+   - 避免在 render 中修改状态
+
+2. **性能优化**
+
+   - 使用 shouldComponentUpdate 避免不必要的渲染
+   - 合理使用 React.memo 和 PureComponent
+   - 避免在 render 中进行复杂计算
+
+3. **副作用处理**
+
+   - 在 componentDidMount 中设置事件监听和定时器
+   - 在 componentWillUnmount 中清理这些副作用
+   - 使用 useEffect 处理函数组件中的副作用
+
+4. **DOM 操作**
+
+   - 在 componentDidMount 和 componentDidUpdate 中进行 DOM 操作
+   - 使用 ref 而不是直接操作 DOM
+   - 在 getSnapshotBeforeUpdate 中保存 DOM 状态
+
+5. **错误处理**
+   - 使用 componentDidCatch 处理渲染错误
+   - 在生命周期方法中添加适当的错误处理
+   - 使用 try-catch 处理异步操作
