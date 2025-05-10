@@ -1,0 +1,279 @@
+---
+title: 'TypeScript 类型体操'
+date: '2025-05-10'
+tags: ['typescript', 'chinese']
+draft: false
+summary: '一文吃透 TypeScript 类型体操的基础题，掌握类型系统的核心能力。'
+---
+
+## 一、什么是类型体操
+
+类型体操是指仅通过 TypeScript 类型系统实现某些功能（如数组操作、字符串变换、对象映射等），不涉及运行时代码，完全在类型层完成逻辑推导和运算。
+
+它的灵感来自 [type-challenges](https://github.com/type-challenges/type-challenges) 仓库，是 TS 高级用法的训练场。
+
+## 二、你需要掌握的基础知识
+
+开始前，建议你对以下 TypeScript 特性有所了解：
+
+### 1. 泛型（Generic）
+
+通过类型参数实现通用类型定义
+
+```ts
+type Wrapper<T> = { value: T }
+```
+
+### 2. 条件类型（Conditional Types）
+
+根据类型的关系做出不同判断
+
+```ts
+type IsString<T> = T extends string ? true : false
+```
+
+### 3. infer 推断关键字
+
+在条件类型中用于提取子类型
+
+```ts
+type ExtractArrayType<T> = T extends Array<infer U> ? U : never
+```
+
+### 4. 映射类型（Mapped Types）
+
+遍历一个对象类型的键
+
+```ts
+type Readonly<T> = { readonly [K in keyof T]: T[K] }
+```
+
+### 5. 联合类型分布特性
+
+条件类型在联合类型中会自动分发
+
+```ts
+type A = 'a' | 'b' extends U ? X : Y // 实际会对每个成员判断
+```
+
+## 三、类型体操入门 10 题
+
+### 1. `Pick<T, K>`: 从类型中选出部分属性
+
+```ts
+type MyPick<T, K extends keyof T> = {
+  [P in K]: T[P]
+}
+
+// 使用示例
+type Todo = { title: string; completed: boolean }
+type TodoTitle = MyPick<Todo, 'title'> // => { title: string }
+```
+
+### 2. `Readonly<T>`: 将所有属性变为只读
+
+```ts
+type MyReadonly<T> = {
+  readonly [P in keyof T]: T[P]
+}
+
+// 使用示例
+type Todo = { title: string; completed: boolean }
+type ReadonlyTodo = MyReadonly<Todo> // => { readonly title: string; readonly completed: boolean }
+```
+
+### 3. `TupleToObject<T>`: 元组转对象
+
+```ts
+type TupleToObject<T extends readonly string[]> = {
+  [P in T[number]]: P
+}
+
+// 使用示例
+type Result = TupleToObject<['a', 'b']> // => { a: 'a'; b: 'b' }
+```
+
+### 4. `First<T>`: 获取数组的第一个元素
+
+```ts
+type First<T extends any[]> = T extends [infer F, ...any[]] ? F : never
+
+// 使用示例
+type Result = First<[1, 2, 3]> // => 1
+```
+
+### 5. `Length<T>`: 获取元组长度
+
+```ts
+type Length<T extends readonly any[]> = T['length']
+
+// 使用示例
+type Result = Length<[1, 2, 3]> // => 3
+```
+
+### 6. `Exclude<T, U>`: 从 T 中排除 U
+
+```ts
+type MyExclude<T, U> = T extends U ? never : T
+
+// 使用示例
+type Result = MyExclude<'a' | 'b' | 'c', 'a'> // => 'b' | 'c'
+```
+
+### 7. `Awaited<T>`: 展开 Promise 类型
+
+```ts
+type MyAwaited<T> = T extends Promise<infer U> ? MyAwaited<U> : T
+
+// 使用示例
+type Result = MyAwaited<Promise<Promise<string>>> // => string
+```
+
+### 8. `If<C, T, F>`: 实现三元判断类型
+
+```ts
+type If<C extends boolean, T, F> = C extends true ? T : F
+
+// 使用示例
+type Result = If<true, 'yes', 'no'> // => 'yes'
+```
+
+### 9. `Concat<T, U>`: 连接两个数组
+
+```ts
+type Concat<T extends any[], U extends any[]> = [...T, ...U]
+
+// 使用示例
+type Result = Concat<[1, 2], [3, 4]> // => [1, 2, 3, 4]
+```
+
+### 10. `Includes<T, U>`: 判断数组是否包含某元素
+
+```ts
+type Includes<T extends readonly any[], U> = T extends [infer F, ...infer R]
+  ? Equal<F, U> extends true
+    ? true
+    : Includes<R, U>
+  : false
+
+// 辅助类型：判断两个类型是否相等
+type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
+  ? true
+  : false
+
+// 使用示例
+type Result = Includes<[1, 2, 3], 2> // => true
+```
+
+## 四、开发中最常用的类型
+
+### 1. 工具类型
+
+```ts
+// 部分属性可选
+type Partial<T> = {
+  [P in keyof T]?: T[P]
+}
+
+// 部分属性必选
+type Required<T> = {
+  [P in keyof T]-?: T[P]
+}
+
+// 部分属性只读
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P]
+}
+
+// 提取函数参数类型
+type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never
+
+// 提取函数返回值类型
+type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any
+```
+
+### 2. 实用类型
+
+```ts
+// 深度部分可选
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
+}
+
+// 深度只读
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P]
+}
+
+// 获取对象所有可能的值类型
+type ValueOf<T> = T[keyof T]
+
+// 获取对象所有可能的键类型
+type KeyOf<T> = keyof T
+
+// 获取数组元素类型
+type ArrayElement<T> = T extends Array<infer U> ? U : never
+```
+
+### 3. 实际应用场景
+
+```ts
+// 1. API 响应类型
+type ApiResponse<T> = {
+  data: T
+  code: number
+  message: string
+}
+
+// 2. 分页请求参数
+type PaginationParams = {
+  page: number
+  pageSize: number
+  sortBy?: string
+  sortOrder?: 'asc' | 'desc'
+}
+
+// 3. 分页响应数据
+type PaginatedResponse<T> = {
+  list: T[]
+  total: number
+  page: number
+  pageSize: number
+}
+
+// 4. 表单验证错误
+type ValidationErrors<T> = {
+  [K in keyof T]?: string[]
+}
+
+// 5. 状态管理
+type Action<T, P = void> = P extends void ? { type: T } : { type: T; payload: P }
+```
+
+### 4. 类型守卫
+
+```ts
+// 类型谓词
+function isString(value: unknown): value is string {
+  return typeof value === 'string'
+}
+
+// 类型断言函数
+function assertIsString(value: unknown): asserts value is string {
+  if (typeof value !== 'string') {
+    throw new Error('Not a string!')
+  }
+}
+
+// 使用示例
+function processValue(value: unknown) {
+  if (isString(value)) {
+    // value 被推断为 string 类型
+    console.log(value.toUpperCase())
+  }
+}
+```
+
+## 五、总结
+
+TypeScript 类型体操是一个强大的工具，它让我们能够在类型层面实现复杂的逻辑。记住，类型体操不是目的，而是手段。我们的目标是写出类型安全、易于维护的代码。在实际开发中，要根据具体场景选择合适的类型方案，避免过度设计。
