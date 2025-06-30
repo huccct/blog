@@ -10,7 +10,7 @@ const PDFDownloadLink = dynamic(
 )
 
 export default function Resume() {
-  const lastUpdated = 'Jan 25, 2025'
+  const lastUpdated = 'Jun 30, 2025'
 
   return (
     <>
@@ -162,7 +162,7 @@ export default function Resume() {
               <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">Frontend Developer</h3>
                 <p className="text-gray-600 dark:text-gray-400">DigitMaster AI</p>
-                <p className="text-sm text-gray-500 mt-1">Dec 2024 - Present</p>
+                <p className="text-sm text-gray-500 mt-1">Dec 2024 - May 2025</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
                   - Worked as a frontend developer intern, developing AI chat interface using Vue.js and Unocss.
                 </p>
@@ -170,7 +170,7 @@ export default function Resume() {
               <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">Frontend Developer</h3>
                 <p className="text-gray-600 dark:text-gray-400">Telepace.AI</p>
-                <p className="text-sm text-gray-500 mt-1">Sep 2024 - Present</p>
+                <p className="text-sm text-gray-500 mt-1">Sep 2024 - Feb 2025</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
                   - Worked as a frontend developer intern, building AI-powered survey platform using Next.js and Tailwind CSS.
                 </p>
@@ -206,7 +206,7 @@ export default function Resume() {
               </div>
               <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-medium">English</h3>
-                <p className="text-gray-600 dark:text-gray-400">PTE: 61</p>
+                <p className="text-gray-600 dark:text-gray-400">Working Proficiency</p>
               </div>
             </div>
           </section>
@@ -237,7 +237,7 @@ export default function Resume() {
           </section>
 
           {/* PDF Downloads */}
-          <div className="flex justify-center gap-4 pt-8">
+          {/* <div className="flex justify-center gap-4 pt-8">
             <a
               href="/static/pdf/resume.pdf"
               target="_blank"
@@ -254,7 +254,7 @@ export default function Resume() {
             >
               PDF（Chinese）Version
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

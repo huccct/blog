@@ -72,6 +72,15 @@ module.exports = () => {
           hostname: 'picsum.photos',
         },
       ],
+      domains: [
+        'vue-admin-dun.vercel.app',
+        'vangleer.github.io',
+        'oss.talesofai.cn',
+        'huccct.github.io',
+        'lf-dp.bytetos.com',
+        'prohelen.dev',
+        'fake-screenshot-ten.vercel.app'
+      ],
     },
     async headers() {
       return [
