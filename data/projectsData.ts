@@ -3,7 +3,7 @@ const projectsData = [
     title: 'Vue-Admin',
     description: `This admin system, built with Vue 3.x, uses Vite, Pinia, and Element Plus to offer a clean, efficient, and extendable scaffold for management and data analysis.`,
     href: 'https://github.com/huccct/vue-admin',
-    brief: 'A modern admin system scaffold based on Vue3',
+    brief: 'A modern admin system template based on Vue3',
     chinese: '一个基于Vue3的现代管理系统模板',
     icon: 'https://vue-admin-dun.vercel.app/logo.png',
     type: 'app'
@@ -21,7 +21,7 @@ const projectsData = [
     title: 'Nieta Official Website',
     description: `The Nieta official website is a static site built with Astro.`,
     href: 'https://nieta.art/',
-    brief: 'A static website built with Astro',
+    brief: 'Nieta Official Website',
     chinese: '一个使用Astro构建的静态官网',
     icon: 'https://oss.talesofai.cn/static/talesofai-h5/favicon.ico',
     type: 'app'
@@ -40,7 +40,7 @@ const projectsData = [
     description:
       'Nieta App is a focusing on the field of second-dimensional AI painting. It is built with React, Taro, MobX, and Unocss.',
     href: 'https://app.nieta.art/',
-    brief: 'An app focusing on second-dimensional AI painting',
+    brief: 'An app focusing on ACGN AI painting',
     chinese: '一个专注于二次元AI绘画领域的App',
     icon: 'https://oss.talesofai.cn/static/talesofai-h5/favicon.ico',
     type: 'app'
@@ -64,13 +64,31 @@ const projectsData = [
     chinese: '可视化提示词工程平台'
   },
   {
-    title: 'fake-screenshot',
+    title: 'Fake-Screenshot',
     description: 'A lightweight tool that generates realistic fake screenshots of websites using React rendering. Just for fun.',
     href: 'https://github.com/huccct/fake-screenshot',
     icon: 'https://fake-screenshot-ten.vercel.app/logo.svg',
     type: 'tool',
     brief: 'Website screenshot generator',
     chinese: '网站截图生成工具'
+  },
+  {
+    title: "DigitMasterAI",
+    description: "The official homepage of DigitMasterAI",
+    href: "https://www.digitmasterai.com/",
+    icon: "https://www.digitmasterai.com/logo.png",
+    type: "tool",
+    brief: "Digit Master AI Official Website",
+    chinese: "AI 创作工具平台"
+  },
+  {
+    title: "DigitMasterAI-Chat",
+    description: "Digit Master AI believe prompt means poetry, we enable AI connect the dots between complex content data. ​",
+    href: "https://chat.digitmasterai.com/",
+    icon: "https://www.digitmasterai.com/logo.png",
+    type: "tool",
+    brief: "Prompt means poetry",
+    chinese: "AI 聊天助手"
   }
 ];
 

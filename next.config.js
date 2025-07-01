@@ -79,7 +79,9 @@ module.exports = () => {
         'huccct.github.io',
         'lf-dp.bytetos.com',
         'prohelen.dev',
-        'fake-screenshot-ten.vercel.app'
+        'fake-screenshot-ten.vercel.app',
+        'www.digitmasterai.com',
+        'chat.digitmasterai.com'
       ],
     },
     async headers() {
