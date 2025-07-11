@@ -81,7 +81,9 @@ module.exports = () => {
         'prohelen.dev',
         'fake-screenshot-ten.vercel.app',
         'www.digitmasterai.com',
-        'chat.digitmasterai.com'
+        'chat.digitmasterai.com',
+        'login.digitmasterai.com',
+        'cdn.jsdelivr.net'
       ],
     },
     async headers() {

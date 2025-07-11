@@ -76,7 +76,7 @@ const projectsData = [
     title: "DigitMasterAI",
     description: "The official homepage of DigitMasterAI",
     href: "https://www.digitmasterai.com/",
-    icon: "https://www.digitmasterai.com/logo.png",
+    icon: "https://login.digitmasterai.com/favicon.ico",
     type: "tool",
     brief: "Digit Master AI Official Website",
     chinese: "AI 创作工具平台"
@@ -85,10 +85,19 @@ const projectsData = [
     title: "DigitMasterAI-Chat",
     description: "Digit Master AI believe prompt means poetry, we enable AI connect the dots between complex content data. ​",
     href: "https://chat.digitmasterai.com/",
-    icon: "https://www.digitmasterai.com/logo.png",
+    icon: "https://login.digitmasterai.com/favicon.ico",
     type: "tool",
     brief: "Prompt means poetry",
     chinese: "AI 聊天助手"
+  },
+  {
+    title: "Better Studres",
+    description: "Browser extension that improves Studres.New sleek design and tools for enhanced productivity.",
+    href: "https://better-studres.netlify.app/",
+    icon: "https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/unnamed.3d52th72ak.webp",
+    type: "tool",
+    brief: "Browser extension that improves Studres.",
+    chinese: "浏览器扩展，改进Studres"
   }
 ];
 
