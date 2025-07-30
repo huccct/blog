@@ -5,7 +5,6 @@ import siteMetadata from '@/data/siteMetadata'
 import formatDate from '@/lib/utils/formatDate'
 import { sortedBlogPost, allCoreContent } from '@/lib/utils/contentlayer'
 import { InferGetStaticPropsType } from 'next'
-import NewsletterForm from '@/components/NewsletterForm'
 import { allBlogs } from 'contentlayer/generated'
 
 const MAX_DISPLAY = 5
@@ -34,6 +33,16 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
       </div>
 
       <div className="divide-y divide-gray-200/50 dark:divide-gray-800/50">
+        {/* 添加个人格言 */}
+        <div className="py-8 text-center">
+          <blockquote className="text-xl md:text-2xl font-serif italic text-gray-800 dark:text-gray-200 leading-relaxed">
+            "Excellence in any department can be attained only by the labor of a lifetime; it is not to be purchased at a lesser price."
+          </blockquote>
+          <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+            — Samuel Johnson
+          </div>
+        </div>
+
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Latest</h1>
           <p className="text-lg leading-7 text-gray-600 dark:text-gray-400">
