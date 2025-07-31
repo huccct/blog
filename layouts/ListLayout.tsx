@@ -26,8 +26,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
   return (
     <>
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#374151_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-        <div className="absolute top-0 -left-4 w-3/4 h-full bg-gradient-to-br from-primary-100/20 via-primary-200/10 to-transparent dark:from-primary-900/20 dark:via-primary-800/10 blur-3xl"></div>
+        {/* Clean background - no effects */}
       </div>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

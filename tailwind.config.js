@@ -59,6 +59,30 @@ module.exports = {
           900: '#080C18',
         },
       },
+      animation: {
+        'grow': 'grow 10s ease forwards infinite',
+      },
+      keyframes: {
+        grow: {
+          '0%': {
+            strokeDashoffset: '1px',
+            strokeDasharray: '0 350px',
+            opacity: '0',
+          },
+          '10%': {
+            opacity: '1',
+          },
+          '40%': {
+            strokeDasharray: '350px 0',
+          },
+          '85%': {
+            strokeDasharray: '350px 0',
+          },
+          '95%, 100%': {
+            strokeDasharray: '0 350px',
+          },
+        },
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {

@@ -22,32 +22,22 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
 
-      {/* 添加背景装饰 */}
-      <div className="fixed inset-0 -z-10">
-        {/* 渐变网格背景 */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-        {/* 主光晕 */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary-100/30 via-primary-300/10 to-transparent dark:from-primary-900/20 dark:via-primary-800/5 blur-3xl"></div>
-        {/* 装饰光晕 */}
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-primary-200/20 dark:bg-primary-800/10 blur-3xl"></div>
-      </div>
+
 
       <div className="divide-y divide-gray-200/50 dark:divide-gray-800/50">
-        {/* 添加个人格言 */}
         <div className="py-8 text-center">
           <blockquote className="text-xl md:text-2xl font-serif italic text-gray-800 dark:text-gray-200 leading-relaxed">
             "Excellence in any department can be attained only by the labor of a lifetime; it is not to be purchased at a lesser price."
           </blockquote>
-          <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+          <div className="mt-4 text-sm font-mono text-gray-600 dark:text-gray-400">
             — Samuel Johnson
           </div>
         </div>
+      </div>
 
+      <div className="divide-y divide-gray-200/50 dark:divide-gray-800/50">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Latest</h1>
-          <p className="text-lg leading-7 text-gray-600 dark:text-gray-400">
-            {siteMetadata.description}
-          </p>
         </div>
 
         <div className="space-y-4 py-4">

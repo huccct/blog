@@ -2,10 +2,10 @@ const siteMetadata = {
   title: 'Orion Chen',
   author: 'Orion Chen',
   headerTitle: "Orion Chen's Blog",
-  description: '🏝️ Recording Code Life',
+  description: '"The best way to predict the future is to create it." - Code, thoughts & discoveries',
   language: 'en',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://wwww.orionchen.me',
+  siteUrl: 'https://www.orionchen.me',
   siteRepo: 'https://github.com/huccct/blog',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',

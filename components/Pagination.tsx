@@ -1,39 +1,63 @@
-import Link from '@/components/Link'
 
 interface Props {
   totalPages: number
   currentPage: number
+  onPageChange?: (page: number) => void
 }
 
-export default function Pagination({ totalPages, currentPage }: Props) {
+export default function Pagination({ totalPages, currentPage, onPageChange }: Props) {
   const prevPage = currentPage - 1 > 0
   const nextPage = currentPage + 1 <= totalPages
 
+  const handlePrevPage = () => {
+    if (prevPage && onPageChange) {
+      onPageChange(currentPage - 1)
+    }
+  }
+
+  const handleNextPage = () => {
+    if (nextPage && onPageChange) {
+      onPageChange(currentPage + 1)
+    }
+  }
+
   return (
     <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-      <nav className="flex justify-between">
+      <nav className="flex justify-between items-center">
         {!prevPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
+          <button 
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors" 
+            disabled={!prevPage}
+          >
             Previous
           </button>
         )}
         {prevPage && (
-          <Link href={currentPage - 1 === 1 ? `/blog/` : `/blog/page/${currentPage - 1}`}>
-            <button>Previous</button>
-          </Link>
+          <button
+            onClick={handlePrevPage}
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          >
+            Previous
+          </button>
         )}
-        <span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">
           {currentPage} of {totalPages}
         </span>
         {!nextPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
+          <button 
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors" 
+            disabled={!nextPage}
+          >
             Next
           </button>
         )}
         {nextPage && (
-          <Link href={`/blog/page/${currentPage + 1}`}>
-            <button>Next</button>
-          </Link>
+          <button
+            onClick={handleNextPage}
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          >
+            Next
+          </button>
         )}
       </nav>
     </div>

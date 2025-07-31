@@ -54,8 +54,8 @@ code {
 }
 
 blockquote {
-  border-left: 4px solid #3b82f6;
-  background: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid #374151; 
+  background: rgba(55, 65, 81, 0.05); 
   margin: 1.5rem 0;
   padding: 1rem 1.5rem;
   border-radius: 0 8px 8px 0;
@@ -76,7 +76,7 @@ button {
 }
 
 a:hover {
-  color: #3b82f6;
+  color: #1F2937; 
 }
 
 button:hover {
@@ -106,7 +106,7 @@ button:hover {
 }
 
 .token.keyword {
-  color: #569cd6;
+  color: #374151;
 }
 
 .token.comment {

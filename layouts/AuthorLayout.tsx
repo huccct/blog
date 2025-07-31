@@ -10,7 +10,6 @@ const CommandLineInterface = ({ executeCommand }) => {
   const [showHelpHint, setShowHelpHint] = useState(false)
   const endOfOutputRef = useRef(null)
 
-  // 在组件加载后自动键入 'about' 并执行该命令
   useEffect(() => {
     inputRef.current.focus()
     const command = 'about'
@@ -23,7 +22,6 @@ const CommandLineInterface = ({ executeCommand }) => {
         setTimeout(typeCharacter, 100)
         setShowHelpHint(true)
       } else {
-        // 命令全部键入后,模拟回车执行命令
         setTimeout(() => submitCommand(command), 500)
       }
     }
@@ -56,7 +54,7 @@ const CommandLineInterface = ({ executeCommand }) => {
     }
     setInput('')
     if (command.trim().toLowerCase() !== 'about') {
-      setShowHelpHint(false) // 在非 'about' 命令后不显示提示
+      setShowHelpHint(false) 
     }
   }
 
@@ -113,7 +111,7 @@ const CommandLineInterface = ({ executeCommand }) => {
         {showHelpHint && (
           <div className="flex items-center mt-2">
             <div className="flex-grow text-gray-400 text-xs break-words">
-              Type <span className="text-blue-500 font-bold">help</span> to see more commands{' '}
+              Type <span className="text-primary-500 font-bold">help</span> to see more commands{' '}
             </div>
           </div>
         )}
@@ -129,18 +127,18 @@ const AuthorLayout = () => {
   const about =
     'A software engineer who loves building elegant solutions and exploring new technologies. Currently focused on web development and always learning something new 🚀'
   const navigateBlog = () => {
-    router.push('/blog') // 使用 router.push 方法跳转到主页
+    router.push('/blog')  
   }
   const navigateProjects = () => {
-    router.push('/projects') // 使用 router.push 方法跳转到项目页
+    router.push('/projects') 
   }
 
   const navigateTags = () => {
-    router.push('/tags') // 使用 router.push 方法跳转到标签页
+    router.push('/tags') 
   }
 
   const navigateAbout = () => {
-    router.push('/about') // 使用 router.push 方法跳转到联系页
+    router.push('/about') 
   }
 
   const executeCommand = (command) => {
@@ -148,7 +146,7 @@ const AuthorLayout = () => {
       case 'about':
         return (
           <div className="space-y-6">
-            <p className="text-lg leading-relaxed border-l-4 border-blue-500 pl-6 py-2 bg-blue-50/50 dark:bg-blue-900/20">
+            <p className="text-lg leading-relaxed border-l-4 border-primary-500 pl-6 py-2 bg-primary-50/50 dark:bg-primary-900/20">
               {about}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -327,17 +325,14 @@ const AuthorLayout = () => {
     <>
       <PageSEO title={`About - ${siteMetadata.author}`} description={siteMetadata.description} />
 
-     {/* 宇宙背景 */}
       <div className="fixed inset-0 -z-10">
-        {/* 基础渐变背景 */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" />
         
-        {/* 星空层 - 增加星星数量 */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(150)].map((_, i) => (
+          {[...Array(1000)].map((_, i) => (
             <div
               key={i}
-              className="absolute rounded-full bg-gray-600 dark:bg-gray-300"
+              className="absolute rounded-full bg-black dark:bg-white"
               style={{
                 width: Math.random() * 2.5 + 'px',
                 height: Math.random() * 2.5 + 'px',
@@ -350,27 +345,11 @@ const AuthorLayout = () => {
           ))}
         </div>
 
-        {/* 增强的星云效果 */}
-        <div className="absolute inset-0">
-          {/* 主星云 */}
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary-100/10 dark:bg-primary-900/10 rounded-full blur-3xl animate-nebula" />
-          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary-200/10 dark:bg-primary-800/10 rounded-full blur-3xl animate-nebula-delayed" />
-          
-          {/* 额外的星云效果 */}
-          <div className="absolute top-1/3 right-1/3 w-64 h-64 bg-blue-100/10 dark:bg-blue-900/10 rounded-full blur-2xl animate-pulse" />
-          <div className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-purple-100/10 dark:bg-purple-900/10 rounded-full blur-2xl animate-nebula" />
-          
-          {/* 小型星云点缀 */}
-          <div className="absolute top-2/3 left-1/2 w-32 h-32 bg-pink-100/5 dark:bg-pink-900/5 rounded-full blur-xl animate-float" />
-          <div className="absolute bottom-2/3 right-1/2 w-40 h-40 bg-indigo-100/5 dark:bg-indigo-900/5 rounded-full blur-xl animate-float-delayed" />
-        </div>
-
-        {/* 点状网格 */}
         <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#374151_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[size:20px_20px] opacity-20" />
       </div>
 
        <div className="container mx-auto px-4 py-16 relative">
-        <h1 className="text-3xl font-bold text-gray-800 hover:scale-105 transition-transform cursor-pointer dark:text-gray-100">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
           About
         </h1>
         <div className="mt-8">
@@ -378,49 +357,10 @@ const AuthorLayout = () => {
         </div>
       </div>
 
-      {/* 添加新的动画关键帧 */}
       <style >{`
         @keyframes twinkle {
           0%, 100% { opacity: 0.2; }
           50% { opacity: 1; }
-        }
-        @keyframes nebula {
-          0%, 100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.1;
-          }
-          50% {
-            transform: translate(50px, -30px) scale(1.2);
-            opacity: 0.2;
-          }
-        }
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0) scale(1);
-          }
-          50% {
-            transform: translateY(-20px) scale(1.1);
-          }
-        }
-        @keyframes float-delayed {
-          0%, 100% {
-            transform: translateY(0) scale(1);
-          }
-          50% {
-            transform: translateY(20px) scale(1.1);
-          }
-        }
-        .animate-nebula {
-          animation: nebula 15s ease-in-out infinite;
-        }
-        .animate-nebula-delayed {
-          animation: nebula 15s ease-in-out infinite 7.5s;
-        }
-        .animate-float {
-          animation: float 10s ease-in-out infinite;
-        }
-        .animate-float-delayed {
-          animation: float-delayed 12s ease-in-out infinite 2s;
         }
       `}</style>
     </>

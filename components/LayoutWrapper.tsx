@@ -4,15 +4,10 @@ import Link from './Link'
 import ThemeSwitch from './ThemeSwitch'
 import MobileNav from './MobileNav'
 import Footer from './Footer'
-import Logo from '@/data/logo.svg'
+import AnimatedLogo from './AnimatedLogo'
 import headerNavLinks from '@/data/headerNavLinks'
 import siteMetadata from '@/data/siteMetadata'
 import SectionContainer from './SectionContainer'
-
-const headerVariants = {
-  hover: { scale: 1.1 },
-  tap: { scale: 0.95 },
-}
 
 const LayoutWrapper = ({ children }) => {
   const router = useRouter()
@@ -25,37 +20,22 @@ const LayoutWrapper = ({ children }) => {
         className="flex justify-between items-center py-8"
       >
         <Link href="/" aria-label={siteMetadata.headerTitle} className="group flex items-center">
-          <motion.div variants={headerVariants} whileHover="hover" whileTap="tap">
-            <div className="relative w-10 h-10 mr-3">
-              <div className="absolute inset-0 rounded-lg opacity-75 blur-sm group-hover:opacity-100 transition-opacity">
-                <Logo />
-              </div>
-              <div className="relative rounded-lg w-full h-full">
-                <Logo />
-              </div>
-            </div>
-          </motion.div>
-          <div className="hidden sm:block font-mono">
-            <span className="text-xl font-bold text-gray-800 dark:text-gray-200 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#4f46e5] group-hover:to-[#0ea5e9] transition-all duration-300">
-              Orion
-            </span>
-            <span className="text-xl font-light text-gray-600 dark:text-gray-400 ml-0.5">Chen</span>
+          <div className="block">
+            <AnimatedLogo className="w-40 h-8 sm:w-48 sm:h-10" />
           </div>
         </Link>
-        <nav className="hidden sm:flex items-center space-x-1">
+        <nav className="hidden sm:flex items-center space-x-2">
           {headerNavLinks.map((link) => (
             <Link
               key={link.title}
               href={link.href}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
+              className={`px-3 py-2 text-sm font-medium transition-colors ${
                 router.pathname === link.href
-                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800/50'
+                  ? 'text-gray-900 dark:text-gray-100 border-b-2 border-gray-900 dark:border-gray-100'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
               }`}
             >
-              <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                {link.title}
-              </motion.span>
+              {link.title}
             </Link>
           ))}
           <ThemeSwitch />

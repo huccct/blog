@@ -1,13 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import siteMetadata from '@/data/siteMetadata'
 import { PageSEO } from '@/components/SEO'
-import projectsData from '@/data/projectsData'
-import ResumePDF from '@/components/ResumePDF'
-import dynamic from 'next/dynamic'
-const PDFDownloadLink = dynamic(
-  () => import('@react-pdf/renderer').then((mod) => mod.PDFDownloadLink),
-  { ssr: false }
-)
+
 
 export default function Resume() {
   const lastUpdated = 'Jun 30, 2025'
@@ -16,7 +10,6 @@ export default function Resume() {
     <>
       <PageSEO title={`Resume - ${siteMetadata.author}`} description={siteMetadata.description} />
 
-      {/* 添加背景装饰 */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
         <div className="absolute -top-[40rem] -left-[40rem] w-[120rem] h-[120rem] rounded-full bg-primary-200/20 dark:bg-primary-900/20 blur-[128px]"></div>
@@ -33,9 +26,9 @@ export default function Resume() {
           {/* About */}
           <section>
             <h2 className="text-xl font-semibold mb-4">About</h2>
-            <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+            <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
               <p className="text-gray-600 dark:text-gray-400">
-                My name is Orion(Tunan) Chen. I am a software engineer with a passion for web
+                My name is <span className='dark:text-gray-400 font-bold text-gray-600'>Orion</span>(<span className='dark:text-gray-400 font-bold text-gray-600'>Tunan</span>) Chen. I am a software engineer with a passion for web
                 development. I have experience in both frontend and backend development, and I am
                 always eager to learn new technologies. I am currently pursuing a master's degree in
                 software engineering at the University of St. Andrews. I am looking for
@@ -53,7 +46,7 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Education</h2>
             <div className="space-y-4">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <div className="flex items-center gap-4">
                   <img
                     src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/st.andrews-logo.67x8bfkt75.webp"
@@ -68,7 +61,7 @@ export default function Resume() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <div className="flex items-center gap-4">
                   <img
                     src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/qit-logo.lvhxkjids.webp"
@@ -90,7 +83,7 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Skills</h2>
             <div className="grid sm:grid-cols-2 gap-6">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium mb-3">Frontend</h3>
                 <div className="flex flex-wrap gap-2">
                   {[
@@ -111,7 +104,7 @@ export default function Resume() {
                   ))}
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium mb-3">Backend</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Node.js', 'Spring Boot', 'MongoDB', 'Nginx', 'Docker', 'MySql', 'Nest.js'].map(
@@ -126,7 +119,7 @@ export default function Resume() {
                   )}
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium mb-3">Devops</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Git'].map((skill) => (
@@ -139,7 +132,7 @@ export default function Resume() {
                   ))}
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium mb-3">Languages</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Python', 'Java', 'C/C++'].map((skill) => (
@@ -159,7 +152,7 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Work Experience</h2>
             <div className="space-y-4">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium">Frontend Developer</h3>
                 <p className="text-gray-600 dark:text-gray-400">DigitMaster AI</p>
                 <p className="text-sm text-gray-500 mt-1">Dec 2024 - May 2025</p>
@@ -167,7 +160,7 @@ export default function Resume() {
                   - Worked as a frontend developer intern, developing AI chat interface using Vue.js and Unocss.
                 </p>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium">Frontend Developer</h3>
                 <p className="text-gray-600 dark:text-gray-400">Telepace.AI</p>
                 <p className="text-sm text-gray-500 mt-1">Sep 2024 - Feb 2025</p>
@@ -175,7 +168,7 @@ export default function Resume() {
                   - Worked as a frontend developer intern, building AI-powered survey platform using Next.js and Tailwind CSS.
                 </p>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium">Web Full Stack Development Intern</h3>
                 <p className="text-gray-600 dark:text-gray-400">看见概念（上海）智能科技有限公司</p>
                 <p className="text-sm text-gray-500 mt-1">Jul 2023 - Dec 2023</p>
@@ -184,7 +177,7 @@ export default function Resume() {
                   development projects.
                 </p>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium">Frontend Intern</h3>
                 <p className="text-gray-600 dark:text-gray-400">壹沓科技（上海）有限公司</p>
                 <p className="text-sm text-gray-500 mt-1">Jul 2021 - Aug 2021</p>
@@ -200,11 +193,11 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Languages</h2>
             <div className="space-y-4">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium">Chinese</h3>
                 <p className="text-gray-600 dark:text-gray-400">Native</p>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium">English</h3>
                 <p className="text-gray-600 dark:text-gray-400">Working Proficiency</p>
               </div>
@@ -215,7 +208,7 @@ export default function Resume() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Awards</h2>
             <div className="space-y-4">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium">Outstanding Student</h3>
                 <p className="text-gray-600 dark:text-gray-400">
                   Qingdao Institute of Technology, 2021
@@ -224,7 +217,7 @@ export default function Resume() {
                   - Awarded as an outstanding student for academic excellence.
                 </p>
               </div>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 backdrop-blur-sm">
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <h3 className="text-lg font-medium">Subject Competition Scholarship</h3>
                 <p className="text-gray-600 dark:text-gray-400">
                   Qingdao Institute of Technology, 2023
@@ -236,27 +229,9 @@ export default function Resume() {
             </div>
           </section>
 
-          {/* PDF Downloads */}
-          {/* <div className="flex justify-center gap-4 pt-8">
-            <a
-              href="/static/pdf/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2 rounded-full border border-gray-200 dark:border-gray-700 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm"
-            >
-              PDF Version
-            </a>
-            <a
-              href="/static/pdf/resume-chinese.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2 rounded-full border border-gray-200 dark:border-gray-700 transition-colors hover:bg-white/40 dark:hover:bg-gray-800/40 backdrop-blur-sm"
-            >
-              PDF（Chinese）Version
-            </a>
-          </div> */}
+
         </div>
       </div>
     </>
   )
-}
+  }
