@@ -332,10 +332,7 @@ const AuthorLayout = () => {
         <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#374151_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[size:20px_20px] opacity-20" />
       </div>
 
-      <div className="container mx-auto px-4 py-16 relative">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-8">
-          About
-        </h1>
+      <div className="container mx-auto px-4 relative">
         <CommandLineInterface executeCommand={executeCommand} />
       </div>
 
