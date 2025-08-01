@@ -11,6 +11,8 @@ import type { Blog } from 'contentlayer/generated'
 import ScrollToTop from '@/components/ScrollToTop'
 import ParticleBackground from '@/components/ParticleBackground'
 
+export const POSTS_PER_PAGE = 5
+
 export const getStaticProps = async () => {
   const posts = sortedBlogPost(allBlogs)
 
