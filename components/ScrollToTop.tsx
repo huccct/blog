@@ -19,7 +19,7 @@ const ScrollToTop = () => {
 
   return (
     <div
-      className={`fixed right-8 bottom-8 ${show ? 'block' : 'hidden'}`}
+      className={`fixed right-8 bottom-8 z-[9999] ${show ? 'block' : 'hidden'}`}
     >
       <button
         aria-label="Scroll To Top"
