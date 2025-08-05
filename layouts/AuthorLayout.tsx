@@ -167,8 +167,7 @@ const AuthorLayout = () => {
   
   const navigateBlog = () => router.push('/blog')  
   const navigateProjects = () => router.push('/projects') 
-  const navigateTags = () => router.push('/tags') 
-  const navigateAbout = () => router.push('/about') 
+  const navigateResume = () => router.push('/resume') 
 
   const executeCommand = (command) => {
     switch (command.trim().toLowerCase()) {
@@ -205,8 +204,7 @@ const AuthorLayout = () => {
               {[
                 { name: 'blog', icon: '📝', onClick: navigateBlog },
                 { name: 'projects', icon: '🚀', onClick: navigateProjects },
-                { name: 'tags', icon: '🏷️', onClick: navigateTags },
-                { name: 'about', icon: '👤', onClick: navigateAbout },
+                { name: 'Résumé', icon: '👤', onClick: navigateResume },
               ].map(({ name, icon, onClick }) => (
                 <div
                   key={name}
