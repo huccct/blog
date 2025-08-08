@@ -11,6 +11,19 @@ const CommandLineInterface = ({ executeCommand }) => {
   const endOfOutputRef = useRef(null)
   const terminalBodyRef = useRef(null)
 
+  // Command metadata for autocomplete and UX
+  const commands = ['help', 'clear', 'about', 'ls', 'hello', 'blog', 'projects', 'resume']
+  const [history, setHistory] = useState<string[]>(() => {
+    if (typeof window === 'undefined') return []
+    try {
+      const raw = localStorage.getItem('terminal_history')
+      return raw ? JSON.parse(raw) : []
+    } catch {
+      return []
+    }
+  })
+  const [historyIndex, setHistoryIndex] = useState(-1)
+
   useEffect(() => {
     inputRef.current.focus()
     const command = 'about'
@@ -37,8 +50,23 @@ const CommandLineInterface = ({ executeCommand }) => {
     }
   }, [output])
 
+  // Persist history (cap to last 200 entries)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('terminal_history', JSON.stringify(history.slice(-200)))
+      } catch (e) {
+        // ignore quota or serialization errors
+      }
+    }
+  }, [history])
+
   const handleSubmit = (event) => {
     event.preventDefault()
+    if (input.trim().length === 0) return
+    // push to history
+    setHistory((h) => [...h, input])
+    setHistoryIndex(-1)
     submitCommand(input)
   }
 
@@ -81,12 +109,24 @@ const CommandLineInterface = ({ executeCommand }) => {
 
       <div 
         ref={terminalBodyRef}
-        className="flex-1 p-4 overflow-y-auto scroll-smooth"
+        className="terminal-body flex-1 p-4 overflow-y-auto scroll-smooth"
         style={{
           scrollbarWidth: 'thin',
           scrollbarColor: 'rgba(156, 163, 175, 0.5) transparent'
         }}
       >
+        {/* Quick command chips */}
+        <div className="pb-3 -mt-1 flex flex-wrap gap-2">
+          {['help', 'ls', 'blog', 'projects', 'resume', 'clear'].map((cmd) => (
+            <button
+              key={cmd}
+              onClick={() => submitCommand(cmd)}
+              className="text-xs px-2 py-1 rounded-md border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              {cmd}
+            </button>
+          ))}
+        </div>
         <div className="space-y-2">
           {output.map((line, index) => {
             if (line.type === 'command') {
@@ -114,6 +154,35 @@ const CommandLineInterface = ({ executeCommand }) => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'ArrowUp') {
+                  e.preventDefault()
+                  if (history.length === 0) return
+                  const next = historyIndex < 0 ? history.length - 1 : Math.max(0, historyIndex - 1)
+                  setHistoryIndex(next)
+                  setInput(history[next] ?? '')
+                  return
+                }
+                if (e.key === 'ArrowDown') {
+                  e.preventDefault()
+                  if (history.length === 0) return
+                  const next = historyIndex < 0 ? -1 : Math.min(history.length - 1, historyIndex + 1)
+                  setHistoryIndex(next)
+                  setInput(next === -1 ? '' : history[next] ?? '')
+                  return
+                }
+                if (e.key === 'Tab') {
+                  e.preventDefault()
+                  const lower = input.trim().toLowerCase()
+                  if (!lower) return
+                  const match = commands.find((c) => c.startsWith(lower))
+                  if (match) setInput(match)
+                }
+              }}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="none"
+              spellCheck={false}
               className="w-full bg-transparent text-gray-600 dark:text-gray-400 text-sm focus:outline-none leading-none"
               style={{
                 border: 'none',
@@ -171,6 +240,15 @@ const AuthorLayout = () => {
 
   const executeCommand = (command) => {
     switch (command.trim().toLowerCase()) {
+      case 'blog':
+        router.push('/blog')
+        return <span className="text-sm text-gray-500 dark:text-gray-400">Opening /blog…</span>
+      case 'projects':
+        router.push('/projects')
+        return <span className="text-sm text-gray-500 dark:text-gray-400">Opening /projects…</span>
+      case 'resume':
+        router.push('/resume')
+        return <span className="text-sm text-gray-500 dark:text-gray-400">Opening /resume…</span>
       case 'about':
         return (
           <div className="space-y-6">
@@ -272,6 +350,9 @@ const AuthorLayout = () => {
                 { cmd: 'about', desc: 'About me', icon: '👨‍💻' },
                 { cmd: 'ls', desc: 'List directory contents', icon: '📁' },
                 { cmd: 'hello', desc: 'Say hello', icon: '👋' },
+                { cmd: 'blog', desc: 'Open blog page', icon: '📝' },
+                { cmd: 'projects', desc: 'Open projects page', icon: '🚀' },
+                { cmd: 'resume', desc: 'Open resume page', icon: '👤' },
               ].map(({ cmd, desc, icon }) => (
                 <div
                   key={cmd}
@@ -282,7 +363,7 @@ const AuthorLayout = () => {
                   <div className="flex items-center gap-3">
                     <span className="text-xl">{icon}</span>
                     <div>
-                      <code className="text-sm font-mono text-emerald-600 dark:text-emerald-400">
+                      <code className="text-sm font-mono text-primary-600 dark:text-primary-400">
                         {cmd}
                       </code>
                       <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{desc}</p>
