@@ -6,6 +6,32 @@ import Image from 'next/image'
 import { CodeBracketIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
 
+const ProjectIcon = ({ src, alt }: { src: string; alt: string }) => {
+  const [imgError, setImgError] = useState(false)
+
+  if (imgError) {
+    return (
+      <div className="w-8 h-8 rounded-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+        <CodeBracketIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+      </div>
+    )
+  }
+
+  return (
+    <div className="relative w-8 h-8 rounded-lg overflow-hidden">
+      <Image
+        src={src}
+        alt={alt}
+        width={32}
+        height={32}
+        className="object-contain"
+        sizes="32px"
+        onError={() => setImgError(true)}
+      />
+    </div>
+  )
+}
+
 const RandomFloatingDots = () => {
   // Generate dots immediately with wave parameters
   const generateInitialDots = () => {
@@ -233,16 +259,7 @@ export default function Projects() {
                     <div className="flex flex-col h-full">
                       <div className="flex items-center gap-4 mb-4">
                         <div className="flex items-center gap-3">
-                          <div className="relative w-8 h-8 rounded-lg overflow-hidden">
-                            <Image
-                              src={project.icon}
-                              alt={`${project.title} icon`}
-                              width={32}
-                              height={32}
-                              className="object-contain"
-                              sizes="32px"
-                            />
-                          </div>
+                          <ProjectIcon src={project.icon} alt={`${project.title} icon`} />
                         </div>
                         <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-500 transition-colors duration-300">
                           {project.title}

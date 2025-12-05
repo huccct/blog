@@ -83,7 +83,9 @@ module.exports = () => {
         'www.digitmasterai.com',
         'chat.digitmasterai.com',
         'login.digitmasterai.com',
-        'cdn.jsdelivr.net'
+        'cdn.jsdelivr.net',
+        'sector0x.com',
+        'www.movorca.com'
       ],
     },
     async headers() {

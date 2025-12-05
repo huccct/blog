@@ -1,5 +1,23 @@
 const projectsData = [
   {
+    title: '空扇区 (Sector0x)',
+    description: 'An AI-driven virtual town where users can create AI characters that live, grow, and make friends autonomously. Features AI-powered role-playing, world-building, and social interactions.',
+    href: 'https://sector0x.com/',
+    brief: 'AI-driven virtual town with autonomous characters',
+    chinese: 'AI驱动的虚拟小镇，角色自主生活与社交',
+    icon: 'https://sector0x.com/logo.png',
+    type: 'app'
+  },
+  {
+    title: 'Movorca',
+    description: 'An AI animation platform that enables users to create animated content using artificial intelligence technology.',
+    href: 'https://movorca.com/',
+    brief: 'AI animation platform',
+    chinese: 'AI动画平台',
+    icon: 'https://www.movorca.com/favicon.ico',
+    type: 'tool'
+  },
+  {
     title: 'Vue-Admin',
     description: `This admin system, built with Vue 3.x, uses Vite, Pinia, and Element Plus to offer a clean, efficient, and extendable scaffold for management and data analysis.`,
     href: 'https://github.com/huccct/vue-admin',

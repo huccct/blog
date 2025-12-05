@@ -55,7 +55,7 @@ export default function Resume() {
                   <div>
                     <h3 className="text-lg font-medium">MSc Software Engineering</h3>
                     <p className="text-gray-600 dark:text-gray-400">
-                      University of St. Andrews, 2024-2025
+                      University of St. Andrews, 2024-2025, GPA 15.02/20
                     </p>
                   </div>
                 </div>
@@ -152,7 +152,23 @@ export default function Resume() {
             <h2 className="text-xl font-semibold mb-4">Work Experience</h2>
             <div className="space-y-4">
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Frontend Developer</h3>
+                <h3 className="text-lg font-medium">Co-founder</h3>
+                <p className="text-gray-600 dark:text-gray-400">Explainix</p>
+                <p className="text-sm text-gray-500 mt-1">Nov 2025 - Present</p>
+                <p className="mt-2 text-gray-600 dark:text-gray-400">
+                  - Co-founder, working full-time on Explainix.
+                </p>
+              </div>
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
+                <h3 className="text-lg font-medium">Full Stack Developer Intern</h3>
+                <p className="text-gray-600 dark:text-gray-400">上海象多网络科技有限公司</p>
+                <p className="text-sm text-gray-500 mt-1">Aug 2025 - Nov 2025</p>
+                <p className="mt-2 text-gray-600 dark:text-gray-400">
+                  - Worked as a full stack developer, contributing to various web development projects.
+                </p>
+              </div>
+              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
+                <h3 className="text-lg font-medium">Frontend Developer Intern</h3>
                 <p className="text-gray-600 dark:text-gray-400">DigitMaster AI</p>
                 <p className="text-sm text-gray-500 mt-1">Dec 2024 - May 2025</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
@@ -160,7 +176,7 @@ export default function Resume() {
                 </p>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Frontend Developer</h3>
+                <h3 className="text-lg font-medium">Frontend Developer Intern</h3>
                 <p className="text-gray-600 dark:text-gray-400">Telepace.AI</p>
                 <p className="text-sm text-gray-500 mt-1">Sep 2024 - Feb 2025</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
@@ -177,7 +193,7 @@ export default function Resume() {
                 </p>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Frontend Intern</h3>
+                <h3 className="text-lg font-medium">Frontend Developer Intern</h3>
                 <p className="text-gray-600 dark:text-gray-400">壹沓科技（上海）有限公司</p>
                 <p className="text-sm text-gray-500 mt-1">Jul 2021 - Aug 2021</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
