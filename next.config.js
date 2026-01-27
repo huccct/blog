@@ -108,6 +108,17 @@ module.exports = () => {
       return [
         {
           source: '/',
+          destination: '/resume',
+          permanent: false,
+          has: [
+            {
+              type: 'host',
+              value: 'resume.orionchen.me',
+            },
+          ],
+        },
+        {
+          source: '/',
           destination: '/about',
           permanent: false,
           has: [

@@ -12,7 +12,7 @@ const CommandLineInterface = ({ executeCommand }) => {
   const terminalBodyRef = useRef(null)
 
   // Command metadata for autocomplete and UX
-  const commands = ['help', 'clear', 'about', 'ls', 'hello', 'blog', 'projects', 'resume']
+  const commands = ['help', 'clear', 'about', 'ls', 'hello', 'blog', 'projects']
   const [history, setHistory] = useState<string[]>(() => {
     if (typeof window === 'undefined') return []
     try {
@@ -117,7 +117,7 @@ const CommandLineInterface = ({ executeCommand }) => {
       >
         {/* Quick command chips */}
         <div className="pb-3 -mt-1 flex flex-wrap gap-2">
-          {['help', 'ls', 'blog', 'projects', 'resume', 'clear'].map((cmd) => (
+          {['help', 'ls', 'blog', 'projects', 'clear'].map((cmd) => (
             <button
               key={cmd}
               onClick={() => submitCommand(cmd)}
@@ -236,7 +236,6 @@ const AuthorLayout = () => {
   
   const navigateBlog = () => router.push('/blog')  
   const navigateProjects = () => router.push('/projects') 
-  const navigateResume = () => router.push('/resume') 
 
   const executeCommand = (command) => {
     switch (command.trim().toLowerCase()) {
@@ -246,9 +245,6 @@ const AuthorLayout = () => {
       case 'projects':
         router.push('/projects')
         return <span className="text-sm text-gray-500 dark:text-gray-400">Opening /projects…</span>
-      case 'resume':
-        router.push('/resume')
-        return <span className="text-sm text-gray-500 dark:text-gray-400">Opening /resume…</span>
       case 'about':
         return (
           <div className="space-y-6">
@@ -282,7 +278,6 @@ const AuthorLayout = () => {
               {[
                 { name: 'blog', icon: '📝', onClick: navigateBlog },
                 { name: 'projects', icon: '🚀', onClick: navigateProjects },
-                { name: 'Résumé', icon: '👤', onClick: navigateResume },
               ].map(({ name, icon, onClick }) => (
                 <div
                   key={name}
@@ -352,7 +347,6 @@ const AuthorLayout = () => {
                 { cmd: 'hello', desc: 'Say hello', icon: '👋' },
                 { cmd: 'blog', desc: 'Open blog page', icon: '📝' },
                 { cmd: 'projects', desc: 'Open projects page', icon: '🚀' },
-                { cmd: 'resume', desc: 'Open resume page', icon: '👤' },
               ].map(({ cmd, desc, icon }) => (
                 <div
                   key={cmd}

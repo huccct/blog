@@ -1,7 +1,20 @@
 /* eslint-disable react/no-unknown-property */
 import siteMetadata from '@/data/siteMetadata'
 import { PageSEO } from '@/components/SEO'
+import { GetServerSideProps } from 'next'
 
+const allowedHosts = new Set(['resume.orionchen.me'])
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const host = (req?.headers?.host || '').split(':')[0].toLowerCase()
+  const isLocalhost = host === 'localhost' || host === '127.0.0.1'
+
+  if (!isLocalhost && !allowedHosts.has(host)) {
+    return { notFound: true }
+  }
+
+  return { props: {} }
+}
 
 export default function Resume() {
   const lastUpdated = 'Jun 30, 2025'
