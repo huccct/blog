@@ -118,7 +118,7 @@ module.exports = () => {
           ],
         },
         {
-          source: '/:path((?!resume).*)',
+          source: '/:path((?!resume|locales|_next|api).*)',
           destination: 'https://orionchen.me/:path',
           permanent: false,
           has: [

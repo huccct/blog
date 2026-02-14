@@ -14,6 +14,16 @@ import { useTranslation } from '@/lib/i18n'
 const LayoutWrapper = ({ children }) => {
   const router = useRouter()
   const { t } = useTranslation()
+  const isResume = router.pathname === '/resume'
+
+  if (isResume) {
+    return (
+      <SectionContainer>
+        <main className="mb-auto">{children}</main>
+      </SectionContainer>
+    )
+  }
+
   return (
     <SectionContainer>
       <motion.header
