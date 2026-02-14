@@ -1,4 +1,5 @@
 import { Toc } from 'types/Toc'
+import { useTranslation } from '@/lib/i18n'
 
 interface TOCInlineProps {
   toc: Toc
@@ -32,6 +33,7 @@ const TOCInline = ({
   asDisclosure = false,
   exclude = '',
 }: TOCInlineProps) => {
+  const { t } = useTranslation()
   const re = Array.isArray(exclude)
     ? new RegExp('^(' + exclude.join('|') + ')$', 'i')
     : new RegExp('^(' + exclude + ')$', 'i')
@@ -55,7 +57,7 @@ const TOCInline = ({
     <>
       {asDisclosure ? (
         <details open>
-          <summary className="ml-6 pt-2 pb-2 text-xl font-bold">Table of Contents</summary>
+          <summary className="ml-6 pt-2 pb-2 text-xl font-bold">{t('toc.title')}</summary>
           <div className="ml-6">{tocList}</div>
         </details>
       ) : (

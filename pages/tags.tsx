@@ -5,6 +5,7 @@ import kebabCase from '@/lib/utils/kebabCase'
 import { getAllTags } from '@/lib/utils/contentlayer'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { allBlogs } from 'contentlayer/generated'
+import { useTranslation } from '@/lib/i18n'
 
 // TODO: refactor into contentlayer once compute over all docs is enabled
 
@@ -16,17 +17,18 @@ export const getStaticProps: GetStaticProps<{ tags: Record<string, number> }> = 
 
 export default function Tags({ tags }: InferGetStaticPropsType<typeof getStaticProps>) {
   const sortedTags = Object.keys(tags).sort((a, b) => tags[b] - tags[a])
+  const { t } = useTranslation()
   return (
     <>
       <PageSEO title={`Tags - ${siteMetadata.author}`} description="Things I blog about" />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-8">
           <div className="space-y-4">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Tags</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{t('tags.title')}</h1>
           </div>
 
           <div className="flex flex-wrap gap-4">
-            {Object.keys(tags).length === 0 && 'No tags found.'}
+            {Object.keys(tags).length === 0 && t('tags.noTags')}
             {sortedTags.map((t) => {
               return (
                 <Link

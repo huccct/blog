@@ -10,6 +10,7 @@ import formatDate from '@/lib/utils/formatDate'
 import type { Blog } from 'contentlayer/generated'
 import ScrollToTop from '@/components/ScrollToTop'
 import ParticleBackground from '@/components/ParticleBackground'
+import { useTranslation } from '@/lib/i18n'
 
 export const POSTS_PER_PAGE = 5
 
@@ -52,6 +53,7 @@ export default function Blog({
   const [searchValue, setSearchValue] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [expandedYears, setExpandedYears] = useState<Set<string>>(new Set())
+  const { t } = useTranslation()
 
   // Filter posts based on search and selected tags
   const filteredPosts = useMemo(() => {
@@ -128,20 +130,20 @@ export default function Blog({
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-8">
           <div className="space-y-4">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Blog</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{t('blog.title')}</h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              Thoughts, stories and ideas about technology and life organized by time
+              {t('blog.subtitle')}
             </p>
           </div>
 
           <div className="space-y-4">
             <div className="relative">
               <input
-                aria-label="Search articles"
+                aria-label={t('blog.searchPlaceholder')}
                 type="text"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
-                placeholder="Search articles..."
+                placeholder={t('blog.searchPlaceholder')}
                 className="w-full rounded-lg border border-gray-200 bg-white/50 backdrop-blur-sm px-4 py-3 text-gray-900 focus:border-primary-500 focus:ring-primary-500/20 dark:border-gray-700 dark:bg-gray-900/50 dark:text-gray-100 transition-colors"
               />
               <svg
@@ -163,14 +165,14 @@ export default function Blog({
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Filter by tags
+                  {t('blog.filterByTags')}
                 </h3>
                 {selectedTags.length > 0 && (
                   <button
                     onClick={() => setSelectedTags([])}
                     className="text-sm text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
-                    Clear all
+                    {t('blog.clearAll')}
                   </button>
                 )}
               </div>
@@ -193,22 +195,22 @@ export default function Blog({
 
             <div className="flex items-center justify-between">
               <div className="text-sm text-gray-500 dark:text-gray-400">
-                {totalPosts} post{totalPosts !== 1 ? 's' : ''} found
-                {selectedTags.length > 0 && ` for selected tags`}
+                {totalPosts === 1 ? t('blog.postsFound', { count: totalPosts }) : t('blog.postsFoundPlural', { count: totalPosts })}
+                {selectedTags.length > 0 && t('blog.forSelectedTags')}
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => setExpandedYears(new Set(sortedYears))}
                   className="text-sm text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
-                  Expand all
+                  {t('blog.expandAll')}
                 </button>
                 <span className="text-gray-300 dark:text-gray-600">|</span>
                 <button
                   onClick={() => setExpandedYears(new Set())}
                   className="text-sm text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
-                  Collapse all
+                  {t('blog.collapseAll')}
                 </button>
               </div>
             </div>
@@ -220,7 +222,7 @@ export default function Blog({
             <div className="space-y-8">
               {!totalPosts && (
                 <div className="text-center py-12">
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">No posts found.</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">{t('blog.noPostsFound')}</p>
                   {(searchValue || selectedTags.length > 0) && (
                     <button
                       onClick={() => {
@@ -229,7 +231,7 @@ export default function Blog({
                       }}
                       className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     >
-                      Clear filters
+                      {t('blog.clearFilters')}
                     </button>
                   )}
                 </div>

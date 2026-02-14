@@ -1,12 +1,16 @@
 import React, { useRef, useState } from 'react'
 
 import siteMetadata from '@/data/siteMetadata'
+import { useTranslation } from '@/lib/i18n'
 
-const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
+const NewsletterForm = ({ title }: { title?: string }) => {
   const inputEl = useRef<HTMLInputElement>(null)
   const [error, setError] = useState(false)
   const [message, setMessage] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  const { t } = useTranslation()
+
+  const displayTitle = title || t('newsletter.title')
 
   const subscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -24,30 +28,30 @@ const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
     const { error } = await res.json()
     if (error) {
       setError(true)
-      setMessage('Your e-mail address is invalid or you are already subscribed!')
+      setMessage(t('newsletter.error'))
       return
     }
 
     inputEl.current.value = ''
     setError(false)
     setSubscribed(true)
-    setMessage('Successfully! 🎉 You are now subscribed.')
+    setMessage(t('newsletter.success'))
   }
 
   return (
     <div>
-      <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-gray-100">{title}</div>
+      <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-gray-100">{displayTitle}</div>
       <form className="flex flex-col sm:flex-row" onSubmit={subscribe}>
         <div>
           <label className="sr-only" htmlFor="email-input">
-            Email address
+            {t('newsletter.emailLabel')}
           </label>
           <input
             autoComplete="email"
             className="w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
             id="email-input"
             name="email"
-            placeholder={subscribed ? "You're subscribed !  🎉" : 'Enter your email'}
+            placeholder={subscribed ? t('newsletter.subscribed') : t('newsletter.emailPlaceholder')}
             ref={inputEl}
             required
             type="email"
@@ -62,7 +66,7 @@ const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
             type="submit"
             disabled={subscribed}
           >
-            {subscribed ? 'Thank you!' : 'Sign up'}
+            {subscribed ? t('newsletter.thankYou') : t('newsletter.signUp')}
           </button>
         </div>
       </form>

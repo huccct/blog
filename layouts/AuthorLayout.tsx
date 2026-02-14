@@ -2,18 +2,20 @@ import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from '@/lib/i18n'
 
 const CommandLineInterface = ({ executeCommand }) => {
   const [input, setInput] = useState('')
-  const [output, setOutput] = useState([])
+  const [commandHistory, setCommandHistory] = useState<string[]>([])
   const inputRef = useRef(null)
   const [showHelpHint, setShowHelpHint] = useState(false)
   const endOfOutputRef = useRef(null)
   const terminalBodyRef = useRef(null)
+  const { t } = useTranslation()
 
   // Command metadata for autocomplete and UX
   const commands = ['help', 'clear', 'about', 'ls', 'hello', 'blog', 'projects']
-  const [history, setHistory] = useState<string[]>(() => {
+  const [inputHistory, setInputHistory] = useState<string[]>(() => {
     if (typeof window === 'undefined') return []
     try {
       const raw = localStorage.getItem('terminal_history')
@@ -48,42 +50,38 @@ const CommandLineInterface = ({ executeCommand }) => {
     if (endOfOutputRef.current && terminalBodyRef.current) {
       terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight
     }
-  }, [output])
+  }, [commandHistory])
 
-  // Persist history (cap to last 200 entries)
+  // Persist input history (cap to last 200 entries)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        localStorage.setItem('terminal_history', JSON.stringify(history.slice(-200)))
+        localStorage.setItem('terminal_history', JSON.stringify(inputHistory.slice(-200)))
       } catch (e) {
         // ignore quota or serialization errors
       }
     }
-  }, [history])
+  }, [inputHistory])
 
   const handleSubmit = (event) => {
     event.preventDefault()
     if (input.trim().length === 0) return
-    // push to history
-    setHistory((h) => [...h, input])
+    setInputHistory((h) => [...h, input])
     setHistoryIndex(-1)
     submitCommand(input)
   }
 
   const submitCommand = (command) => {
     if (command.trim().toLowerCase() === 'clear') {
-      setOutput([])
+      setCommandHistory([])
     } else {
-      const result = executeCommand(command)
-      setOutput((prevOutput) => [
-        ...prevOutput,
-        { type: 'command', text: command },
-        { type: 'result', text: result },
-      ])
+      // Execute with side effects (navigation etc.)
+      executeCommand(command, false)
+      setCommandHistory((prev) => [...prev, command])
     }
     setInput('')
     if (command.trim().toLowerCase() !== 'about') {
-      setShowHelpHint(false) 
+      setShowHelpHint(false)
     }
   }
 
@@ -96,14 +94,14 @@ const CommandLineInterface = ({ executeCommand }) => {
           <div className="w-3 h-3 rounded-full bg-green-500"></div>
         </div>
         <div className="text-gray-500 dark:text-gray-400 font-mono text-sm">
-          Orion's Terminal
+          {t('terminal.title')}
         </div>
       </div>
 
       <div className="p-4 border-b border-gray-200/50 dark:border-gray-800/50 flex-shrink-0">
         <div className="text-gray-600 dark:text-gray-400 font-mono text-sm space-y-1">
-          <div className="typing-effect">Welcome to Orion's Terminal 1.0.0</div>
-          <div className="typing-effect-delay-1">Type 'help' to see available commands</div>
+          <div className="typing-effect">{t('terminal.welcome')}</div>
+          <div className="typing-effect-delay-1">{t('terminal.welcomeHint')}</div>
         </div>
       </div>
 
@@ -128,22 +126,17 @@ const CommandLineInterface = ({ executeCommand }) => {
           ))}
         </div>
         <div className="space-y-2">
-          {output.map((line, index) => {
-            if (line.type === 'command') {
-              return (
-                <div key={index} className="flex items-center whitespace-normal break-words">
-                  <span className="text-green-500 text-lg mr-2 flex-shrink-0 leading-none">❯</span>
-                  <span className="text-gray-600 dark:text-gray-400 text-sm leading-none">{line.text}</span>
-                </div>
-              )
-            } else {
-              return (
-                <div key={index} className="whitespace-normal break-words pl-6 text-sm mb-4">
-                  {line.text}
-                </div>
-              )
-            }
-          })}
+          {commandHistory.map((cmd, index) => (
+            <React.Fragment key={index}>
+              <div className="flex items-center whitespace-normal break-words">
+                <span className="text-green-500 text-lg mr-2 flex-shrink-0 leading-none">❯</span>
+                <span className="text-gray-600 dark:text-gray-400 text-sm leading-none">{cmd}</span>
+              </div>
+              <div className="whitespace-normal break-words pl-6 text-sm mb-4">
+                {executeCommand(cmd, true)}
+              </div>
+            </React.Fragment>
+          ))}
         </div>
 
         <div className="flex items-center mt-4">
@@ -157,18 +150,18 @@ const CommandLineInterface = ({ executeCommand }) => {
               onKeyDown={(e) => {
                 if (e.key === 'ArrowUp') {
                   e.preventDefault()
-                  if (history.length === 0) return
-                  const next = historyIndex < 0 ? history.length - 1 : Math.max(0, historyIndex - 1)
+                  if (inputHistory.length === 0) return
+                  const next = historyIndex < 0 ? inputHistory.length - 1 : Math.max(0, historyIndex - 1)
                   setHistoryIndex(next)
-                  setInput(history[next] ?? '')
+                  setInput(inputHistory[next] ?? '')
                   return
                 }
                 if (e.key === 'ArrowDown') {
                   e.preventDefault()
-                  if (history.length === 0) return
-                  const next = historyIndex < 0 ? -1 : Math.min(history.length - 1, historyIndex + 1)
+                  if (inputHistory.length === 0) return
+                  const next = historyIndex < 0 ? -1 : Math.min(inputHistory.length - 1, historyIndex + 1)
                   setHistoryIndex(next)
-                  setInput(next === -1 ? '' : history[next] ?? '')
+                  setInput(next === -1 ? '' : inputHistory[next] ?? '')
                   return
                 }
                 if (e.key === 'Tab') {
@@ -193,7 +186,7 @@ const CommandLineInterface = ({ executeCommand }) => {
                 padding: '0',
                 lineHeight: '18px',
               }}
-              placeholder="Type a command..."
+              placeholder={t('terminal.placeholder')}
             />
           </form>
         </div>
@@ -201,7 +194,11 @@ const CommandLineInterface = ({ executeCommand }) => {
         {showHelpHint && (
           <div className="mt-2 pl-6">
             <div className="text-gray-400 dark:text-gray-500 text-xs">
-              Type <span className="text-primary-500 font-bold">help</span> to see more commands
+              {t('terminal.helpHint').split('<cmd>').map((part, i) => {
+                if (i === 0) return part
+                const [cmd, rest] = part.split('</cmd>')
+                return <React.Fragment key={i}><span className="text-primary-500 font-bold">{cmd}</span>{rest}</React.Fragment>
+              })}
             </div>
           </div>
         )}
@@ -231,35 +228,34 @@ const CommandLineInterface = ({ executeCommand }) => {
 
 const AuthorLayout = () => {
   const router = useRouter()
-  const about =
-    'A software engineer who loves building elegant solutions and exploring new technologies. Currently focused on web development and always learning something new 🚀'
-  
-  const navigateBlog = () => router.push('/blog')  
-  const navigateProjects = () => router.push('/projects') 
+  const { t } = useTranslation()
 
-  const executeCommand = (command) => {
+  const navigateBlog = () => router.push('/blog')
+  const navigateProjects = () => router.push('/projects')
+
+  const executeCommand = (command, renderOnly = false) => {
     switch (command.trim().toLowerCase()) {
       case 'blog':
-        router.push('/blog')
-        return <span className="text-sm text-gray-500 dark:text-gray-400">Opening /blog…</span>
+        if (!renderOnly) router.push('/blog')
+        return <span className="text-sm text-gray-500 dark:text-gray-400">{t('terminal.openingBlog')}</span>
       case 'projects':
-        router.push('/projects')
-        return <span className="text-sm text-gray-500 dark:text-gray-400">Opening /projects…</span>
+        if (!renderOnly) router.push('/projects')
+        return <span className="text-sm text-gray-500 dark:text-gray-400">{t('terminal.openingProjects')}</span>
       case 'about':
         return (
           <div className="space-y-6">
             <p className="text-lg leading-relaxed border-l-4 border-primary-500 pl-6 py-2 bg-primary-50/50 dark:bg-primary-900/20">
-              {about}
+              {t('terminal.aboutBio')}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-lg bg-gray-50/50 dark:bg-gray-800/30 border border-gray-200/50 dark:border-gray-700/50">
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">Tech Stack</h3>
+                <h3 className="font-medium text-gray-900 dark:text-gray-100">{t('terminal.techStack')}</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  TypeScript, React, Next.js, Node.js...
+                  TypeScript, React, Next.js, Node.js, LangChain...
                 </p>
               </div>
               <div className="p-4 rounded-lg bg-gray-50/50 dark:bg-gray-800/30 border border-gray-200/50 dark:border-gray-700/50">
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">Interests</h3>
+                <h3 className="font-medium text-gray-900 dark:text-gray-100">{t('terminal.interests')}</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
                   AI, Web3, Web Development, UI Design, Open Source, Art...
                 </p>
@@ -273,7 +269,7 @@ const AuthorLayout = () => {
       case 'ls':
         return (
           <div className="font-mono p-4 rounded-lg space-y-4">
-            <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">Directory contents:</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">{t('terminal.directoryContents')}</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {[
                 { name: 'blog', icon: '📝', onClick: navigateBlog },
@@ -336,17 +332,17 @@ const AuthorLayout = () => {
         return (
           <div className="space-y-6">
             <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
-              Available commands:
+              {t('terminal.availableCommands')}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { cmd: 'help', desc: 'List all commands', icon: '❓' },
-                { cmd: 'clear', desc: 'Clear terminal', icon: '🧹' },
-                { cmd: 'about', desc: 'About me', icon: '👨‍💻' },
-                { cmd: 'ls', desc: 'List directory contents', icon: '📁' },
-                { cmd: 'hello', desc: 'Say hello', icon: '👋' },
-                { cmd: 'blog', desc: 'Open blog page', icon: '📝' },
-                { cmd: 'projects', desc: 'Open projects page', icon: '🚀' },
+                { cmd: 'help', desc: t('terminal.helpDesc'), icon: '❓' },
+                { cmd: 'clear', desc: t('terminal.clearDesc'), icon: '🧹' },
+                { cmd: 'about', desc: t('terminal.aboutDesc'), icon: '👨‍💻' },
+                { cmd: 'ls', desc: t('terminal.lsDesc'), icon: '📁' },
+                { cmd: 'hello', desc: t('terminal.helloDesc'), icon: '👋' },
+                { cmd: 'blog', desc: t('terminal.blogDesc'), icon: '📝' },
+                { cmd: 'projects', desc: t('terminal.projectsDesc'), icon: '🚀' },
               ].map(({ cmd, desc, icon }) => (
                 <div
                   key={cmd}
@@ -371,7 +367,7 @@ const AuthorLayout = () => {
       default:
         return (
           <div className="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50">
-            <span className="text-red-600 dark:text-red-400 font-mono">Command not found: </span>
+            <span className="text-red-600 dark:text-red-400 font-mono">{t('terminal.cmdNotFound')}</span>
             <code className="text-red-700 dark:text-red-300 font-bold">{command}</code>
           </div>
         )

@@ -5,6 +5,7 @@ import Link from '@/components/Link'
 import Image from 'next/image'
 import { CodeBracketIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from '@/lib/i18n'
 
 const ProjectIcon = ({ src, alt }: { src: string; alt: string }) => {
   const [imgError, setImgError] = useState(false)
@@ -232,15 +233,16 @@ const RandomFloatingDots = () => {
 }
 
 export default function Projects() {
+  const { t } = useTranslation()
   return (
     <>
       <PageSEO title={`Projects - ${siteMetadata.author}`} description={siteMetadata.description} />
-      
+
       <RandomFloatingDots />
-      
+
       <div className="divide-y divide-gray-200 dark:divide-gray-700 relative z-10">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5 text-center">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Projects</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{t('projects.title')}</h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
             Showcase of my works and side projects (creator or contributor)
           </p>
@@ -270,7 +272,7 @@ export default function Projects() {
                       </p>
                       <div className="mt-6 flex items-center text-sm font-medium">
                         <span className="text-primary-500 dark:text-primary-400 group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors duration-300">
-                          Learn more{' '}
+                          {t('projects.learnMore')}{' '}
                           <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
                             →
                           </span>
@@ -292,7 +294,7 @@ export default function Projects() {
                 border border-gray-300 dark:border-gray-600"
             >
               <CodeBracketIcon className="w-5 h-5 transition-transform duration-300 group-hover:-rotate-12" />
-              More Projects on GitHub
+              {t('projects.moreOnGithub')}
               <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
             </Link>
           </div>

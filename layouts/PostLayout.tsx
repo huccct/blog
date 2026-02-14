@@ -9,6 +9,7 @@ import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { CoreContent } from '@/lib/utils/contentlayer'
 import { ReactNode } from 'react'
 import type { Blog, Authors } from 'contentlayer/generated'
+import { useTranslation } from '@/lib/i18n'
 
 const editUrl = (slug) => `${siteMetadata.siteRepo}/blob/master/data/blog/${slug}`
 const discussUrl = (slug) =>
@@ -35,6 +36,7 @@ interface Props {
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: Props) {
   const { slug, date, title, tags, readingTime } = content
+  const { t } = useTranslation()
   
   return (
     <SectionContainer>
@@ -50,7 +52,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             <div className="space-y-1 text-center">
               <dl className="space-y-10">
                 <div>
-                  <dt className="sr-only">Published on</dt>
+                  <dt className="sr-only">{t('post.publishedOn')}</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                     <time dateTime={date}>
                       {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
@@ -87,7 +89,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   {prev && (
                     <div>
                       <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
-                        Previous Article
+                        {t('post.previousArticle')}
                       </h2>
                       <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                         <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
@@ -97,7 +99,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   {next && (
                     <div>
                       <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
-                        Next Article
+                        {t('post.nextArticle')}
                       </h2>
                       <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                         <Link href={`/blog/${next.slug}`}>{next.title}</Link>
@@ -111,7 +113,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   href="/blog"
                   className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                 >
-                  &larr; Back to the blog
+                  {t('post.backToBlog')}
                 </Link>
               </div>
             </footer>

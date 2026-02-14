@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import Link from './Link'
 import ThemeSwitch from './ThemeSwitch'
+import LanguageSwitcher from './LanguageSwitcher'
 import headerNavLinks from '@/data/headerNavLinks'
+import { useTranslation } from '@/lib/i18n'
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
+  const { t } = useTranslation()
 
   const onToggleNav = () => {
     setNavShow((status) => {
@@ -21,6 +24,7 @@ const MobileNav = () => {
   return (
     <div className="sm:hidden">
       <div className="flex items-center">
+        <LanguageSwitcher />
         <ThemeSwitch />
         <button
           type="button"
@@ -76,13 +80,13 @@ const MobileNav = () => {
         </button>
         <nav className="mt-24 flex h-full flex-col items-center">
           {headerNavLinks.map((link) => (
-            <div key={link.title} className="px-12 py-4">
+            <div key={link.titleKey} className="px-12 py-4">
               <Link
                 href={link.href}
                 className="text-2xl font-bold tracking-wide text-gray-900 transition-colors hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
                 onClick={onToggleNav}
               >
-                {link.title}
+                {t(link.titleKey)}
               </Link>
             </div>
           ))}

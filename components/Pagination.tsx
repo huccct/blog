@@ -1,3 +1,4 @@
+import { useTranslation } from '@/lib/i18n'
 
 interface Props {
   totalPages: number
@@ -6,6 +7,7 @@ interface Props {
 }
 
 export default function Pagination({ totalPages, currentPage, onPageChange }: Props) {
+  const { t } = useTranslation()
   const prevPage = currentPage - 1 > 0
   const nextPage = currentPage + 1 <= totalPages
 
@@ -25,11 +27,11 @@ export default function Pagination({ totalPages, currentPage, onPageChange }: Pr
     <div className="space-y-2 pt-6 pb-8 md:space-y-5">
       <nav className="flex justify-between items-center">
         {!prevPage && (
-          <button 
-            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors" 
+          <button
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             disabled={!prevPage}
           >
-            Previous
+            {t('pagination.previous')}
           </button>
         )}
         {prevPage && (
@@ -37,18 +39,18 @@ export default function Pagination({ totalPages, currentPage, onPageChange }: Pr
             onClick={handlePrevPage}
             className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
-            Previous
+            {t('pagination.previous')}
           </button>
         )}
         <span className="text-sm text-gray-600 dark:text-gray-400">
-          {currentPage} of {totalPages}
+          {currentPage} {t('pagination.of')} {totalPages}
         </span>
         {!nextPage && (
-          <button 
-            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors" 
+          <button
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             disabled={!nextPage}
           >
-            Next
+            {t('pagination.next')}
           </button>
         )}
         {nextPage && (
@@ -56,7 +58,7 @@ export default function Pagination({ totalPages, currentPage, onPageChange }: Pr
             onClick={handleNextPage}
             className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
-            Next
+            {t('pagination.next')}
           </button>
         )}
       </nav>

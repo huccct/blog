@@ -12,17 +12,20 @@ import Head from 'next/head'
 import siteMetadata from '@/data/siteMetadata'
 import Analytics from '@/components/analytics'
 import LayoutWrapper from '@/components/LayoutWrapper'
+import { I18nProvider } from '@/lib/i18n'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
-      <Head>
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-      </Head>
-      <Analytics />
-      <LayoutWrapper>
-        <Component {...pageProps} />
-      </LayoutWrapper>
+      <I18nProvider>
+        <Head>
+          <meta content="width=device-width, initial-scale=1" name="viewport" />
+        </Head>
+        <Analytics />
+        <LayoutWrapper>
+          <Component {...pageProps} />
+        </LayoutWrapper>
+      </I18nProvider>
     </ThemeProvider>
   )
 }

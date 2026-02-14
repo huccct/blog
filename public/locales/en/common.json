@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "blog": "Blog",
+    "projects": "Projects"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Thoughts, stories and ideas about technology and life organized by time",
+    "searchPlaceholder": "Search articles...",
+    "filterByTags": "Filter by tags",
+    "clearAll": "Clear all",
+    "postsFound": "{count} post found",
+    "postsFoundPlural": "{count} posts found",
+    "forSelectedTags": " for selected tags",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "noPostsFound": "No posts found.",
+    "clearFilters": "Clear filters",
+    "allPosts": "All Posts"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "of": "of"
+  },
+  "post": {
+    "publishedOn": "Published on",
+    "previousArticle": "Previous Article",
+    "nextArticle": "Next Article",
+    "backToBlog": "← Back to the blog"
+  },
+  "projects": {
+    "title": "Projects",
+    "learnMore": "Learn more",
+    "moreOnGithub": "More Projects on GitHub"
+  },
+  "tags": {
+    "title": "Tags",
+    "noTags": "No tags found."
+  },
+  "newsletter": {
+    "title": "Subscribe to the newsletter",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "Enter your email",
+    "subscribed": "You're subscribed !  🎉",
+    "signUp": "Sign up",
+    "thankYou": "Thank you!",
+    "error": "Your e-mail address is invalid or you are already subscribed!",
+    "success": "Successfully! 🎉 You are now subscribed."
+  },
+  "scroll": {
+    "toComment": "Scroll To Comment",
+    "toTop": "Scroll To Top"
+  },
+  "toc": {
+    "title": "Table of Contents"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Sorry we couldn't find this page.",
+    "description": "But dont worry, you can find plenty of other things on our homepage.",
+    "backHome": "Back to homepage"
+  },
+  "search": {
+    "placeholder": "Search articles"
+  },
+  "resume": {
+    "lastUpdated": "Last Updated",
+    "about": {
+      "title": "About",
+      "content": "My name is <b>Orion</b>(<b>Tunan</b>) Chen. I am a software engineer with a passion for web development. I have experience in both frontend and backend development, and I am always eager to learn new technologies. I am currently pursuing a master's degree in software engineering at the University of St. Andrews. I am looking for opportunities to work on exciting projects and contribute to the tech community.<br/><br/>In my free time, I enjoy reading, hiking, and playing video games. I am also a big fan of open-source software and enjoy contributing to open-source projects. I am always looking for new challenges and opportunities to grow as a developer."
+    },
+    "education": {
+      "title": "Education",
+      "msc": "MSc Software Engineering",
+      "mscSchool": "University of St. Andrews, 2024-2025, GPA 15.02/20",
+      "be": "BE Software Engineering",
+      "beSchool": "Qingdao Institute of Technology, 2020-2024, GPA 4.03/5.00"
+    },
+    "skills": {
+      "title": "Skills",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "devops": "Devops",
+      "languages": "Languages"
+    },
+    "experience": {
+      "title": "Work Experience",
+      "cofounder": "Co-founder",
+      "cofounderCompany": "Explainix",
+      "cofounderDate": "Nov 2025 - Present",
+      "cofounderDesc": "- Co-founder, working full-time on Explainix.",
+      "fullstack": "Full Stack Developer Intern",
+      "fullstackCompany": "上海象多网络科技有限公司",
+      "fullstackDate": "Aug 2025 - Nov 2025",
+      "fullstackDesc": "- Worked as a full stack developer, contributing to various web development projects.",
+      "digitmaster": "Frontend Developer Intern",
+      "digitmasterCompany": "DigitMaster AI",
+      "digitmasterDate": "Dec 2024 - May 2025",
+      "digitmasterDesc": "- Worked as a frontend developer intern, developing AI chat interface using Vue.js and Unocss.",
+      "telepace": "Frontend Developer Intern",
+      "telepaceCompany": "Telepace.AI",
+      "telepaceDate": "Sep 2024 - Feb 2025",
+      "telepaceDesc": "- Worked as a frontend developer intern, building AI-powered survey platform using Next.js and Tailwind CSS.",
+      "kanjiangainian": "Web Full Stack Development Intern",
+      "kanjiangainianCompany": "看见概念（上海）智能科技有限公司",
+      "kanjiangainianDate": "Jul 2023 - Dec 2023",
+      "kanjiangainianDesc": "- Worked as a web full stack development intern, contributing to various web development projects.",
+      "yida": "Frontend Developer Intern",
+      "yidaCompany": "壹沓科技（上海）有限公司",
+      "yidaDate": "Jul 2021 - Aug 2021",
+      "yidaDesc": "- Worked as a frontend intern, gaining hands-on experience in the frontend department."
+    },
+    "languagesSection": {
+      "title": "Languages",
+      "chinese": "Chinese",
+      "chineseLevel": "Native",
+      "english": "English",
+      "englishLevel": "Working Proficiency"
+    },
+    "awards": {
+      "title": "Awards",
+      "outstanding": "Outstanding Student",
+      "outstandingOrg": "Qingdao Institute of Technology, 2021",
+      "outstandingDesc": "- Awarded as an outstanding student for academic excellence.",
+      "scholarship": "Subject Competition Scholarship",
+      "scholarshipOrg": "Qingdao Institute of Technology, 2023",
+      "scholarshipDesc": "- Received a scholarship for outstanding performance in the subject competition."
+    }
+  },
+  "terminal": {
+    "title": "Orion's Terminal",
+    "welcome": "Welcome to Orion's Terminal 1.0.0",
+    "welcomeHint": "Type 'help' to see available commands",
+    "placeholder": "Type a command...",
+    "helpHint": "Type <cmd>help</cmd> to see more commands",
+    "openingBlog": "Opening /blog…",
+    "openingProjects": "Opening /projects…",
+    "aboutBio": "A software engineer who loves building elegant solutions and exploring new technologies. Currently focused on AI agent development and always learning something new 🚀",
+    "techStack": "Tech Stack",
+    "interests": "Interests",
+    "directoryContents": "Directory contents:",
+    "availableCommands": "Available commands:",
+    "cmdNotFound": "Command not found: ",
+    "helpDesc": "List all commands",
+    "clearDesc": "Clear terminal",
+    "aboutDesc": "About me",
+    "lsDesc": "List directory contents",
+    "helloDesc": "Say hello",
+    "blogDesc": "Open blog page",
+    "projectsDesc": "Open projects page"
+  }
+}

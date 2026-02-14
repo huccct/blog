@@ -5,12 +5,15 @@ import ThemeSwitch from './ThemeSwitch'
 import MobileNav from './MobileNav'
 import Footer from './Footer'
 import AnimatedLogo from './AnimatedLogo'
+import LanguageSwitcher from './LanguageSwitcher'
 import headerNavLinks from '@/data/headerNavLinks'
 import siteMetadata from '@/data/siteMetadata'
 import SectionContainer from './SectionContainer'
+import { useTranslation } from '@/lib/i18n'
 
 const LayoutWrapper = ({ children }) => {
   const router = useRouter()
+  const { t } = useTranslation()
   return (
     <SectionContainer>
       <motion.header
@@ -27,7 +30,7 @@ const LayoutWrapper = ({ children }) => {
         <nav className="hidden sm:flex items-center space-x-2">
           {headerNavLinks.map((link) => (
             <Link
-              key={link.title}
+              key={link.titleKey}
               href={link.href}
               className={`px-3 py-2 text-sm font-medium transition-colors ${
                 router.pathname === link.href
@@ -35,9 +38,10 @@ const LayoutWrapper = ({ children }) => {
                   : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
               }`}
             >
-              {link.title}
+              {t(link.titleKey)}
             </Link>
           ))}
+          <LanguageSwitcher />
           <ThemeSwitch />
         </nav>
         <MobileNav />

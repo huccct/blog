@@ -2,6 +2,7 @@
 import siteMetadata from '@/data/siteMetadata'
 import { PageSEO } from '@/components/SEO'
 import { GetServerSideProps } from 'next'
+import { useTranslation } from '@/lib/i18n'
 
 const allowedHosts = new Set(['resume.orionchen.me'])
 
@@ -18,6 +19,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 export default function Resume() {
   const lastUpdated = 'Jun 30, 2025'
+  const { t } = useTranslation()
 
   return (
     <>
@@ -32,31 +34,20 @@ export default function Resume() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-8">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-gray-500">Last Updated: {lastUpdated}</span>
+            <span className="text-sm text-gray-500">{t('resume.lastUpdated')}: {lastUpdated}</span>
           </div>
 
           {/* About */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">About</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('resume.about.title')}</h2>
             <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-              <p className="text-gray-600 dark:text-gray-400">
-                My name is <span className='dark:text-gray-400 font-bold text-gray-600'>Orion</span>(<span className='dark:text-gray-400 font-bold text-gray-600'>Tunan</span>) Chen. I am a software engineer with a passion for web
-                development. I have experience in both frontend and backend development, and I am
-                always eager to learn new technologies. I am currently pursuing a master's degree in
-                software engineering at the University of St. Andrews. I am looking for
-                opportunities to work on exciting projects and contribute to the tech community.
-                <br />
-                <br />
-                In my free time, I enjoy reading, hiking, and playing video games. I am also a big
-                fan of open-source software and enjoy contributing to open-source projects. I am
-                always looking for new challenges and opportunities to grow as a developer.
-              </p>
+              <p className="text-gray-600 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: t('resume.about.content') }} />
             </div>
           </section>
 
           {/* Education */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">Education</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('resume.education.title')}</h2>
             <div className="space-y-4">
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
                 <div className="flex items-center gap-4">
@@ -66,9 +57,9 @@ export default function Resume() {
                     className="h-10 w-10 rounded-lg"
                   />
                   <div>
-                    <h3 className="text-lg font-medium">MSc Software Engineering</h3>
+                    <h3 className="text-lg font-medium">{t('resume.education.msc')}</h3>
                     <p className="text-gray-600 dark:text-gray-400">
-                      University of St. Andrews, 2024-2025, GPA 15.02/20
+                      {t('resume.education.mscSchool')}
                     </p>
                   </div>
                 </div>
@@ -81,9 +72,9 @@ export default function Resume() {
                     className="h-10 w-10 rounded-lg"
                   />
                   <div>
-                    <h3 className="text-lg font-medium">BE Software Engineering</h3>
+                    <h3 className="text-lg font-medium">{t('resume.education.be')}</h3>
                     <p className="text-gray-600 dark:text-gray-400">
-                      Qingdao Institute of Technology, 2020-2024, GPA 4.03/5.00
+                      {t('resume.education.beSchool')}
                     </p>
                   </div>
                 </div>
@@ -93,10 +84,10 @@ export default function Resume() {
 
           {/* Skills */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">Skills</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('resume.skills.title')}</h2>
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium mb-3">Frontend</h3>
+                <h3 className="text-lg font-medium mb-3">{t('resume.skills.frontend')}</h3>
                 <div className="flex flex-wrap gap-2">
                   {[
                     'JavaScript',
@@ -117,7 +108,7 @@ export default function Resume() {
                 </div>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium mb-3">Backend</h3>
+                <h3 className="text-lg font-medium mb-3">{t('resume.skills.backend')}</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Node.js', 'Spring Boot', 'MongoDB', 'Nginx', 'Docker', 'MySql', 'Nest.js'].map(
                     (skill) => (
@@ -132,7 +123,7 @@ export default function Resume() {
                 </div>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium mb-3">Devops</h3>
+                <h3 className="text-lg font-medium mb-3">{t('resume.skills.devops')}</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Git'].map((skill) => (
                     <span
@@ -145,7 +136,7 @@ export default function Resume() {
                 </div>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium mb-3">Languages</h3>
+                <h3 className="text-lg font-medium mb-3">{t('resume.skills.languages')}</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Python', 'Java', 'C/C++'].map((skill) => (
                     <span
@@ -162,56 +153,54 @@ export default function Resume() {
 
           {/* Work Experience */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">Work Experience</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('resume.experience.title')}</h2>
             <div className="space-y-4">
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Co-founder</h3>
-                <p className="text-gray-600 dark:text-gray-400">Explainix</p>
-                <p className="text-sm text-gray-500 mt-1">Nov 2025 - Present</p>
+                <h3 className="text-lg font-medium">{t('resume.experience.cofounder')}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.cofounderCompany')}</p>
+                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.cofounderDate')}</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Co-founder, working full-time on Explainix.
+                  {t('resume.experience.cofounderDesc')}
                 </p>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Full Stack Developer Intern</h3>
-                <p className="text-gray-600 dark:text-gray-400">上海象多网络科技有限公司</p>
-                <p className="text-sm text-gray-500 mt-1">Aug 2025 - Nov 2025</p>
+                <h3 className="text-lg font-medium">{t('resume.experience.fullstack')}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.fullstackCompany')}</p>
+                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.fullstackDate')}</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Worked as a full stack developer, contributing to various web development projects.
+                  {t('resume.experience.fullstackDesc')}
                 </p>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Frontend Developer Intern</h3>
-                <p className="text-gray-600 dark:text-gray-400">DigitMaster AI</p>
-                <p className="text-sm text-gray-500 mt-1">Dec 2024 - May 2025</p>
+                <h3 className="text-lg font-medium">{t('resume.experience.digitmaster')}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.digitmasterCompany')}</p>
+                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.digitmasterDate')}</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Worked as a frontend developer intern, developing AI chat interface using Vue.js and Unocss.
+                  {t('resume.experience.digitmasterDesc')}
                 </p>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Frontend Developer Intern</h3>
-                <p className="text-gray-600 dark:text-gray-400">Telepace.AI</p>
-                <p className="text-sm text-gray-500 mt-1">Sep 2024 - Feb 2025</p>
+                <h3 className="text-lg font-medium">{t('resume.experience.telepace')}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.telepaceCompany')}</p>
+                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.telepaceDate')}</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Worked as a frontend developer intern, building AI-powered survey platform using Next.js and Tailwind CSS.
+                  {t('resume.experience.telepaceDesc')}
                 </p>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Web Full Stack Development Intern</h3>
-                <p className="text-gray-600 dark:text-gray-400">看见概念（上海）智能科技有限公司</p>
-                <p className="text-sm text-gray-500 mt-1">Jul 2023 - Dec 2023</p>
+                <h3 className="text-lg font-medium">{t('resume.experience.kanjiangainian')}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.kanjiangainianCompany')}</p>
+                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.kanjiangainianDate')}</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Worked as a web full stack development intern, contributing to various web
-                  development projects.
+                  {t('resume.experience.kanjiangainianDesc')}
                 </p>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Frontend Developer Intern</h3>
-                <p className="text-gray-600 dark:text-gray-400">壹沓科技（上海）有限公司</p>
-                <p className="text-sm text-gray-500 mt-1">Jul 2021 - Aug 2021</p>
+                <h3 className="text-lg font-medium">{t('resume.experience.yida')}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.yidaCompany')}</p>
+                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.yidaDate')}</p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Worked as a frontend intern, gaining hands-on experience in the frontend
-                  department.
+                  {t('resume.experience.yidaDesc')}
                 </p>
               </div>
             </div>
@@ -219,39 +208,39 @@ export default function Resume() {
 
           {/* Languages */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">Languages</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('resume.languagesSection.title')}</h2>
             <div className="space-y-4">
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Chinese</h3>
-                <p className="text-gray-600 dark:text-gray-400">Native</p>
+                <h3 className="text-lg font-medium">{t('resume.languagesSection.chinese')}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{t('resume.languagesSection.chineseLevel')}</p>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">English</h3>
-                <p className="text-gray-600 dark:text-gray-400">Working Proficiency</p>
+                <h3 className="text-lg font-medium">{t('resume.languagesSection.english')}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{t('resume.languagesSection.englishLevel')}</p>
               </div>
             </div>
           </section>
 
           {/* Awards */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">Awards</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('resume.awards.title')}</h2>
             <div className="space-y-4">
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Outstanding Student</h3>
+                <h3 className="text-lg font-medium">{t('resume.awards.outstanding')}</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Qingdao Institute of Technology, 2021
+                  {t('resume.awards.outstandingOrg')}
                 </p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Awarded as an outstanding student for academic excellence.
+                  {t('resume.awards.outstandingDesc')}
                 </p>
               </div>
               <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">Subject Competition Scholarship</h3>
+                <h3 className="text-lg font-medium">{t('resume.awards.scholarship')}</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Qingdao Institute of Technology, 2023
+                  {t('resume.awards.scholarshipOrg')}
                 </p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  - Received a scholarship for outstanding performance in the subject competition.
+                  {t('resume.awards.scholarshipDesc')}
                 </p>
               </div>
             </div>

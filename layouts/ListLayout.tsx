@@ -5,6 +5,7 @@ import Pagination from '@/components/Pagination'
 import formatDate from '@/lib/utils/formatDate'
 import { CoreContent } from '@/lib/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
+import { useTranslation } from '@/lib/i18n'
 
 interface Props {
   posts: CoreContent<Blog>[]
@@ -15,6 +16,7 @@ interface Props {
 
 export default function ListLayout({ posts, title, initialDisplayPosts = [], pagination }: Props) {
   const [searchValue, setSearchValue] = useState('')
+  const { t } = useTranslation()
   const filteredBlogPosts = posts.filter((post) => {
     const searchContent = post.title + post.summary + post.tags.join(' ')
     return searchContent.toLowerCase().includes(searchValue.toLowerCase())
@@ -35,10 +37,10 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
             <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{title}</h1>
             <div className="relative">
               <input
-                aria-label="Search articles"
+                aria-label={t('search.placeholder')}
                 type="text"
                 onChange={(e) => setSearchValue(e.target.value)}
-                placeholder="Search articles"
+                placeholder={t('search.placeholder')}
                 className="w-full rounded-lg border border-gray-200 bg-white/50 backdrop-blur-sm px-4 py-2 text-gray-900 focus:border-primary-500 focus:ring-primary-500/20 dark:border-gray-700 dark:bg-gray-900/50 dark:text-gray-100 transition-colors"
               />
               <svg
@@ -60,7 +62,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
 
           <div className="space-y-6">
             {!filteredBlogPosts.length && (
-              <p className="text-gray-600 dark:text-gray-400">No posts found.</p>
+              <p className="text-gray-600 dark:text-gray-400">{t('blog.noPostsFound')}</p>
             )}
             {displayPosts.map((post) => {
               const { slug, date, title, summary, tags } = post
