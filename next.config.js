@@ -118,6 +118,17 @@ module.exports = () => {
           ],
         },
         {
+          source: '/:path((?!resume).*)',
+          destination: 'https://orionchen.me/:path',
+          permanent: false,
+          has: [
+            {
+              type: 'host',
+              value: 'resume.orionchen.me',
+            },
+          ],
+        },
+        {
           source: '/',
           destination: '/about',
           permanent: false,
