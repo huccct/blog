@@ -104,12 +104,11 @@ module.exports = () => {
 
       return config
     },
-    async redirects() {
+    async rewrites() {
       return [
         {
           source: '/',
           destination: '/resume',
-          permanent: false,
           has: [
             {
               type: 'host',
@@ -117,6 +116,10 @@ module.exports = () => {
             },
           ],
         },
+      ]
+    },
+    async redirects() {
+      return [
         {
           source: '/:path((?!resume|locales|_next|api).*)',
           destination: 'https://orionchen.me/:path',

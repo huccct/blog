@@ -3,6 +3,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { PageSEO } from '@/components/SEO'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from '@/lib/i18n'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 const allowedHosts = new Set(['resume.orionchen.me'])
 
@@ -17,238 +18,178 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   return { props: {} }
 }
 
+const SectionTitle = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="text-sm font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
+    {children}
+  </h2>
+)
+
+const Card = ({ children }: { children: React.ReactNode }) => (
+  <div className="py-2">{children}</div>
+)
+
+const EntryHeader = ({ title, sub, date }: { title: string; sub?: string; date?: string }) => (
+  <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
+    <div>
+      <h3 className="text-base font-medium text-gray-900 dark:text-gray-100">{title}</h3>
+      {sub && <p className="text-sm text-gray-500 dark:text-gray-400">{sub}</p>}
+    </div>
+    {date && <span className="text-sm text-gray-400 dark:text-gray-500 shrink-0">{date}</span>}
+  </div>
+)
+
 export default function Resume() {
-  const lastUpdated = 'Jun 30, 2025'
   const { t } = useTranslation()
 
   return (
     <>
       <PageSEO title={`Resume - ${siteMetadata.author}`} description={siteMetadata.description} />
 
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        <div className="absolute -top-[40rem] -left-[40rem] w-[120rem] h-[120rem] rounded-full bg-primary-200/20 dark:bg-primary-900/20 blur-[128px]"></div>
-        <div className="absolute -bottom-[40rem] -right-[40rem] w-[120rem] h-[120rem] rounded-full bg-primary-200/20 dark:bg-primary-900/20 blur-[128px]"></div>
-      </div>
+      <div className="max-w-2xl mx-auto px-6 py-12 sm:py-16">
+        {/* Language switcher - top right */}
+        <div className="flex justify-end mb-8">
+          <LanguageSwitcher />
+        </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="space-y-8">
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-gray-500">{t('resume.lastUpdated')}: {lastUpdated}</span>
+        {/* Header - Name & Contact */}
+        <header className="mb-12">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+            Orion (Tunan) Chen
+          </h1>
+          <p className="mt-3 text-gray-600 dark:text-gray-400 leading-relaxed">
+            {t('resume.about.content').replace(/<[^>]*>/g, '')}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500 dark:text-gray-400">
+            <a href={`mailto:${siteMetadata.email}`} className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors">
+              {siteMetadata.email}
+            </a>
+            <a href={siteMetadata.github} className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors">
+              GitHub
+            </a>
+            <a href={siteMetadata.linkedin} className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors">
+              LinkedIn
+            </a>
+            <a href={siteMetadata.twitter} className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors">
+              X / Twitter
+            </a>
           </div>
+        </header>
 
-          {/* About */}
+        <div className="space-y-10">
+          {/* Experience */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">{t('resume.about.title')}</h2>
-            <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-              <p className="text-gray-600 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: t('resume.about.content') }} />
+            <SectionTitle>{t('resume.experience.title')}</SectionTitle>
+            <div className="space-y-5">
+              <Card>
+                <EntryHeader title={t('resume.experience.cofounder')} sub={t('resume.experience.cofounderCompany')} date={t('resume.experience.cofounderDate')} />
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.cofounderDesc')}</p>
+              </Card>
+              <Card>
+                <EntryHeader title={t('resume.experience.fullstack')} sub={t('resume.experience.fullstackCompany')} date={t('resume.experience.fullstackDate')} />
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.fullstackDesc')}</p>
+              </Card>
+              <Card>
+                <EntryHeader title={t('resume.experience.digitmaster')} sub={t('resume.experience.digitmasterCompany')} date={t('resume.experience.digitmasterDate')} />
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.digitmasterDesc')}</p>
+              </Card>
+              <Card>
+                <EntryHeader title={t('resume.experience.telepace')} sub={t('resume.experience.telepaceCompany')} date={t('resume.experience.telepaceDate')} />
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.telepaceDesc')}</p>
+              </Card>
+              <Card>
+                <EntryHeader title={t('resume.experience.kanjiangainian')} sub={t('resume.experience.kanjiangainianCompany')} date={t('resume.experience.kanjiangainianDate')} />
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.kanjiangainianDesc')}</p>
+              </Card>
+              <Card>
+                <EntryHeader title={t('resume.experience.yida')} sub={t('resume.experience.yidaCompany')} date={t('resume.experience.yidaDate')} />
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.yidaDesc')}</p>
+              </Card>
             </div>
           </section>
 
           {/* Education */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">{t('resume.education.title')}</h2>
-            <div className="space-y-4">
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <div className="flex items-center gap-4">
-                  <img
-                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/st.andrews-logo.67x8bfkt75.webp"
-                    alt="University of St. Andrews"
-                    className="h-10 w-10 rounded-lg"
-                  />
-                  <div>
-                    <h3 className="text-lg font-medium">{t('resume.education.msc')}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">
-                      {t('resume.education.mscSchool')}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <div className="flex items-center gap-4">
-                  <img
-                    src="https://cdn.jsdelivr.net/gh/huccct/picx-images-hosting@master/qit-logo.lvhxkjids.webp"
-                    alt="QIT"
-                    className="h-10 w-10 rounded-lg"
-                  />
-                  <div>
-                    <h3 className="text-lg font-medium">{t('resume.education.be')}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">
-                      {t('resume.education.beSchool')}
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <SectionTitle>{t('resume.education.title')}</SectionTitle>
+            <div className="space-y-5">
+              <Card>
+                <EntryHeader title={t('resume.education.msc')} sub={t('resume.education.mscSchool')} />
+              </Card>
+              <Card>
+                <EntryHeader title={t('resume.education.be')} sub={t('resume.education.beSchool')} />
+              </Card>
             </div>
           </section>
 
           {/* Skills */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">{t('resume.skills.title')}</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium mb-3">{t('resume.skills.frontend')}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    'JavaScript',
-                    'TypeScript',
-                    'React',
-                    'Vue',
-                    'Next.js',
-                    'Tailwind CSS',
-                    'UnoCss',
-                  ].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded-full"
-                    >
-                      {skill}
-                    </span>
+            <SectionTitle>{t('resume.skills.title')}</SectionTitle>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('resume.skills.frontend')}</h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {['JavaScript', 'TypeScript', 'React', 'Vue', 'Next.js', 'Tailwind CSS', 'UnoCss'].map((s) => (
+                    <span key={s} className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">{s}</span>
                   ))}
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium mb-3">{t('resume.skills.backend')}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {['Node.js', 'Spring Boot', 'MongoDB', 'Nginx', 'Docker', 'MySql', 'Nest.js'].map(
-                    (skill) => (
-                      <span
-                        key={skill}
-                        className="px-3 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded-full"
-                      >
-                        {skill}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium mb-3">{t('resume.skills.devops')}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {['Git'].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded-full"
-                    >
-                      {skill}
-                    </span>
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('resume.skills.backend')}</h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {['Node.js', 'Spring Boot', 'MongoDB', 'Nginx', 'Docker', 'MySql', 'Nest.js'].map((s) => (
+                    <span key={s} className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">{s}</span>
                   ))}
                 </div>
               </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium mb-3">{t('resume.skills.languages')}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {['Python', 'Java', 'C/C++'].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded-full"
-                    >
-                      {skill}
-                    </span>
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('resume.skills.devops')}</h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {['Git'].map((s) => (
+                    <span key={s} className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">{s}</span>
                   ))}
                 </div>
               </div>
-            </div>
-          </section>
-
-          {/* Work Experience */}
-          <section>
-            <h2 className="text-xl font-semibold mb-4">{t('resume.experience.title')}</h2>
-            <div className="space-y-4">
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.experience.cofounder')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.cofounderCompany')}</p>
-                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.cofounderDate')}</p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  {t('resume.experience.cofounderDesc')}
-                </p>
-              </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.experience.fullstack')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.fullstackCompany')}</p>
-                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.fullstackDate')}</p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  {t('resume.experience.fullstackDesc')}
-                </p>
-              </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.experience.digitmaster')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.digitmasterCompany')}</p>
-                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.digitmasterDate')}</p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  {t('resume.experience.digitmasterDesc')}
-                </p>
-              </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.experience.telepace')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.telepaceCompany')}</p>
-                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.telepaceDate')}</p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  {t('resume.experience.telepaceDesc')}
-                </p>
-              </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.experience.kanjiangainian')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.kanjiangainianCompany')}</p>
-                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.kanjiangainianDate')}</p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  {t('resume.experience.kanjiangainianDesc')}
-                </p>
-              </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.experience.yida')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{t('resume.experience.yidaCompany')}</p>
-                <p className="text-sm text-gray-500 mt-1">{t('resume.experience.yidaDate')}</p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  {t('resume.experience.yidaDesc')}
-                </p>
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('resume.skills.languages')}</h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {['Python', 'Java', 'C/C++'].map((s) => (
+                    <span key={s} className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">{s}</span>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
 
           {/* Languages */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">{t('resume.languagesSection.title')}</h2>
-            <div className="space-y-4">
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.languagesSection.chinese')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{t('resume.languagesSection.chineseLevel')}</p>
+            <SectionTitle>{t('resume.languagesSection.title')}</SectionTitle>
+            <div className="flex gap-8 text-sm">
+              <div>
+                <span className="font-medium text-gray-900 dark:text-gray-100">{t('resume.languagesSection.chinese')}</span>
+                <span className="text-gray-500 dark:text-gray-400"> — {t('resume.languagesSection.chineseLevel')}</span>
               </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.languagesSection.english')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{t('resume.languagesSection.englishLevel')}</p>
+              <div>
+                <span className="font-medium text-gray-900 dark:text-gray-100">{t('resume.languagesSection.english')}</span>
+                <span className="text-gray-500 dark:text-gray-400"> — {t('resume.languagesSection.englishLevel')}</span>
               </div>
             </div>
           </section>
 
           {/* Awards */}
           <section>
-            <h2 className="text-xl font-semibold mb-4">{t('resume.awards.title')}</h2>
-            <div className="space-y-4">
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.awards.outstanding')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {t('resume.awards.outstandingOrg')}
-                </p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  {t('resume.awards.outstandingDesc')}
-                </p>
-              </div>
-              <div className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50">
-                <h3 className="text-lg font-medium">{t('resume.awards.scholarship')}</h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {t('resume.awards.scholarshipOrg')}
-                </p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  {t('resume.awards.scholarshipDesc')}
-                </p>
-              </div>
+            <SectionTitle>{t('resume.awards.title')}</SectionTitle>
+            <div className="space-y-5">
+              <Card>
+                <EntryHeader title={t('resume.awards.outstanding')} sub={t('resume.awards.outstandingOrg')} />
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.awards.outstandingDesc')}</p>
+              </Card>
+              <Card>
+                <EntryHeader title={t('resume.awards.scholarship')} sub={t('resume.awards.scholarshipOrg')} />
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.awards.scholarshipDesc')}</p>
+              </Card>
             </div>
           </section>
-
-
         </div>
       </div>
     </>
   )
-  }
+}
