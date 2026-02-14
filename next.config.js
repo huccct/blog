@@ -121,7 +121,7 @@ module.exports = () => {
     async redirects() {
       return [
         {
-          source: '/:path((?!resume|locales|_next|api).*)',
+          source: '/:path((?!resume|locales|_next|api).+)',
           destination: 'https://orionchen.me/:path',
           permanent: false,
           has: [
