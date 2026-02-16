@@ -9,6 +9,7 @@ import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { CoreContent } from '@/lib/utils/contentlayer'
 import { ReactNode } from 'react'
 import type { Blog, Authors } from 'contentlayer/generated'
+import ReadingProgress from '@/components/ReadingProgress'
 import { useTranslation } from '@/lib/i18n'
 
 const editUrl = (slug) => `${siteMetadata.siteRepo}/blob/master/data/blog/${slug}`
@@ -46,6 +47,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         {...content}
       />
       <ScrollTopAndComment />
+      <ReadingProgress />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
