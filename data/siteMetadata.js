@@ -13,7 +13,7 @@ const siteMetadata = {
   email: 'hi@orionchen.me',
   github: 'https://github.com/huccct',
   twitter: 'https://x.com/orion_c29',
-  linkedin: 'https://www.linkedin.com/in/tunan-orion-chen-720627283',
+  linkedin: 'https://www.linkedin.com/in/tunan-chen-720627283',
   instagram: 'https://www.instagram.com/orion.c29',
   bluesky: 'https://bsky.app/profile/orionchen.me',
   locale: 'en',

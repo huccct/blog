@@ -68,7 +68,24 @@
     "lastUpdated": "最后更新",
     "about": {
       "title": "关于我",
-      "content": "我叫<b>陈图南</b>（英文名 <b>Orion</b>），是一名热爱 Web 开发的软件工程师。我在前端和后端开发方面都有经验，并且始终渴望学习新技术。我目前在圣安德鲁斯大学攻读软件工程硕士学位。我正在寻找参与有趣项目和为技术社区做贡献的机会。<br/><br/>在空闲时间，我喜欢阅读、徒步和玩电子游戏。我也是开源软件的忠实粉丝，喜欢为开源项目做贡献。我一直在寻找新的挑战和成长机会。"
+      "content": "Web 全栈开发者，开源项目累计 4k+ star。以前用 React、Next.js、TypeScript 写代码，现在用 Claude Code 和 Codex 写代码，从程序员变成了打字员（bushi）。偶尔在博客上发疯。"
+    },
+    "projects": {
+      "title": "项目经历",
+      "esDrager": "es-drager",
+      "esDragerSub": "开源拖拽组件库 | Vue.js, React, TypeScript",
+      "esDragerLink": "https://github.com/vangleer/es-drager",
+      "esDragerDesc": "- 支持 Vue 和 React 的拖拽、缩放、旋转组件库，npm 周下载量 500+。\n- 提供吸附对齐、网格系统、区域限制等功能，配套完整文档站点。",
+      "vtable": "VTable",
+      "vtableSub": "高性能数据分析表格 | TypeScript",
+      "vtableLink": "https://github.com/VisActor/VTable",
+      "vtableDesc": "- 参与字节跳动 VisActor 团队的高性能多维数据分析表格库开发。\n- 支持百万级数据渲染、甘特图、自定义编辑器和图表集成。",
+      "prohelen": "ProHelen",
+      "prohelenSub": "可视化提示词工程平台 | Next.js, React",
+      "prohelenLink": "https://prohelen.dev",
+      "prohelenDesc": "- 无代码可视化提示词工程平台，用于构建、管理和分享 AI 工作流。\n- 支持拖拽搭建、实时预览、可复用模板和 API 集成。",
+      "moreLink": "https://orionchen.me/projects",
+      "more": "更多项目"
     },
     "education": {
       "title": "教育经历",
@@ -87,29 +104,29 @@
     "experience": {
       "title": "工作经历",
       "cofounder": "联合创始人",
-      "cofounderCompany": "Explainix",
+      "cofounderCompany": "Explainix / Movorca",
       "cofounderDate": "2025年11月 - 至今",
-      "cofounderDesc": "- 联合创始人，全职投入 Explainix。",
+      "cofounderDesc": "- 构建 AI 驱动的叙事平台，将创意转化为沉浸式视觉故事。\n- 基于 Next.js 15、PostgreSQL、Redis 和 AI SDK v6 的全栈开发。\n- 设计了滚动驱动动画（Framer Motion）和视频导出（Remotion）的故事模板系统。",
       "fullstack": "全栈开发实习生",
       "fullstackCompany": "上海象多网络科技有限公司",
       "fullstackDate": "2025年8月 - 2025年11月",
-      "fullstackDesc": "- 担任全栈开发，参与多个 Web 开发项目。",
+      "fullstackDesc": "- 使用 React 和 Node.js 开发维护多个 Web 应用，实现 RESTful API 和实时功能。\n- 与跨职能团队协作，按期交付产品功能。",
       "digitmaster": "前端开发实习生",
       "digitmasterCompany": "DigitMaster AI",
       "digitmasterDate": "2024年12月 - 2025年5月",
-      "digitmasterDesc": "- 担任前端开发实习生，使用 Vue.js 和 Unocss 开发 AI 聊天界面。",
+      "digitmasterDesc": "- 主导前端 monorepo 架构迁移至 Nuxt.js，统一项目结构和构建流程。\n- 使用 Vue.js 和 UnoCSS 构建 AI 聊天界面，支持流式响应和多轮对话。\n- 推进前端代码重构和 i18n 国际化方案落地。",
       "telepace": "前端开发实习生",
       "telepaceCompany": "Telepace.AI",
       "telepaceDate": "2024年9月 - 2025年2月",
-      "telepaceDesc": "- 担任前端开发实习生，使用 Next.js 和 Tailwind CSS 构建 AI 驱动的调查平台。",
+      "telepaceDesc": "- 使用 Next.js 和 Tailwind CSS 构建了 AI 驱动的调查平台，支持动态表单渲染、条件逻辑和实时分析。\n- 在平台全局实现了响应式布局和无障碍功能。",
       "kanjiangainian": "Web 全栈开发实习生",
       "kanjiangainianCompany": "看见概念（上海）智能科技有限公司",
       "kanjiangainianDate": "2023年7月 - 2023年12月",
-      "kanjiangainianDesc": "- 担任 Web 全栈开发实习生，参与多个 Web 开发项目。",
+      "kanjiangainianDesc": "- 基于 Taro + React 开发跨端小程序，封装虚拟列表组件优化大数据渲染性能。\n- 搭建 monorepo 架构统一多项目管理，使用 Astro 重构官网提升性能和 SEO。\n- 参与 Scrum 敏捷开发，使用 Nest.js 开发后端 API 服务。",
       "yida": "前端开发实习生",
       "yidaCompany": "壹沓科技（上海）有限公司",
       "yidaDate": "2021年7月 - 2021年8月",
-      "yidaDesc": "- 担任前端实习生，在前端部门积累实践经验。"
+      "yidaDesc": "- 在生产代码库中构建 UI 组件和集成 REST API，积累前端开发实战经验。"
     },
     "languagesSection": {
       "title": "语言能力",

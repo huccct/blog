@@ -10,10 +10,10 @@ const projectsData = [
   },
   {
     title: 'Movorca',
-    description: 'An AI animation platform that enables users to create animated content using artificial intelligence technology.',
+    description: 'An AI-powered storytelling platform that transforms ideas into immersive visual narratives with scroll-driven animations and video export.',
     href: 'https://movorca.com/',
-    brief: 'AI animation platform',
-    chinese: 'AI动画平台',
+    brief: 'AI-powered storytelling platform',
+    chinese: 'AI 驱动的叙事平台，将创意转化为沉浸式视觉故事',
     icon: 'https://www.movorca.com/favicon.ico',
     type: 'tool'
   },
