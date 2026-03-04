@@ -29,10 +29,11 @@
     "contentlayer": "0.2.5",
     "esbuild": "0.14.38",
     "framer-motion": "^6.5.1",
-    "github-slugger": "^1.3.0",
+    "github-slugger": "^1.5.0",
     "gray-matter": "^4.0.2",
     "image-size": "1.0.0",
     "js-yaml": "^4.1.1",
+    "mdast-util-to-string": "^4.0.0",
     "mdx-bundler": "^9.0.0",
     "next": "12.3.4",
     "next-contentlayer": "0.2.5",
@@ -54,7 +55,8 @@
     "remark-math": "^5.1.1",
     "sharp": "^0.28.3",
     "tailwindcss": "^3.0.23",
-    "unist-util-visit": "^4.0.0"
+    "unist-util-visit": "^4.1.2",
+    "vfile": "^6.0.3"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.3.4",
