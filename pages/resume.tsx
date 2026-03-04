@@ -5,8 +5,6 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from '@/lib/i18n'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
-import { useState, useCallback } from 'react'
-import type { ResumeData } from '@/types/resume'
 
 const allowedHosts = new Set(['resume.orionchen.me'])
 
@@ -50,109 +48,39 @@ const SKILLS = {
 
 export default function Resume() {
   const { t, locale } = useTranslation()
-  const [downloading, setDownloading] = useState(false)
 
-  const handleDownload = useCallback(async () => {
-    setDownloading(true)
-    try {
-      const [{ pdf }, { default: ResumePDF }] = await Promise.all([
-        import('@react-pdf/renderer'),
-        import('@/components/ResumePDF'),
-      ])
-
-      const data: ResumeData = {
-        about: t('resume.about.content'),
-        experienceTitle: t('resume.experience.title'),
-        experience: [
-          { title: t('resume.experience.cofounder'), company: t('resume.experience.cofounderCompany'), date: t('resume.experience.cofounderDate'), desc: t('resume.experience.cofounderDesc') },
-          { title: t('resume.experience.fullstack'), company: t('resume.experience.fullstackCompany'), date: t('resume.experience.fullstackDate'), desc: t('resume.experience.fullstackDesc') },
-          { title: t('resume.experience.digitmaster'), company: t('resume.experience.digitmasterCompany'), date: t('resume.experience.digitmasterDate'), desc: t('resume.experience.digitmasterDesc') },
-          { title: t('resume.experience.telepace'), company: t('resume.experience.telepaceCompany'), date: t('resume.experience.telepaceDate'), desc: t('resume.experience.telepaceDesc') },
-          { title: t('resume.experience.kanjiangainian'), company: t('resume.experience.kanjiangainianCompany'), date: t('resume.experience.kanjiangainianDate'), desc: t('resume.experience.kanjiangainianDesc') },
-          { title: t('resume.experience.yida'), company: t('resume.experience.yidaCompany'), date: t('resume.experience.yidaDate'), desc: t('resume.experience.yidaDesc') },
-        ],
-        projectsTitle: t('resume.projects.title'),
-        projects: [
-          { name: t('resume.projects.esDrager'), sub: t('resume.projects.esDragerSub'), link: t('resume.projects.esDragerLink'), desc: t('resume.projects.esDragerDesc') },
-          { name: t('resume.projects.vtable'), sub: t('resume.projects.vtableSub'), link: t('resume.projects.vtableLink'), desc: t('resume.projects.vtableDesc') },
-          { name: t('resume.projects.prohelen'), sub: t('resume.projects.prohelenSub'), link: t('resume.projects.prohelenLink'), desc: t('resume.projects.prohelenDesc') },
-        ],
-        projectsMoreLink: t('resume.projects.moreLink'),
-        projectsMoreLabel: t('resume.projects.more'),
-        educationTitle: t('resume.education.title'),
-        education: [
-          { degree: t('resume.education.msc'), school: t('resume.education.mscSchool') },
-          { degree: t('resume.education.be'), school: t('resume.education.beSchool') },
-        ],
-        skillsTitle: t('resume.skills.title'),
-        skills: {
-          frontend: SKILLS.frontend,
-          backend: SKILLS.backend,
-          devops: SKILLS.devops,
-          languages: SKILLS.languages,
-          frontendLabel: t('resume.skills.frontend'),
-          backendLabel: t('resume.skills.backend'),
-          devopsLabel: t('resume.skills.devops'),
-          languagesLabel: t('resume.skills.languages'),
-        },
-        languagesTitle: t('resume.languagesSection.title'),
-        langs: [
-          { name: t('resume.languagesSection.chinese'), level: t('resume.languagesSection.chineseLevel') },
-          { name: t('resume.languagesSection.english'), level: t('resume.languagesSection.englishLevel') },
-        ],
-        awardsTitle: t('resume.awards.title'),
-        awards: [
-          { title: t('resume.awards.outstanding'), org: t('resume.awards.outstandingOrg'), desc: t('resume.awards.outstandingDesc') },
-          { title: t('resume.awards.scholarship'), org: t('resume.awards.scholarshipOrg'), desc: t('resume.awards.scholarshipDesc') },
-        ],
-      }
-
-      const blob = await pdf(
-        <ResumePDF
-          data={data}
-          email={siteMetadata.email}
-          github={siteMetadata.github}
-          linkedin={siteMetadata.linkedin}
-          blog={siteMetadata.siteUrl}
-          locale={locale}
-        />
-      ).toBlob()
-
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = locale === 'zh' ? 'Orion_Chen_Resume_CN.pdf' : 'Orion_Chen_Resume_EN.pdf'
-      a.click()
-      URL.revokeObjectURL(url)
-    } catch (err) {
-      console.error('PDF generation failed:', err)
-    } finally {
-      setDownloading(false)
-    }
-  }, [t, locale])
+  const handleDownload = () => {
+    window.print()
+  }
 
   return (
     <>
       <PageSEO title={`Resume - ${siteMetadata.author}`} description={siteMetadata.description} />
 
-      <div className="max-w-2xl mx-auto px-6 py-12 sm:py-16">
+      {/* Print styles */}
+      <style jsx global>{`
+        @media print {
+          body { background: white !important; color: black !important; }
+          nav, footer, .no-print { display: none !important; }
+          .print-container { padding: 0 !important; max-width: 100% !important; }
+          a { color: inherit !important; text-decoration: underline !important; }
+          .dark\\:text-gray-100, .dark\\:text-gray-300, .dark\\:text-gray-400,
+          .dark\\:text-gray-500 { color: inherit !important; }
+          .dark\\:bg-gray-800 { background: #f3f3f3 !important; }
+          @page { margin: 1.5cm; }
+        }
+      `}</style>
+
+      <div className="print-container max-w-2xl mx-auto px-6 py-12 sm:py-16">
         {/* Language switcher & PDF download - top right */}
-        <div className="flex items-center justify-end gap-2 mb-8">
+        <div className="flex items-center justify-end gap-2 mb-8 no-print">
           <button
             aria-label="Download PDF"
             type="button"
-            disabled={downloading}
-            className="h-8 w-8 rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="h-8 w-8 rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             onClick={handleDownload}
           >
-            {downloading ? (
-              <svg className="h-5 w-5 animate-spin text-gray-500" viewBox="0 0 24 24" fill="none">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-              </svg>
-            ) : (
-              <ArrowDownTrayIcon className="h-5 w-5 text-gray-900 dark:text-gray-100" />
-            )}
+            <ArrowDownTrayIcon className="h-5 w-5 text-gray-900 dark:text-gray-100" />
           </button>
           <LanguageSwitcher />
         </div>
