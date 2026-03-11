@@ -29,11 +29,19 @@ const Card = ({ children }: { children: React.ReactNode }) => (
   <div className="py-2">{children}</div>
 )
 
-const EntryHeader = ({ title, sub, date }: { title: string; sub?: string; date?: string }) => (
+const EntryHeader = ({ title, sub, link, date }: { title: string; sub?: string; link?: string; date?: string }) => (
   <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
     <div>
       <h3 className="text-base font-medium text-gray-900 dark:text-gray-100">{title}</h3>
-      {sub && <p className="text-sm text-gray-500 dark:text-gray-400">{sub}</p>}
+      {sub && (
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          {link ? (
+            <a href={link} target="_blank" rel="noopener noreferrer" className="hover:text-primary-500 transition-colors underline decoration-gray-300 dark:decoration-gray-600 underline-offset-2">
+              {sub}
+            </a>
+          ) : sub}
+        </p>
+      )}
     </div>
     {date && <span className="text-sm text-gray-400 dark:text-gray-500 shrink-0">{date}</span>}
   </div>
@@ -118,27 +126,27 @@ export default function Resume() {
             <SectionTitle>{t('resume.experience.title')}</SectionTitle>
             <div className="space-y-5">
               <Card>
-                <EntryHeader title={t('resume.experience.cofounder')} sub={t('resume.experience.cofounderCompany')} date={t('resume.experience.cofounderDate')} />
+                <EntryHeader title={t('resume.experience.cofounder')} sub={t('resume.experience.cofounderCompany')} link={t('resume.experience.cofounderLink')} date={t('resume.experience.cofounderDate')} />
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.cofounderDesc')}</p>
               </Card>
               <Card>
-                <EntryHeader title={t('resume.experience.fullstack')} sub={t('resume.experience.fullstackCompany')} date={t('resume.experience.fullstackDate')} />
+                <EntryHeader title={t('resume.experience.fullstack')} sub={t('resume.experience.fullstackCompany')} link={t('resume.experience.fullstackLink')} date={t('resume.experience.fullstackDate')} />
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.fullstackDesc')}</p>
               </Card>
               <Card>
-                <EntryHeader title={t('resume.experience.digitmaster')} sub={t('resume.experience.digitmasterCompany')} date={t('resume.experience.digitmasterDate')} />
+                <EntryHeader title={t('resume.experience.digitmaster')} sub={t('resume.experience.digitmasterCompany')} link={t('resume.experience.digitmasterLink')} date={t('resume.experience.digitmasterDate')} />
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.digitmasterDesc')}</p>
               </Card>
               <Card>
-                <EntryHeader title={t('resume.experience.telepace')} sub={t('resume.experience.telepaceCompany')} date={t('resume.experience.telepaceDate')} />
+                <EntryHeader title={t('resume.experience.telepace')} sub={t('resume.experience.telepaceCompany')} link={t('resume.experience.telepaceLink')} date={t('resume.experience.telepaceDate')} />
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.telepaceDesc')}</p>
               </Card>
               <Card>
-                <EntryHeader title={t('resume.experience.kanjiangainian')} sub={t('resume.experience.kanjiangainianCompany')} date={t('resume.experience.kanjiangainianDate')} />
+                <EntryHeader title={t('resume.experience.kanjiangainian')} sub={t('resume.experience.kanjiangainianCompany')} link={t('resume.experience.kanjiangainianLink')} date={t('resume.experience.kanjiangainianDate')} />
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.kanjiangainianDesc')}</p>
               </Card>
               <Card>
-                <EntryHeader title={t('resume.experience.yida')} sub={t('resume.experience.yidaCompany')} date={t('resume.experience.yidaDate')} />
+                <EntryHeader title={t('resume.experience.yida')} sub={t('resume.experience.yidaCompany')} link={t('resume.experience.yidaLink')} date={t('resume.experience.yidaDate')} />
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('resume.experience.yidaDesc')}</p>
               </Card>
             </div>
