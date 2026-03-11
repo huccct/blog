@@ -98,6 +98,11 @@ export default function Resume() {
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
             {locale === 'zh' ? '陈图南' : 'Tunan Chen'}
           </h1>
+          <div className="mt-2 flex gap-2">
+            {(locale === 'zh' ? ['梦想家', '建造者'] : ['Dreamer', 'Builder']).map((tag) => (
+              <span key={tag} className="px-2 py-0.5 text-xs font-medium text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 rounded-full">{tag}</span>
+            ))}
+          </div>
           <p className="mt-3 text-gray-600 dark:text-gray-400 leading-relaxed">
             {t('resume.about.content').replace(/<[^>]*>/g, '')}
           </p>
